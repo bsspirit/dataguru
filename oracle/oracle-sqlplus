@@ -1,0 +1,36 @@
+https://help.ubuntu.com/community/Oracle%20Instant%20Client
+
+
+Download the Oracle Instantclient RPM files from http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html. Everyone needs either "Basic" or "Basic lite", and most users will want "SQL*Plus" and the "SDK".
+
+Convert these .rpm files into .deb packages and install using "alien" ("sudo apt-get install alien" if you don't have it):
+
+alien -i oracle-instantclient-basic*.rpm
+alien -i oracle-instantclient-sqlplus*.rpm
+alien -i oracle-instantclient-devel*.rpm
+Test your Instantclient install by using "sqlplus" to connect to your database:
+
+sqlplus  username/password@//dbhost:1521/SID
+If sqlplus complains of a missing libaio.so.1 file, run 
+
+sudo apt-get install libaio1
+If sqlplus complains of a missing libsqlplus.so file, follow the steps in the section "Integrate Oracle Libraries" below.
+
+If you execute sqlplus and get "sqlplus: command not found", see the section below about adding the ORACLE_HOME variable. 
+
+Integrate Oracle Libraries
+If oracle applications, such as sqlplus, are complaining about missing libraries, you can add the Oracle libraries to the LD_LIBRARY_PATH each time it is used, or to add it to the system library list create a new file as follows:
+
+sudo vi /etc/ld.so.conf.d/oracle.conf
+and add the oracle library path as the first line. For example,
+
+/usr/lib/oracle/11.1.0.1/client/lib
+or
+
+/usr/lib/oracle/11.2/client/lib/
+Then run ldconfig:
+sudo ldconfig
+
+export TNS_ADMIN=/usr/lib/oracle/11.2/client/lib
+sqlplus www/jPFhdpK6@tianji
+

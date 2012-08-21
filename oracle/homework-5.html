@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第五周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第五周作业 - 张丹(15)</h1>
+
+<p>阅读作业 阅读《让Oracle跑得更快1》第8章-并行执行。</p>
+
+<p>以下题目都需要数据库的实际操作输出，而不是单纯语言论述：<br/>
+1.利用你现有的设备资源,分别比较几种场景（count,group by,以及条件语句）下的并行和非并行的性能差异并尝试分析原因。<br/>
+2.比较sql<em>Loader加载数据以及/</em>+append */方式插入数据时，分别使用并行和非并行选项时的性能差异，并尝试分析原因。<br/>
+3.比较创建表，索引，alter table move等场景下并行和非并行的性能差异。<br/>
+4.对于DML操作，尝试使用并行和非并行，比较性能差异。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配</a> 的学号），使我们可以在公众用户中识别出学员。 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数 据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形 式）。</p>
+
+<hr/>
+
+<h2>1.由于测试数据量不大，并且未进行表分区，CPO/IO资源都不太多，因为并行的速度，没有串行速度快。</h2>
+
+<p>create table tpal1 as select object_id as id, object_name as name, status from dba_objects;<br/>
+create index tpall_index on tpal1(id);</p>
+
+<p>无并行的情况<br/>
+select  count(*),status from tpal1 group by status;</p>
+
+<p>Plan hash value: 492067268<br/>
+| Id  | Operation          | Name  | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT   |       | 79676 |   389K|   116   (5)| 00:00:02 |<br/>
+|   1 |  HASH GROUP BY     |       | 79676 |   389K|   116   (5)| 00:00:02 |<br/>
+|   2 |   TABLE ACCESS FULL| TPAL1 | 79676 |   389K|   112   (1)| 00:00:02 |</p>
+
+<p>并行度是4的情况<br/>
+alter table tpal1 parallel 4;<br/>
+select  count(*),status from tpal1 group by status;</p>
+
+<p>Plan hash value: 583428510<br/>
+| Id  | Operation                | Name     | Rows  | Bytes | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |<br/>
+|   0 | SELECT STATEMENT         |          | 79676 |   389K|    33   (7)| 00:00:01 |        |      |            |<br/>
+|   1 |  PX COORDINATOR          |          |       |       |            |          |        |      |            |<br/>
+|   2 |   PX SEND QC (RANDOM)    | :TQ10001 | 79676 |   389K|    33   (7)| 00:00:01 |  Q1,01 | P-&gt;S | QC (RAND)  |<br/>
+|   3 |    HASH GROUP BY         |          | 79676 |   389K|    33   (7)| 00:00:01 |  Q1,01 | PCWP |            |<br/>
+|   4 |     PX RECEIVE           |          | 79676 |   389K|    33   (7)| 00:00:01 |  Q1,01 | PCWP |            |<br/>
+|   5 |      PX SEND HASH        | :TQ10000 | 79676 |   389K|    33   (7)| 00:00:01 |  Q1,00 | P-&gt;P | HASH       |<br/>
+|   6 |       HASH GROUP BY      |          | 79676 |   389K|    33   (7)| 00:00:01 |  Q1,00 | PCWP |            |<br/>
+|   7 |        PX BLOCK ITERATOR |          | 79676 |   389K|    31   (0)| 00:00:01 |  Q1,00 | PCWC |            |<br/>
+|   8 |         TABLE ACCESS FULL| TPAL1    | 79676 |   389K|    31   (0)| 00:00:01 |  Q1,00 | PCWP |            |</p>
+
+<h2>2. 并行的效率要比非并行的快</h2>
+
+<p>create table tpal2 as select * from dba_objects;<br/>
+非并行的append加载数据<br/>
+insert /*+ append */ into tpal2 select * from dba_objects;</p>
+
+<p>并行append加载数据：<br/>
+explain plan for insert /<em>+ append */ into tpal2 select /</em>+parallel(tpal2,4) */ * from dba_objects;<br/>
+select * from table(dbms_xplan.display);</p>
+
+<h2>3. 并行执行比串行要快，但是日志我没能打印出来！</h2>
+
+<p>并行创建表<br/>
+create table tpal3 parallel 4 as select * from dba_objects;<br/>
+关行创建索引<br/>
+create index tpal3_ind on tpal3(object_id) parallel 4;</p>
+
+<h2>4.并行和非并行，性能消耗差不多</h2>
+
+<p>create table tpal4 parallel 4 as select * from dba_objects;<br/>
+ALTER SESSION ENABLE PARALLEL DML;</p>
+
+<p>并行：explain plan for insert /<em>+ parallel(tpal4,4) */ into tpal2 select /</em>+parallel(tpal4,4) */ * from dba_objects;<br/>
+select * from table(dbms_xplan.display);</p>
+
+<p>| Id  | Operation                           | Name        | Rows  | Bytes | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |<br/>
+|   0 | INSERT STATEMENT                    |             | 68923 |    13M|   260   (3)| 00:00:04 |        |      |            |<br/>
+|   1 |  PX COORDINATOR                     |             |       |       |            |          |        |      |            |<br/>
+|   2 |   PX SEND QC (RANDOM)               | :TQ10001    | 68923 |    13M|   260   (3)| 00:00:04 |  Q1,01 | P-&gt;S | QC (RAND)  |<br/>
+|   3 |    LOAD AS SELECT                   | TPAL2       |       |       |            |          |  Q1,01 | PCWP |            |<br/>
+|   4 |     PX RECEIVE                      |             | 68923 |    13M|   260   (3)| 00:00:04 |  Q1,01 | PCWP |            |<br/>
+|   5 |      PX SEND ROUND-ROBIN            | :TQ10000    | 68923 |    13M|   260   (3)| 00:00:04 |        | S-&gt;P | RND-ROBIN  |<br/>
+|   6 |       VIEW                          | DBA_OBJECTS | 68923 |    13M|   260   (3)| 00:00:04 |        |      |            |<br/>
+|   7 |        UNION-ALL                    |             |       |       |        |          |        |      |            |<br/>
+|*  8 |         TABLE ACCESS BY INDEX ROWID | SUM$        |     1 |     9 |1   (0)| 00:00:01 |        |      |            |<br/>
+|*  9 |          INDEX UNIQUE SCAN          | I_SUM\( _1    |     1 |       |0   (0)| 00:00:01 |        |      |            |
+|  10 |         TABLE ACCESS BY INDEX ROWID | OBJ \)        |     1 |    30 |3   (0)| 00:00:01 |        |      |            |<br/>
+|* 11 |          INDEX RANGE SCAN           | I_OBJ1      |     1 |       |2   (0)| 00:00:01 |        |      |            |<br/>
+|* 12 |         FILTER                      |             |       |       |       |          |        |      |            |<br/>
+|* 13 |          HASH JOIN                  |             | 73378 |  8742K|257 (3)| 00:00:04 |        |      |            |<br/>
+|  14 |           TABLE ACCESS FULL         | USER$       |    93 |  1581 |3   (0)| 00:00:01 |        |      |            |<br/>
+|* 15 |           HASH JOIN                 |             | 73378 |  7524K|   253   (2)| 00:00:04 |        |      |            |<br/>
+|  16 |            INDEX FULL SCAN          | I_USER2     |    93 |  2046 |1   (0)| 00:00:01 |        |      |            |<br/>
+|* 17 |            TABLE ACCESS FULL        | OBJ$        | 73378 |  5947K|   251   (2)| 00:00:04 |        |      |            |<br/>
+|* 18 |          TABLE ACCESS BY INDEX ROWID| IND$        |     1 |     8 |2   (0)| 00:00:01 |        |      |            |<br/>
+|* 19 |           INDEX UNIQUE SCAN         | I_IND1      |     1 |       |1   (0)| 00:00:01 |        |      |            |<br/>
+|  20 |          NESTED LOOPS               |             |     1 |    29 |2   (0)| 00:00:01 |        |      |            |<br/>
+|* 21 |           INDEX FULL SCAN           | I_USER2     |     1 |    20 |1   (0)| 00:00:01 |        |      |            |<br/>
+|* 22 |           INDEX RANGE SCAN          | I_OBJ4      |     1 |     9 |1   (0)| 00:00:01 |        |      |            |<br/>
+|  23 |         NESTED LOOPS                |             |     1 |   105 |3   (0)| 00:00:01 |        |      |            |<br/>
+|  24 |          TABLE ACCESS FULL          | LINK$       |     1 |    88 |2   (0)| 00:00:01 |        |      |            |<br/>
+|  25 |          TABLE ACCESS CLUSTER       | USER$       |     1 |    17 |1   (0)| 00:00:01 |        |      |            |<br/>
+|* 26 |           INDEX UNIQUE SCAN         | I_USER#     |     1 |       |0   (0)| 00:00:01 |        |      |            |</p>
+
+<p>非并行：explain plan for insert /<em>+ noparallel */ into tpal2 select /</em>+ noparallel */ * from dba_objects;<br/>
+select * from table(dbms_xplan.display);</p>
+
+<p>| Id  | Operation                       | Name        | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | INSERT STATEMENT                |             | 68923 |    13M|   260   (3)| 00:00:04 |<br/>
+|   1 |  LOAD TABLE CONVENTIONAL        | TPAL2       |       |       |            |          |<br/>
+|   2 |   VIEW                          | DBA_OBJECTS | 68923 |    13M|   260   (3)| 00:00:04 |<br/>
+|   3 |    UNION-ALL                    |             |       |       |            |          |<br/>
+|*  4 |     TABLE ACCESS BY INDEX ROWID | SUM$        |     1 |     9 |     1   (0)| 00:00:01 |<br/>
+|*  5 |      INDEX UNIQUE SCAN          | I_SUM\( _1    |     1 |       |     0   (0)| 00:00:01 |
+|   6 |     TABLE ACCESS BY INDEX ROWID | OBJ \)        |     1 |    30 |     3   (0)| 00:00:01 |<br/>
+|*  7 |      INDEX RANGE SCAN           | I_OBJ1      |     1 |       |     2   (0)| 00:00:01 |<br/>
+|*  8 |     FILTER                      |             |       |       |            |          |<br/>
+|*  9 |      HASH JOIN                  |             | 73378 |  8742K|   257   (3)| 00:00:04 |<br/>
+|  10 |       TABLE ACCESS FULL         | USER$       |    93 |  1581 |     3   (0)| 00:00:01 |<br/>
+|* 11 |       HASH JOIN                 |             | 73378 |  7524K|   253   (2)| 00:00:04 |<br/>
+|  12 |        INDEX FULL SCAN          | I_USER2     |    93 |  2046 |     1   (0)| 00:00:01 |<br/>
+|* 13 |        TABLE ACCESS FULL        | OBJ$        | 73378 |  5947K|   251   (2)| 00:00:04 |<br/>
+|* 14 |      TABLE ACCESS BY INDEX ROWID| IND$        |     1 |     8 |     2   (0)| 00:00:01 |<br/>
+|* 15 |       INDEX UNIQUE SCAN         | I_IND1      |     1 |       |     1   (0)| 00:00:01 |<br/>
+|  16 |      NESTED LOOPS               |             |     1 |    29 |     2   (0)| 00:00:01 |<br/>
+|* 17 |       INDEX FULL SCAN           | I_USER2     |     1 |    20 |     1   (0)| 00:00:01 |<br/>
+|* 18 |       INDEX RANGE SCAN          | I_OBJ4      |     1 |     9 |     1   (0)| 00:00:01 |<br/>
+|  19 |     NESTED LOOPS                |             |     1 |   105 |     3   (0)| 00:00:01 |<br/>
+|  20 |      TABLE ACCESS FULL          | LINK$       |     1 |    88 |     2   (0)| 00:00:01 |<br/>
+|  21 |      TABLE ACCESS CLUSTER       | USER$       |     1 |    17 |     1   (0)| 00:00:01 |<br/>
+|* 22 |       INDEX UNIQUE SCAN         | I_USER#     |     1 |       |     0   (0)| 00:00:01 |</p>
+
+</body>
+
+</html>
+

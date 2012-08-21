@@ -1,0 +1,8 @@
+tianji =
+ (DESCRIPTION =
+     (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.139)(PORT = 1521))
+            (CONNECT_DATA =
+                          (SERVER = DEDICATED)
+                                          (SERVICE_NAME = tianji.dawning)
+                                                                     )
+                                 )     

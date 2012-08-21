@@ -1,0 +1,3 @@
+@400000004faa6219079d8814 starting delivery 1912: msg 850812 to remote chenxinghong@zzy.cn
+@400000004faa6219079d8bfc status: local 0/10 remote 16/20
+@400000004faa621a05a52ecc starting delivery 1913: msg 850634 to remote dengml@cqzkb.edu.cn

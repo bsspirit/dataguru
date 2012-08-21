@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第六周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第六周作业 - 张丹(15)</h1>
+
+<p>阅读作业 阅读《让Oracle跑得更快2》第8章-数据压缩。</p>
+
+<p>以下题目都需要数据库的实际操作输出，而不是单纯语言论述：<br/>
+1.演示表和索引在数据压缩前后空间占用情况的对比,注意观察压缩列在重复率高,低时这种差异的大小<br/>
+2.演示数据压缩前后,对表进行查询时,CPU,扫描的数据块,执行时间的对比,注意观察压缩列在重复率高,低时这种差异的大小<br/>
+3.演示数据压缩对DML操作的影响。<br/>
+4.考虑数据压缩在海量数据环境下,对于表分区的意义并提供示例。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。</p>
+
+<hr/>
+
+<h2>1.当重复率低时，表和索引的压缩比较：</h2>
+
+<p>create table t6_uncompression as select object_id,object_name from dba_objects;<br/>
+create table t6_compression compress as select object_id,object_name from dba_objects;</p>
+
+<p>create index t6_uncom on t6_uncompression(object_id) ;<br/>
+create index t6_com on t6_compression(object_id)  compress;</p>
+
+<p>select table_name,compression from user_tables where table_name like &#39;T6%&#39;;</p>
+
+<p>T6_COMPRESSION  ENABLED<br/>
+T6_UNCOMPRESSION    DISABLED</p>
+
+<p>表压缩比较：压缩比未压缩少了一个块</p>
+
+<h2>压缩情况：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_COMPRESSION&#39;);</h2>
+
+<p>T6_COMPRESSION  0   65536<br/>
+T6_COMPRESSION  1   65536<br/>
+T6_COMPRESSION  2   65536<br/>
+T6_COMPRESSION  3   65536<br/>
+T6_COMPRESSION  4   65536<br/>
+T6_COMPRESSION  5   65536<br/>
+T6_COMPRESSION  6   65536<br/>
+T6_COMPRESSION  7   65536<br/>
+T6_COMPRESSION  8   65536<br/>
+T6_COMPRESSION  9   65536<br/>
+T6_COMPRESSION  10  65536<br/>
+T6_COMPRESSION  11  65536<br/>
+T6_COMPRESSION  12  65536<br/>
+T6_COMPRESSION  13  65536<br/>
+T6_COMPRESSION  14  65536<br/>
+T6_COMPRESSION  15  65536<br/>
+T6_COMPRESSION  16  1048576</p>
+
+<h2>未压缩情况：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_UNCOMPRESSION&#39;);</h2>
+
+<p>T6_UNCOMPRESSION  0 65536<br/>
+T6_UNCOMPRESSION    1   65536<br/>
+T6_UNCOMPRESSION    2   65536<br/>
+T6_UNCOMPRESSION    3   65536<br/>
+T6_UNCOMPRESSION    4   65536<br/>
+T6_UNCOMPRESSION    5   65536<br/>
+T6_UNCOMPRESSION    6   65536<br/>
+T6_UNCOMPRESSION    7   65536<br/>
+T6_UNCOMPRESSION    8   65536<br/>
+T6_UNCOMPRESSION    9   65536<br/>
+T6_UNCOMPRESSION    10  65536<br/>
+T6_UNCOMPRESSION    11  65536<br/>
+T6_UNCOMPRESSION    12  65536<br/>
+T6_UNCOMPRESSION    13  65536<br/>
+T6_UNCOMPRESSION    14  65536<br/>
+T6_UNCOMPRESSION    15  65536<br/>
+T6_UNCOMPRESSION    16  1048576<br/>
+T6_UNCOMPRESSION    17  1048576</p>
+
+<p>索引压缩比较：占用空间几乎相同</p>
+
+<h2>压缩情况：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_COM&#39;);</h2>
+
+<p>T6_COM  0   65536<br/>
+T6_COM  1   65536<br/>
+T6_COM  2   65536<br/>
+T6_COM  3   65536<br/>
+T6_COM  4   65536<br/>
+T6_COM  5   65536<br/>
+T6_COM  6   65536<br/>
+T6_COM  7   65536<br/>
+T6_COM  8   65536<br/>
+T6_COM  9   65536<br/>
+T6_COM  10  65536<br/>
+T6_COM  11  65536<br/>
+T6_COM  12  65536<br/>
+T6_COM  13  65536<br/>
+T6_COM  14  65536<br/>
+T6_COM  15  65536<br/>
+T6_COM  16  1048576</p>
+
+<h2>未压缩情况：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_UNCOM&#39;);</h2>
+
+<p>T6_UNCOM  0 65536<br/>
+T6_UNCOM    1   65536<br/>
+T6_UNCOM    2   65536<br/>
+T6_UNCOM    3   65536<br/>
+T6_UNCOM    4   65536<br/>
+T6_UNCOM    5   65536<br/>
+T6_UNCOM    6   65536<br/>
+T6_UNCOM    7   65536<br/>
+T6_UNCOM    8   65536<br/>
+T6_UNCOM    9   65536<br/>
+T6_UNCOM    10  65536<br/>
+T6_UNCOM    11  65536<br/>
+T6_UNCOM    12  65536<br/>
+T6_UNCOM    13  65536<br/>
+T6_UNCOM    14  65536<br/>
+T6_UNCOM    15  65536<br/>
+T6_UNCOM    16  1048576</p>
+
+<h2>当重复率高时，表和索引的压缩比较：</h2>
+
+<p>create table t6_uncompression2 as select object_id,&#39;aaa&#39; object_name from dba_objects;<br/>
+create table t6_compression2 compress as select object_id,&#39;aaa&#39; object_name from dba_objects;</p>
+
+<p>create index t6_uncom2 on t6_uncompression2(object_name) ;<br/>
+create index t6_com2 on t6_compression2(object_name)  compress;</p>
+
+<p>select table<em>name,index_name,compression from user_indexes where index_name like &#39;T6</em>%&#39;;</p>
+
+<p>T6_UNCOMPRESSION2  T6_UNCOM2    DISABLED<br/>
+T6_COMPRESSION2 T6_COM2 ENABLED</p>
+
+<p>表压缩比较：压缩表比未压缩表少了3个块，比较明显！！</p>
+
+<h2>压缩表：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_COMPRESSION2&#39;);</h2>
+
+<p>T6_COMPRESSION2  0  65536<br/>
+T6_COMPRESSION2 1   65536<br/>
+T6_COMPRESSION2 2   65536<br/>
+T6_COMPRESSION2 3   65536<br/>
+T6_COMPRESSION2 4   65536<br/>
+T6_COMPRESSION2 5   65536<br/>
+T6_COMPRESSION2 6   65536<br/>
+T6_COMPRESSION2 7   65536<br/>
+T6_COMPRESSION2 8   65536<br/>
+T6_COMPRESSION2 9   65536<br/>
+T6_COMPRESSION2 10  65536<br/>
+T6_COMPRESSION2 11  65536<br/>
+T6_COMPRESSION2 12  65536<br/>
+T6_COMPRESSION2 13  65536</p>
+
+<h2>未压缩表：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_UNCOMPRESSION2&#39;);</h2>
+
+<p>T6_UNCOMPRESSION2  0    65536<br/>
+T6_UNCOMPRESSION2   1   65536<br/>
+T6_UNCOMPRESSION2   2   65536<br/>
+T6_UNCOMPRESSION2   3   65536<br/>
+T6_UNCOMPRESSION2   4   65536<br/>
+T6_UNCOMPRESSION2   5   65536<br/>
+T6_UNCOMPRESSION2   6   65536<br/>
+T6_UNCOMPRESSION2   7   65536<br/>
+T6_UNCOMPRESSION2   8   65536<br/>
+T6_UNCOMPRESSION2   9   65536<br/>
+T6_UNCOMPRESSION2   10  65536<br/>
+T6_UNCOMPRESSION2   11  65536<br/>
+T6_UNCOMPRESSION2   12  65536<br/>
+T6_UNCOMPRESSION2   13  65536<br/>
+T6_UNCOMPRESSION2   14  65536<br/>
+T6_UNCOMPRESSION2   15  65536<br/>
+T6_UNCOMPRESSION2   16  1048576</p>
+
+<p>索引压缩比较：压缩的索引比未压缩的索引少了两个块，效果明显。</p>
+
+<h2>压缩索引：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_COMPRESSION2&#39;);</h2>
+
+<p>T6_COM2  0  65536<br/>
+T6_COM2 1   65536<br/>
+T6_COM2 2   65536<br/>
+T6_COM2 3   65536<br/>
+T6_COM2 4   65536<br/>
+T6_COM2 5   65536<br/>
+T6_COM2 6   65536<br/>
+T6_COM2 7   65536<br/>
+T6_COM2 8   65536<br/>
+T6_COM2 9   65536<br/>
+T6_COM2 10  65536<br/>
+T6_COM2 11  65536<br/>
+T6_COM2 12  65536<br/>
+T6_COM2 13  65536<br/>
+T6_COM2 14  65536</p>
+
+<h2>未压缩索引：select segment_name,extent_id,bytes from user_extents where segment_name in (&#39;T6_UNCOMPRESSION2&#39;);</h2>
+
+<p>T6_UNCOM2  0    65536<br/>
+T6_UNCOM2   1   65536<br/>
+T6_UNCOM2   2   65536<br/>
+T6_UNCOM2   3   65536<br/>
+T6_UNCOM2   4   65536<br/>
+T6_UNCOM2   5   65536<br/>
+T6_UNCOM2   6   65536<br/>
+T6_UNCOM2   7   65536<br/>
+T6_UNCOM2   8   65536<br/>
+T6_UNCOM2   9   65536<br/>
+T6_UNCOM2   10  65536<br/>
+T6_UNCOM2   11  65536<br/>
+T6_UNCOM2   12  65536<br/>
+T6_UNCOM2   13  65536<br/>
+T6_UNCOM2   14  65536<br/>
+T6_UNCOM2   15  65536<br/>
+T6_UNCOM2   16  1048576</p>
+
+<h2>2. sql_trace使用tkprof &hellip;/orcl_ora_984_t6.trc t6.txt</h2>
+
+<p>create table t6_uncompression as select object_id,&#39;aaa&#39; object_name from dba_objects;<br/>
+create table t6_compression compress as select object_id,&#39;aaa&#39; object_name from dba_objects;</p>
+
+<p>select table_name,compression from user_tables where table_name like &#39;T6%&#39;;<br/>
+T6_COMPRESSION  ENABLED<br/>
+T6_UNCOMPRESSION    DISABLED</p>
+
+<p>create index idx_t6_com on t6_compression(object_id);<br/>
+create index idx_t6_uncom on t6_uncompression(object_id);</p>
+
+<p>alter session set tracefile_identifier=&#39;t6&#39;;<br/>
+alter session set sql_trace=true;</p>
+
+<h2>对压缩和未压缩的表数据，通过index查询，在结果集比较小的情况下，cpu,query,disk的测试结果是一样的。</h2>
+
+<h2>select * from t6_compression  where object_id&lt;30 order by object_id asc ;</h2>
+
+<p>Rows     Row Source Operation<br/>
+      1  SORT AGGREGATE (cr=2 pr=0 pw=0 time=0 us)<br/>
+     28   VIEW  (cr=2 pr=0 pw=0 time=270 us cost=3 size=3969 card=441)<br/>
+     28    COUNT STOPKEY (cr=2 pr=0 pw=0 time=162 us)<br/>
+     28     INDEX RANGE SCAN IDX_T6_COM (cr=2 pr=0 pw=0 time=54 us cost=3 size=5733 card=441)(object id 74980)</p>
+
+<p>call     count       cpu    elapsed       disk      query    current        rows<br/>
+Parse        1      0.00       0.00          0          2          0           0<br/>
+Execute      1      0.00       0.00          0          0          0           0<br/>
+Fetch        3      0.00       0.00          0          7          0          28<br/>
+total        5      0.00       0.00          0          9          0          28</p>
+
+<h2>select * from t6_uncompression  where object_id&lt;30 order by object_id asc ;</h2>
+
+<p>Rows     Row Source Operation<br/>
+      1  SORT AGGREGATE (cr=2 pr=0 pw=0 time=0 us)<br/>
+     28   VIEW  (cr=2 pr=0 pw=0 time=270 us cost=3 size=5148 card=572)<br/>
+     28    COUNT STOPKEY (cr=2 pr=0 pw=0 time=162 us)<br/>
+     28     INDEX RANGE SCAN IDX_T6_UNCOM (cr=2 pr=0 pw=0 time=54 us cost=3 size=7436 card=572)(object id 74981)</p>
+
+<p>call     count       cpu    elapsed       disk      query    current        rows<br/>
+Parse        1      0.00       0.00          0          2          0           0<br/>
+Execute      1      0.00       0.00          0          0          0           0<br/>
+Fetch        3      0.00       0.00          0          7          0          28<br/>
+total        5      0.00       0.00          0          9          0          28</p>
+
+<h2>对压缩和未压缩的表数据，在重复率很高的列上面，压缩的查询次数会比较少，但CPU的时间比未压缩的CPU时间要长，是符合场景的！</h2>
+
+<h2>select * from t6_compression  where object_name=&#39;aaa&#39; order by object_id asc ;</h2>
+
+<p>Rows     Row Source Operation<br/>
+      1  SORT AGGREGATE (cr=62 pr=0 pw=0 time=0 us)<br/>
+  39361   TABLE ACCESS SAMPLE T6_COMPRESSION (cr=62 pr=0 pw=0 time=77569 us cost=19 size=87482 card=5146)</p>
+
+<p>call     count       cpu    elapsed       disk      query    current        rows<br/>
+Parse        1      0.00       0.00          0          1          0           0<br/>
+Execute      1      0.00       0.00          0          0          0           0<br/>
+Fetch     4845      0.12       0.11          0        112          0       72650<br/>
+total     4847      0.12       0.11          0        113          0       72650</p>
+
+<h2>select * from t6_uncompression   where object_name=&#39;aaa&#39; order by object_id asc ;</h2>
+
+<p>Rows     Row Source Operation<br/>
+      1  SORT AGGREGATE (cr=69 pr=0 pw=0 time=0 us)<br/>
+  33862   TABLE ACCESS SAMPLE T6_UNCOMPRESSION (cr=69 pr=0 pw=0 time=66060 us cost=19 size=87482 card=5146)</p>
+
+<p>call     count       cpu    elapsed       disk      query    current        rows<br/>
+Parse        1      0.00       0.00          0          1          0           0<br/>
+Execute      1      0.00       0.00          0          0          0           0<br/>
+Fetch     4845      0.07       0.11          0        144          0       72649<br/>
+total     4847      0.07       0.11          0        145          0       72649</p>
+
+<p>alter session set sql_trace=false;</p>
+
+<h2>3. 初始化表，压缩表T6_COMPRESSION占用2m，未压缩表T6_UNCOMPRESSION占用3m.</h2>
+
+<p>create table t6_uncompression as select object_id,object_name from dba_objects;<br/>
+create table t6_compression compress as select object_id,object_name from dba_objects;<br/>
+set serveroutput on;<br/>
+exec show_space(&#39;T6_COMPRESSION&#39;)</p>
+
+<p>Free Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               0<br/>
+Total Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             256<br/>
+Total Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..       2,097,152<br/>
+Total MBytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               2<br/>
+Unused Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;               0<br/>
+Unused Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               0<br/>
+Last Used Ext FileId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               1<br/>
+Last Used Ext BlockId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.          97,280<br/>
+Last Used Block&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             128</p>
+
+<p>exec show_space(&#39;T6_UNCOMPRESSION&#39;)<br/>
+Free Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               0<br/>
+Total Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             384<br/>
+Total Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..       3,145,728<br/>
+Total MBytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               3<br/>
+Unused Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;              38<br/>
+Unused Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.         311,296<br/>
+Last Used Ext FileId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               1<br/>
+Last Used Ext BlockId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.          97,152<br/>
+Last Used Block&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.              90</p>
+
+<h2>insert操作：插入数据到压缩表，oracle执行解压操作，然后原压缩表增涨到3m未压缩大小！</h2>
+
+<p>insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);<br/>
+insert into t6_compression values(123,&#39;adfdafdaf&#39;);</p>
+
+<p>exec show_space(&#39;T6_COMPRESSION&#39;);<br/>
+Free Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               5<br/>
+Total Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             384<br/>
+Total Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..       3,145,728<br/>
+Total MBytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               3<br/>
+Unused Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;             123<br/>
+Unused Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.       1,007,616<br/>
+Last Used Ext FileId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               1<br/>
+Last Used Ext BlockId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.          98,176<br/>
+Last Used Block&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               5</p>
+
+<h2>update操作：修改表数据，oracle对压缩表执行解压操作，然后原压缩表增涨到3m未压缩大小！</h2>
+
+<p>update t6_compression set object_name=&#39;abcad&#39; where object_id&gt;30;</p>
+
+<p>exec show_space(&#39;T6_COMPRESSION&#39;)<br/>
+Free Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               2<br/>
+Total Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             384<br/>
+Total Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..       3,145,728<br/>
+Total MBytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               3<br/>
+Unused Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;             123<br/>
+Unused Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.       1,007,616<br/>
+Last Used Ext FileId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               1<br/>
+Last Used Ext BlockId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.          98,176<br/>
+Last Used Block&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               5</p>
+
+<h2>delete操作：删除表数据，表大小并没有增涨到2m，还保持原大小！</h2>
+
+<p>delete from t6_compression where  object_id=15;<br/>
+delete from t6_compression where  object_id=20;</p>
+
+<p>exec show_space(&#39;T6_COMPRESSION&#39;)<br/>
+Free Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               0<br/>
+Total Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             256<br/>
+Total Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..       2,097,152<br/>
+Total MBytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               2<br/>
+Unused Blocks&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;               0<br/>
+Unused Bytes&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.               0<br/>
+Last Used Ext FileId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..               1<br/>
+Last Used Ext BlockId&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.          97,280<br/>
+Last Used Block&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.             128</p>
+
+<h2>4.数据压缩技术用于处理表分区的海量数据时，可以</h2>
+
+<ol>
+<li>对表分区进行分为压缩，和分区索引分为的压缩</li>
+<li>减少数据块读入</li>
+<li>减少IO和内存的消耗</li>
+<li>减少占用磁盘空间</li>
+<li>提高查询效率</li>
+</ol>
+
+<p>创建分区表<br/>
+create table t6_obj_comp(<br/>
+tid NUMBER(5),<br/>
+tname VARCHAR2(30)<br/>
+)<br/>
+PARTITION BY RANGE(tid)<br/>
+(<br/>
+PARTITION t6_obj_comp1 VALUES LESS THAN(10000) ,<br/>
+PARTITION t6_obj_comp2 VALUES LESS THAN(20000) ,<br/>
+PARTITION t6_obj_comp3 VALUES LESS THAN(30000) ,<br/>
+PARTITION t6_obj_comp4 VALUES LESS THAN(40000) ,<br/>
+PARTITION t6_obj_comp5 VALUES LESS THAN(50000) ,<br/>
+PARTITION t6_obj_comp6 VALUES LESS THAN(maxvalue)<br/>
+);</p>
+
+<p>select partition_name,compression from user_tab_partitions where table_name=&#39;T6_OBJ_COMP&#39;;<br/>
+T6_OBJ_COMP1  DISABLED<br/>
+T6_OBJ_COMP2    DISABLED<br/>
+T6_OBJ_COMP3    DISABLED<br/>
+T6_OBJ_COMP4    DISABLED<br/>
+T6_OBJ_COMP5    DISABLED<br/>
+T6_OBJ_COMP6    DISABLED</p>
+
+<p>创建分区索引<br/>
+create index idx_t6_obj_comp on t6_obj_comp(tid) local compress;</p>
+
+<p>select table_name,index_name,compression from user_indexes where index_name like &#39;IDX_T6%&#39;;<br/>
+T6_OBJ_COMP  IDX_T6_OBJ_COMP    ENABLED</p>
+
+<p>select partition_name,compression from user_ind_partitions where index_name=&#39;IDX_T6_OBJ_COMP&#39;;</p>
+
+<p>T6_OBJ_COMP1  ENABLED<br/>
+T6_OBJ_COMP2    ENABLED<br/>
+T6_OBJ_COMP3    ENABLED<br/>
+T6_OBJ_COMP4    ENABLED<br/>
+T6_OBJ_COMP5    ENABLED<br/>
+T6_OBJ_COMP6    ENABLED</p>
+
+<p>当分区1的10000条满了以后，修改分区t6_obj_comp1为压缩分区。<br/>
+alter table t6_obj_comp modify partition t6_obj_comp1 compress;</p>
+
+<p>select partition_name,compression from user_tab_partitions where table_name=&#39;T6_OBJ_COMP&#39;;<br/>
+T6_OBJ_COMP1  ENABLED<br/>
+T6_OBJ_COMP2    DISABLED<br/>
+T6_OBJ_COMP3    DISABLED<br/>
+T6_OBJ_COMP4    DISABLED<br/>
+T6_OBJ_COMP5    DISABLED<br/>
+T6_OBJ_COMP6    DISABLED</p>
+
+</body>
+
+</html>
+

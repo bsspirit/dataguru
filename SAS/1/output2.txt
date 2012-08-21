@@ -1,0 +1,6 @@
+112.97.24.243 31/Jan/2012:00:14:47
+"http://googleads.g.doubleclick.net/mads/gma?u_audio=1&hl=zh-CN&preqs=83&app_name=2.1.2.iphone.com.cronlygames.fruitlink&prl=2434&u_h=480&u_so=p&net=ed&u_w=320&ptime=8345648&js=afma-sdk-i-v4.1.1&slotname=a14d85daa45532a&platform=iPhone&submodel=iPhone4%2C1
+&u_sd=2&format=320x50_mb&msid=420318724&output=html&region=mobile_app&u_tz=-480&ex=1&client_sdk=1&askip=3&jsv=1&ms=nggfgZVyqr7fynMZlRDjb_CUekl2d9biK2ETenLFUCv-utKybszxHFS1rjb-R44CDljkS45J75M5GDcbzU58WqQ1eiAv0qYfIgsABBIgQaLSKhSuenmu9pAX9GAmvpDDN
+112.97.24.243 31/Jan/2012:00:14:49 "http://f.dataguru.cn/forum-58-1.html"
+112.97.24.243 31/Jan/2012:00:14:49 "http://f.dataguru.cn/forum-58-1.html"
+112.97.24.243 31/Jan/2012:00:14:49 "http://f.dataguru.cn/forum-58-1.html"

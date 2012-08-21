@@ -1,0 +1,20 @@
+libname homework 'd:/homework/SAS/';
+%let f1='d:/homework/SAS/1/access_log2.txt';
+filename fil "(&f1)";
+data homework.log;
+	infile fil LRECL=32767;
+	length IP $ 20.;
+	length date $ 20.;
+	length remote $ 500.;
+	length link $ 500;
+	length broswer $500.;
+	input IP +5 date +8 method $ remote : +10 status length link broswer & ;
+run;
+data _null_;
+	set homework.log;
+	file "d:/homework/SAS/1/output2.txt";
+	put IP date link ;
+run;
+proc print;
+run;
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第二周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第二周作业 - 张丹(15)</h1>
+
+<p>阅读作业 本节课没有书面阅读,大家有兴趣可以去找一些CAP相关的资料阅读. </p>
+
+<p>书面作业 <br/>
+1.谈谈你是如何理解ACID的? <br/>
+2.设计3种架构体系,让他们分别满足CAP理论的CA架构,AP架构和CP架构. <br/>
+3.描述一种你认为最适用于最终一致性的系统架构(现实中的应用). <br/>
+4.在PPT里谈到的分布式Oracle数据库中,你认为中间件最核心作用是什么? </p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。 本周的网络互动属于适应期，暂时不进行核查和扣罚。</p>
+
+<hr/>
+
+<p>1.谈谈你是如何理解ACID的? <br/>
+ACID是关系型数据库中，事务的4个特性。<br/>
+通过ACID保证了RDBMS数据库的操作是可靠的，安全的，稳定的。<br/>
+如果使用支持ACID的RDBMS来说，我们一般不会考虑数据丢失，数据不完整，因为ACID保证了这一切。<br/>
+对使用者来说，交给ACID黑盒处理，一切就简单了。<br/>
+如果没有事务的保证，让开发人员自己控制这一切，将是一场灾难！</p>
+
+<p>2.设计3种架构体系,让他们分别满足CAP理论的CA架构,AP架构和CP架构. <br/>
+CA：选择AC，为了保证可用，数据必须要有复制。这样系统会无法使用分区容忍性。当同一数据的两个副本分配到了两个无法通信的分区上时，显然会返回错误的数据。<br/>
+应用实例：MySQL的集群系统（复制＋事务）</p>
+
+<p>CP：选择CP，那么即使坏了节点，操作必须又一致，又能顺利完成。所以就要100%保证所有节点之间有很好的连通性。这是很难做到的。最好的办法就是将所有数据放到同一个节点中。因此，这种设计是不能满足Ａ的。<br/>
+应用实例：多点读取R=N</p>
+
+<p>AP: 选择AP，要满足可用性，就说明数据必须要在不同节点有复制。然后还必须保证在产生分区的时候仍然操作可以完成。那么，必然操作无法保证一致性。<br/>
+应用实例：单点取读R=1，最终一致性</p>
+
+<p>3.描述一种你认为最适用于最终一致性的系统架构(现实中的应用). <br/>
+集中式数据库：<br/>
+4台数据作为一组服务器，1主3从(集群数据复制)，每次只写一个库，读一个库。<br/>
+读写分离：1台读写，3台只读。WR，R1，R2，R3<br/>
+一般情况下，数据复制会有1-2秒延迟。<br/>
+如果写库WR坏了<br/>
+1)如果写库WR坏了，切换一台读库R1为读写库，1主2从。<br/>
+2)重起WR，找到未同步的数据，把未同步的数据同步给原3从，R1,R2,R3。<br/>
+3)一台R3读库做增量数据导出新数据(锁表)，为WR恢复数据。<br/>
+4)WR作为R1的从库重新上线，又还原到出初始的1主３从设置。<br/>
+数据最终保持一致性。</p>
+
+<p>分布式数据库：<br/>
+4台数据作为一组服务器，2个读写库，２个读库。<br/>
+基于NWR理论的最终一致性的系统架构，W＝2，R＝1，N＝4, W+R&lt;N<br/>
+组合单调读一致性和读己之所写一致性，通过读取自己更新的数据，和一旦读取到最新的版本不会再读取旧版本，对于此架构上的程序开发来说，会少很多额外的烦恼。</p>
+
+<p>4.在PPT里谈到的分布式Oracle数据库中,你认为中间件最核心作用是什么?<br/>
+最核心的作用应该是简化操作。<br/>
+中间件层包括：负载均衡，并行查询，统一API，数据库监控，数据加载，容错和扩展。<br/>
+如果这些功能让每个应用都自己去实现，开发人员，运维人员，DBA，天天加班也干不完这些活的，而且这些应用难度很高，很难有人能胜任这项工作。</p>
+
+</body>
+
+</html>
+

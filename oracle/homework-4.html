@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第四周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第四周作业 - 张丹(15)</h1>
+
+<p>阅读作业 阅读《让Oracle跑得更快2》第二篇 索引，最重要的是要弄清楚每种索引的使用场景以及它们的具体应用。</p>
+
+<p>书面作业 <br/>
+1.用示例说明B-Tree索引性能优于BitMap索引.<br/>
+2.用示例说明BitMap索引性能优于B-Tree索引.<br/>
+3.用示例说明全文索引的性能优势.<br/>
+4.演示一个带有全文索引表的分区交换例子。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。</p>
+
+<hr/>
+
+<p>1，创建表t1，id1,id2是相同的两列，数据都是唯一的。在id1建立btree indxe, 在id2建立bitmap index.分别通过索引查询。<br/>
+btree的结果要优于bitmap的结果</p>
+
+<p>create table t1 as select object_id as id1,object_id as id2 from dba_objects;<br/>
+create index t1_btree on t1(id1);<br/>
+create bitmap index t1_bmap on t1(id2);</p>
+
+<h2>select * from t1 where id1=22;</h2>
+
+<p>| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT            |          |     1 |    26 |     2   (0)| 00:00:01 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID| T1       |     1 |    26 |     2   (0)| 00:00:01 |<br/>
+|*  2 |   INDEX RANGE SCAN          | T1_BTREE |     1 |       |     1   (0)| 00:00:01 |</p>
+
+<p>统计信息<br/>
+          0  recursive calls<br/>
+          0  db block gets<br/>
+          4  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+        489  bytes sent via SQL*Net to client<br/>
+        420  bytes received via SQL*Net from client<br/>
+          2  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+          1  rows processed</p>
+
+<h2>select /<em>+ index(t1 t1_bmap)</em>/* from t1 where id2=22;</h2>
+
+<p>| Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT             |         |     1 |    26 |    32   (0)| 00:00:01 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID | T1      |     1 |    26 |    32   (0)| 00:00:01 |<br/>
+|   2 |   BITMAP CONVERSION TO ROWIDS|         |       |       |            |<br/>
+|*  3 |    BITMAP INDEX SINGLE VALUE | T1_BMAP |       |       |            |</p>
+
+<p>统计信息<br/>
+          0  recursive calls<br/>
+          0  db block gets<br/>
+          4  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+        489  bytes sent via SQL*Net to client<br/>
+        420  bytes received via SQL*Net from client<br/>
+          2  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+          1  rows processed</p>
+
+<hr/>
+
+<p>2，创建表t2，id1,id2是相同的两列，数据重复率很高。在id1建立btree indxe, 在id2建立bitmap index.分别通过索引查询。<br/>
+bitmap的结果要优于btree的结果</p>
+
+<p>create table t2 as select mod(object_id,3) as id1,mod(object_id,3) as id2 from dba_objects;<br/>
+create index t2_bree on t2(id1);<br/>
+create bitmap index t2_bmap on t2(id2);</p>
+
+<h2>select /<em>+ index(t2 t2_btree)</em>/* from t2 where id1=2;</h2>
+
+<p>| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT            |          | 27817 |   706K|   158   (0)| 00:00:02 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID| T2       | 27817 |   706K|   158   (0)| 00:00:02 |<br/>
+|*  2 |   INDEX RANGE SCAN          | T2_BTREE | 27817 |       |    47   (0)| 00:00:01 |</p>
+
+<p>统计信息<br/>
+          0  recursive calls<br/>
+          0  db block gets<br/>
+       3368  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+     475900  bytes sent via SQL*Net to client<br/>
+      18140  bytes received via SQL*Net from client<br/>
+       1613  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+      24178  rows processed</p>
+
+<h2>select * from t2 where id2=2;</h2>
+
+<p>| Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)|Time     |<br/>
+|   0 | SELECT STATEMENT             |         | 27817 |   706K|    26   (0)| 00:00:01 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID | T2      | 27817 |   706K|    26   (0)| 00:00:01 |<br/>
+|   2 |   BITMAP CONVERSION TO ROWIDS|         |       |       |            |<br/>
+|*  3 |    BITMAP INDEX SINGLE VALUE | T2_BMAP |       |       |            |</p>
+
+<p>统计信息<br/>
+          0  recursive calls<br/>
+          0  db block gets<br/>
+       1719  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+     475900  bytes sent via SQL*Net to client<br/>
+      18140  bytes received via SQL*Net from client<br/>
+       1613  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+      24178  rows processed</p>
+
+<hr/>
+
+<p>3，创建表t3，name1,name2是相同的两列字符串。在name1建立btree indxe, 在name2建立text index.分别通过索引查询。<br/>
+通过查询可以看出，text index是对文本内存进行了分词处理。</p>
+
+<p>create table t3(name1 varchar(40),name2 varchar(40));<br/>
+create index t3_btree on t3(name1);<br/>
+create index t3_text on t3(name2) indextype is ctxsys.context</p>
+
+<p>insert into t3 values(&#39;hello&#39;,&#39;hello&#39;);<br/>
+insert into t3 values(&#39;hello 1&#39;,&#39;hello 1&#39;);<br/>
+insert into t3 values(&#39;1 hello&#39;,&#39;1 hello&#39;);<br/>
+insert into t3 values(&#39;1_hello&#39;,&#39;1_hello&#39;);<br/>
+insert into t3 values(&#39;jifdaoid djkfk adk jfdajd adj fd  hello&#39;,&#39;jifdaoid djkfk adk jfdajd adj fd hello&#39;);<br/>
+insert into t3 values(&#39;hello8lkda jdka da&#39;,&#39;hello8lkda jdka da&#39;);<br/>
+insert into t3 values(&#39;hell3o&#39;,&#39;hell3o&#39;);<br/>
+insert into t3 values(&#39;hello&#39;,&#39;hello&#39;);<br/>
+insert into t3 values(&#39;hello&#39;,&#39;hello&#39;);</p>
+
+<h2>select * from t3 where name1 like &#39;%hello%&#39;;</h2>
+
+<p>| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT            |          |     8 |   352 |     0   (0)| 00:00:01 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID| T3       |     8 |   352 |     0   (0)| 00:00:01 |<br/>
+|*  2 |   INDEX FULL SCAN           | T3_BTREE |     1 |       |     0   (0)| 00:00:01 |</p>
+
+<p>统计信息<br/>
+          0  recursive calls<br/>
+          0  db block gets<br/>
+          4  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+        757  bytes sent via SQL*Net to client<br/>
+        419  bytes received via SQL*Net from client<br/>
+          2  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+          8  rows processed</p>
+
+<p>alter index t3_text rebuild parameters(&#39;sync&#39;);</p>
+
+<h2>select * from t3 where contains(name2,&#39;hello&#39;)&gt;0;</h2>
+
+<p>| Id  | Operation                   | Name    | Rows  | Bytes | Cost (%CPU)| Time     |<br/>
+|   0 | SELECT STATEMENT            |         |     1 |    56 |     4   (0)| 00:00:01 |<br/>
+|   1 |  TABLE ACCESS BY INDEX ROWID| T3      |     1 |    56 |     4   (0)| 00:00:01 |<br/>
+|*  2 |   DOMAIN INDEX              | T3_TEXT |       |       |     4   (0)| 00:00:01 |</p>
+
+<p>统计信息<br/>
+         11  recursive calls<br/>
+          0  db block gets<br/>
+         24  consistent gets<br/>
+          0  physical reads<br/>
+          0  redo size<br/>
+        714  bytes sent via SQL*Net to client<br/>
+        419  bytes received via SQL*Net from client<br/>
+          2  SQL*Net roundtrips to/from client<br/>
+          0  sorts (memory)<br/>
+          0  sorts (disk)<br/>
+          7  rows processed</p>
+
+<h2>select token_text ,token_last,token_count from DR$T3_TEXT$I;</h2>
+
+<p>1  4    3<br/>
+ADJ 5   1<br/>
+ADK 5   1<br/>
+DA  6   1<br/>
+DJKFK   5   1<br/>
+FD  5   1<br/>
+HELL3O  7   1<br/>
+HELLO   9   7<br/>
+HELLO8LKDA  6   1<br/>
+JDKA    6   1<br/>
+JFDAJD  5   1<br/>
+JIFDAOID    5   1</p>
+
+<hr/>
+
+<p>4，</p>
+
+<h2>1)创建分区表t4，和分区索引t4_text</h2>
+
+<p>create table t4(<br/>
+s_name VARCHAR2(40),<br/>
+s_date DATE)<br/>
+PARTITION BY RANGE(s_date)<br/>
+(<br/>
+PARTITION sales_2012 VALUES LESS THAN(TO_DATE(&#39;01/01/2012&#39;,&#39;DD/MM/YYYY&#39;)),<br/>
+PARTITION sales_2013 VALUES LESS THAN(TO_DATE(&#39;01/01/2013&#39;,&#39;DD/MM/YYYY&#39;)),<br/>
+PARTITION sales_2014 VALUES LESS THAN(TO_DATE(&#39;01/01/2014&#39;,&#39;DD/MM/YYYY&#39;))<br/>
+);<br/>
+create index t4_text on t4(s_name) indextype is ctxsys.context local;</p>
+
+<h2>2)创建临时表tmp4，和临时表的索引tmp4_text</h2>
+
+<p>create table tmp4(<br/>
+s_name VARCHAR2(40),<br/>
+s_date DATE)<br/>
+create index tmp4_text on tmp4(s_name) indextype is ctxsys.context</p>
+
+<h2>3)向临时表加载数据</h2>
+
+<p>insert into tmp4 values(&#39;hello&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;hello 1&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;1 hello&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;1_hello&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;jifdaoid djkfk adk jfdajd adj fd  hello&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;hello8lkda jdka da&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;hell3o&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;hello&#39;,sysdate);<br/>
+insert into tmp4 values(&#39;hello&#39;,sysdate);<br/>
+alter index tmp4_text rebuild parameters(&#39;sync&#39;);<br/>
+select * from tmp4 where contains(s_name,&#39;hello&#39;)&gt;0;</p>
+
+<h2>4）分区交换</h2>
+
+<p>alter table t4 exchange partition sales_2013 with table tmp4 including indexes without validation;</p>
+
+<h2>5）执行text index查询</h2>
+
+<p>select * from t4 where contains(s_name,&#39;hello&#39;)&gt;0;</p>
+
+<p>hello     29-7月 -12<br/>
+hello 1   29-7月 -12<br/>
+1 hello   29-7月 -12<br/>
+1_hello   29-7月 -12<br/>
+jifdaoid djkfk adk jfdajd adj fd  hello 29-7月 -12<br/>
+hello       29-7月 -12<br/>
+hello       29-7月 -12</p>
+
+</body>
+
+</html>
+

@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第七周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第七周作业 - 张丹(15)</h1>
+
+<p>阅读作业 阅读《让Oracle跑得更快1》变量绑定,性能视图和性能报告部分。</p>
+
+<p>以下题目都需要数据库的实际操作输出，而不是单纯语言论述：<br/>
+1.通过awr或者v$&hellip;.advice动态视图评估你的数据库当前的SGA_target,pga_aggregate_target是否设置合理,写出分析过程和理由。<br/>
+2.模拟一个绑定变量环境，分别设置cursor_sharing的值为exact,similar和force，比较对绑定变量后的SQL执行计划的影响情况。<br/>
+3.你认为OLAP系统是否适合使用邦定变量?给出充分的理由. <br/>
+4.分别写出适合优化器模式为all_rows和first_rows(n)的场景相应的SQL语句，并比较同样的SQL分别使用这两种优化器模式的性能情况。<br/>
+5.设置DB_FILE_MULTIBLOCK_READ_COUNT为不同的值，观察SQL的性能变化，写出几种类型的SQL会从这个参数中受益。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。</p>
+
+<hr/>
+
+<h2>1. 我的本机Oracle装在windowXP，所有配置都是默认，只是做作业才会使用。使用v$sga_target_advice和select * from v$pga_target_advice的建议器。</h2>
+
+<p>SGA的视图发现，736MB为Oracle共享内存，与552MB的所有性能指标都是一样的，我应该设置为552MB更为合理，这样就有更多的内存可以干点别的事情了。</p>
+
+<p>SQL&gt; select * from v$sga_target_advice;</p>
+
+<pre><code>SGA_SIZE SGA_SIZE_FACTOR ESTD_DB_TIME ESTD_DB_TIME_FACTOR ESTD_PHYSICAL_READS
+   184             .25         1079              2.4702               44152
+   368              .5          476              1.0883               22673
+   552             .75          437                   1               21347
+   736               1          437                   1               21347
+   920            1.25          437                   1               21347
+  1104             1.5          437                   1               21347
+  1288            1.75          437                   1               21347
+  1472               2          437                   1               21347
+</code></pre>
+
+<p>PGA的视图发现，现在496MB的设置，并不是合适的，因为62MB,124MB,248MB，372MB的性能指标，都与496是一样的，因为我可以设置少一点的PGA内存，省出更多的内存！</p>
+
+<p>SQL&gt; select PGA_TARGET_FOR_ESTIMATE/1024/1024 as MB,PGA_TARGET_FACTOR,ADVICE_STATUS,BYTES_PROCESSED,ESTD_TIME,ESTD_EXTRA_BYTES_RW,ESTD_PGA_CACHE_HIT_PERCENTAGE,ESTD_OVERALLOC_COUNT from v$pga_target_advice;</p>
+
+<pre><code>    MB PGA_TARGET_FACTOR ADVICE BYTES_PROCESSED  ESTD_TIME ESTD_EXTRA_BYTES_RW ESTD_PGA_CACHE_HIT_PERCENTAGE ESTD_OVERALLOC_COUNT
+    62              .125 ON           648897536        927                  0                           100                    0
+   124               .25 ON           648897536        927                  0                           100                    0
+   248                .5 ON           648897536        927                  0                           100                    0
+   372               .75 ON           648897536        927                  0                           100                    0
+   496                 1 ON           648897536        927                  0                           100                    0
+   595               1.2 ON           648897536        927                  0                           100                    0
+   694               1.4 ON           648897536        927                  0                           100                    0
+   793               1.6 ON           648897536        927                  0                           100                    0
+   892               1.8 ON           648897536        927                  0                           100                    0
+   992                 2 ON           648897536        927                  0                           100                    0
+  1488                 3 ON           648897536        927                  0                           100                    0
+  1984                 4 ON           648897536        927                  0                           100                    0
+  2976                 6 ON           648897536        927                  0                           100                    0
+  3968                 8 ON           648897536        927                  0                           100                    0
+</code></pre>
+
+<h2>2. 默认情况下cursor_sharing是EXACT的。</h2>
+
+<p>create table t7 as select 99 id, a.* from dba_objects a;<br/>
+create index t7_ind on t7(id);<br/>
+ID是索引列，并且只有一个值。</p>
+
+<h2>cursor_sharing=EXACT的情况：</h2>
+
+<p>SQL&gt; show parameter cursor_sharing</p>
+
+<pre><code>      NAME                TYPE           VALUE
+cursor_sharing          string           EXACT
+</code></pre>
+
+<p>select * from t7 set_exact where id=2;<br/>
+select * from t7 set_exact where id=7;</p>
+
+<p>SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code> SQL_TEXT
+ select * from t7 set_exact where id=7
+ select * from t7 set_exact where id=2
+</code></pre>
+
+<p>查询v$sql.sql_text出现了两条记录，因此没有对谓词进行解析。</p>
+
+<p>SQL&gt; variable x number;<br/>
+SQL&gt; exec :x:=100<br/>
+SQL&gt; select * from t7 set_exact where id=:x;<br/>
+SQL&gt; exec :x:=101;<br/>
+SQL&gt; select * from t7 set_exact where id=:x;<br/>
+SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code> SQL_TEXT
+ select * from t7 set_exact where id=7
+ select * from t7 set_exact where id=:x
+ select * from t7 set_exact where id=2
+</code></pre>
+
+<p>查询v$sql.sql_text出现了三条记录，通过绑定变量:x，Oracle合并查询，第二次进行了软解析。</p>
+
+<h2>cursor_sharing=SIMILAR的情况：</h2>
+
+<p>SQL&gt;alter session set cursor_sharing=similar;<br/>
+SQL&gt; show parameter cursor_sharing</p>
+
+<pre><code>      NAME                TYPE           VALUE
+cursor_sharing          string           SIMILAR
+</code></pre>
+
+<p>SQL&gt; select * from t7 set_exact where id=20;<br/>
+SQL&gt; select * from t7 set_exact where id=21;<br/>
+SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code>SQL_TEXT
+select * from t7 set_exact where id=:&quot;SYS_B_0&quot;
+select * from t7 set_exact where id=:&quot;SYS_B_0&quot;
+</code></pre>
+
+<p>通过绑定变量后，所有查询会共享SQL。</p>
+
+<p>SQL&gt; select 3 from t7 set_exact where id=:x and OWNER=&#39;bsspirit&#39;;<br/>
+SQL&gt; select 5 from t7 set_exact where id=:x and OWNER=&#39;bsspirit&#39;;<br/>
+SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code>SQL_TEXT
+select :&quot;SYS_B_0&quot; from t7 set_exact where id=:x and OWNER=:&quot;SYS_B_1&quot;
+</code></pre>
+
+<h2>cursor_sharing=FORCE的情况：</h2>
+
+<p>SQL&gt; alter session set cursor_sharing=force;<br/>
+SQL&gt; show parameter cursor_sharing;</p>
+
+<pre><code>      NAME                TYPE           VALUE
+</code></pre>
+
+<hr/>
+
+<pre><code>cursor_sharing          string           FORCE
+</code></pre>
+
+<p>SQL&gt; select * from t7 set_exact where id=30;<br/>
+SQL&gt; select * from t7 set_exact where id=31;<br/>
+SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code>SQL_TEXT
+select * from t7 set_exact where id=7
+select * from t7 set_exact where id=:x
+select * from t7 set_exact where id=:&quot;SYS_B_0&quot;
+select * from t7 set_exact where id=:&quot;SYS_B_0&quot;
+select * from t7 set_exact where id=:&quot;SYS_B_0&quot;
+select * from t7 set_exact where id=2
+</code></pre>
+
+<p>通过绑定变量后，所有查询会共享SQL。</p>
+
+<p>SQL&gt; select 1 from t7 set_exact where id=:x;<br/>
+SQL&gt; select 2 from t7 set_exact where id=:x;<br/>
+SQL&gt; select 3 from t7 set_exact where id=:x;<br/>
+SQL&gt; select sql_text from v$sql where sql_text like &#39;%set_exact%&#39;;</p>
+
+<pre><code>SQL_TEXT
+select :&quot;SYS_B_0&quot; from t7 set_exact where id=:x
+</code></pre>
+
+<h2>3. 我认为OLAP系统不适合用绑定变量！！</h2>
+
+<p>首先OLAP是大数据量，主要用于数据查询，因此查询性能决定了，OLAP的性能。<br/>
+绑定变量，是把硬解析的SQL变成软解析的SQL。对于一条新SQL会执行下面4步(语法分析，语义分析，生成执行计划，SQL执行)。</p>
+
+<p>由于Oracle会根据绑定变量，选择是否共享SQL。由于通常的OLAP都有大量的聚合查询操作(Group by)，有时候不走索引会更好。<br/>
+因此，绑定变量有时候有可能会选择错误的执行计划，使得查询非常慢，这种效率的查询会远大于硬解析的耗时，SQL解析消耗的资源就显得微不足道了。</p>
+
+<h2>4. 对表进行优化器比较。三种情况(默认,all_rows,first_rows)</h2>
+
+<p>create table t7 as select 99 id, a.* from dba_objects a;<br/>
+create index t7_ind on t7(id);<br/>
+索引列数据只有一个值为99。</p>
+
+<h2>由于id没有1，因此使用索引是最好的。通过索引查询三种情况的结果是一样的。</h2>
+
+<p>select * from t7 where id=1;<br/>
+select /<em>+ all_rows */ * from t7 where id=1;<br/>
+select /</em>+ first_rows(10) */ * from t7 where id=1;</p>
+
+<p>SQL&gt; select * from t7 where id=1;</p>
+
+<pre><code>| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT            |        |     1 |   220 |     1   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| T7     |     1 |   220 |     1   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | T7_IND |     1 |       |     1   (0)| 00:00:01 |
+</code></pre>
+
+<p>SQL&gt; select /*+ all_rows */ * from t7 where id=1;</p>
+
+<pre><code>| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT            |        |     1 |   220 |     1   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| T7     |     1 |   220 |     1   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | T7_IND |     1 |       |     1   (0)| 00:00:01 |
+</code></pre>
+
+<p>SQL&gt; select /*+ first_rows(10) */ * from t7 where id=1;</p>
+
+<pre><code>| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT            |        |     1 |   220 |     1   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| T7     |     1 |   220 |     1   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | T7_IND |     1 |       |     1   (0)| 00:00:01 |
+</code></pre>
+
+<h2>由于id值是99，因此不使用索引是，使用全表扫描是最好的。通过比较可以看出,all_rows选择全表扫描对全局结果是最优的，而first_row(10)只取前10个值，因此通过索引是最好的。</h2>
+
+<p>select * from t7 where id=99;<br/>
+select /<em>+ all_rows */ * from t7 where id=99;<br/>
+select /</em>+ first_rows(10) */ * from t7 where id=99;</p>
+
+<p>SQL&gt; select * from t7 where id=99;</p>
+
+<pre><code>| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT  |      | 78523 |    16M|   403   (1)| 00:00:05 |
+|*  1 |  TABLE ACCESS FULL| T7   | 78523 |    16M|   403   (1)| 00:00:05 |
+</code></pre>
+
+<p>SQL&gt; select /*+ all_rows */ * from t7 where id=99;</p>
+
+<pre><code>| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT  |      | 78523 |    16M|   403   (1)| 00:00:05 |
+|*  1 |  TABLE ACCESS FULL| T7   | 78523 |    16M|   403   (1)| 00:00:05 |
+</code></pre>
+
+<p>SQL&gt; select /*+ first_rows(10) */ * from t7 where id=99;</p>
+
+<pre><code>| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT            |        | 78523 |    16M|     2   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| T7     | 78523 |    16M|     2   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | T7_IND |       |       |     1   (0)| 00:00:01 |
+</code></pre>
+
+<h2>5. 分别设置db_file_multiblock_read_count为4,64,1024三种情况。CBO计算出的FTS成本分别是51,25,24。</h2>
+
+<p>create table t7_4(x int, y int);<br/>
+insert into t7_4 values(1,1);<br/>
+insert into t7_4 values(2,1);<br/>
+alter table t7_4 minimize records_per_block;<br/>
+insert into t7_4 select rownum+2,1 from all_objects where rownum &lt;= 254;<br/>
+create index t7_4_ind on t7_4(x);<br/>
+exec dbms_stats.gather_table_stats(user,&#39;t7_4&#39;);</p>
+
+<p>表占用数据块为128个<br/>
+select count(distinct dbms_rowid.rowid_block_number(rowid)) as count from t7_4;</p>
+
+<pre><code> COUNT
+</code></pre>
+
+<hr/>
+
+<pre><code>   128
+</code></pre>
+
+<p>SQL&gt; alter session set db_file_multiblock_read_count=4;<br/>
+SQL&gt; select * from t7_4;</p>
+
+<pre><code>| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT  |      |   256 |  1792 |    51   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS FULL| T7_4 |   256 |  1792 |    51   (0)| 00:00:01 |
+</code></pre>
+
+<p>SQL&gt; alter session set db_file_multiblock_read_count=64;<br/>
+SQL&gt; select * from t7_4;</p>
+
+<pre><code>| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT  |      |   256 |  1792 |    25   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS FULL| T7_4 |   256 |  1792 |    25   (0)| 00:00:01 |
+</code></pre>
+
+<p>SQL&gt; alter session set db_file_multiblock_read_count=1024;<br/>
+SQL&gt; select * from t7_4;</p>
+
+<pre><code>| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+|   0 | SELECT STATEMENT  |      |   256 |  1792 |    24   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS FULL| T7_4 |   256 |  1792 |    24   (0)| 00:00:01 |
+</code></pre>
+
+<h2>会受益的SQL:扫描大量数据的SQL都会受益。</h2>
+
+<p>select * from t7_4 where x&gt;1;<br/>
+select * from t7_4;<br/>
+select * from t7_4 where y&gt;0;</p>
+
+</body>
+
+</html>
+
