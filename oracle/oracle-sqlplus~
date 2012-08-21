@@ -1,5 +1,0 @@
-https://help.ubuntu.com/community/Oracle%20Instant%20Client
-
-export TNS_ADMIN=/usr/lib/oracle/11.2/client/lib
-sqlplus www/jPFhdpK6@tianji
-
