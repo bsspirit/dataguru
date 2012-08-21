@@ -1,0 +1,9 @@
+#2.5
+num<-c(1,2,3,4,5)
+name<-c("张三","李四","王五","赵六","丁一")
+gender<-c("女","男","女","男","女")
+age<-c(14,15,16,14,15)
+height<-c(156,165,157,162,159)
+weight<-c(42,49,41.5,52,45.5)
+students<-data.frame(num,name,gender,age,height,weight)
+names(students)<-c("序号","姓名","性别","年龄","身高(cm)","体重(kg)")

@@ -1,0 +1,13 @@
+#3.10
+applicant<-read.table(file="applicant.data")
+#(1)
+stars(applicant)
+#(2)
+applicant$G1<-(applicant$SC+applicant$LC+applicant$SMS+applicant$DRV+applicant$AMB+applicant$GSP+applicant$POT)/7
+applicant$G2<-(applicant$FL+applicant$EXP+applicant$SUIT)/3
+applicant$G3<-c(applicant$LA+applicant$HON+applicant$KJ)/3
+applicant$G4<-c(applicant$AA)
+applicant$G5<-c(applicant$APP)
+dev.new();
+stars(applicant[,16:20])
+best=sort(apply(applicant[,16:20],1,mean),decreasing=TRUE)[1:6]
