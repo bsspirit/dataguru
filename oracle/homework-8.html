@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第八周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第八周作业 - 张丹(15)</h1>
+
+<p>阅读作业 本节课的内容是之前内容的一个实际应用,大家可以按照PPT上设计的章节选择阅读.。</p>
+
+<p>以下题目都需要数据库的实际操作输出，而不是单纯语言论述：<br/>
+1.自己构造两条不同的SQL来完成相同的查询,注意结果集重用对SQL性能的影响<br/>
+2.对于分区表， 当查询范围在一个分区以内以及跨分区查询时，比较本地索引和全局索引的性能差异。<br/>
+3.对第一题和第二题分别用sql_trace和10046事件生成trace文件，并使用tkprof工具处理得到处理过的结果。<br/>
+4.对第一题和第二题分别生成10053 trace文件，尝试解释oracle是如何生成一个执行计划的。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。</p>
+
+<h2>1. 经过对比查询发现，重用结果集的执行效率要比未重用的，高很多！！</h2>
+
+<p>create table t8_1 as select object_id as id,object_type as type from dba_objects;</p>
+
+<p>SQL&gt; set autotrace on;<br/>
+SQL&gt; select<br/>
+  2    (select count(<em>) from t8_1 ) t_all,<br/>
+  3    (select count(</em>) from t8_1 where type=&#39;INDEX&#39;)  t_index,<br/>
+  4    (select count(<em>) from t8_1 where type=&#39;TABLE&#39;)  t_table,<br/>
+  5    (select count(</em>) from t8_1 where type=&#39;CLUSTER&#39;)  t_cluster,<br/>
+  6    (select count(<em>) from t8_1 where type=&#39;SEQUENCE&#39;) t_sequence,<br/>
+  7    (select count(</em>) from t8_1 where type=&#39;EDITION&#39;)  t_edition,<br/>
+  8    (select count(<em>) from t8_1 where type=&#39;LOB&#39;)  t_lob,<br/>
+  9    (select count(</em>) from t8_1 where type=&#39;SYNONYM&#39;)  t_synonym<br/>
+ 10  from dual;</p>
+
+<pre><code>--------------------------------------------------------------------------------------
+| T_ALL    T_INDEX    T_TABLE  T_CLUSTER T_SEQUENCE  T_EDITION      T_LOB  T_SYNONYM |
+--------------------------------------------------------------------------------------
+| 72696       3926       2904         10        228          1        911     27803  |
+--------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+| Id  | Operation          | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |      |     1 |       |     2   (0)| 00:00:01 |
+|   1 |  SORT AGGREGATE    |      |     1 |       |            |          |
+|   2 |   TABLE ACCESS FULL| T8_1 | 77981 |       |    53   (2)| 00:00:01 |
+|   3 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|*  4 |   TABLE ACCESS FULL| T8_1 |  3227 | 35497 |    53   (2)| 00:00:01 |
+|   5 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|*  6 |   TABLE ACCESS FULL| T8_1 |  2264 | 24904 |    53   (2)| 00:00:01 |
+|   7 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|*  8 |   TABLE ACCESS FULL| T8_1 |     2 |    22 |    53   (2)| 00:00:01 |
+|   9 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|* 10 |   TABLE ACCESS FULL| T8_1 |   151 |  1661 |    53   (2)| 00:00:01 |
+|  11 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|* 12 |   TABLE ACCESS FULL| T8_1 |     2 |    22 |    53   (2)| 00:00:01 |
+|  13 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|* 14 |   TABLE ACCESS FULL| T8_1 |   644 |  7084 |    53   (2)| 00:00:01 |
+|  15 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|* 16 |   TABLE ACCESS FULL| T8_1 | 32506 |  349K |    53   (2)| 00:00:01 |
+|  17 |  FAST DUAL         |      |     1 |       |     2   (0)| 00:00:01 |
+---------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   4 - filter(&quot;TYPE&quot;=&#39;INDEX&#39;)
+   6 - filter(&quot;TYPE&quot;=&#39;TABLE&#39;)
+   8 - filter(&quot;TYPE&quot;=&#39;CLUSTER&#39;)
+  10 - filter(&quot;TYPE&quot;=&#39;SEQUENCE&#39;)
+  12 - filter(&quot;TYPE&quot;=&#39;EDITION&#39;)
+  14 - filter(&quot;TYPE&quot;=&#39;LOB&#39;)
+  16 - filter(&quot;TYPE&quot;=&#39;SYNONYM&#39;)
+
+
+统计信息
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+       1520  consistent gets
+          0  physical reads
+          0  redo size
+        890  bytes sent via SQL*Net to client
+        419  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+</code></pre>
+
+<p>SQL&gt; select<br/>
+  2    count(*) t_all,<br/>
+  3    count(decode(type,&#39;INDEX&#39;,type,null)) t_index,<br/>
+  4    count(decode(type,&#39;TABLE&#39;,type,null)) t_table,<br/>
+  5    count(decode(type,&#39;CLUSTER&#39;,type,null)) t_cluster,<br/>
+  6    count(decode(type,&#39;SEQUENCE&#39;,type,null)) t_sequence,<br/>
+  7    count(decode(type,&#39;EDITION&#39;,type,null)) t_edition,<br/>
+  8    count(decode(type,&#39;LOB&#39;,type,null)) t_lob,<br/>
+  9    count(decode(type,&#39;SYNONYM&#39;,type,null)) t_synonym<br/>
+ 10  from t8_1;</p>
+
+<pre><code>--------------------------------------------------------------------------------------
+| T_ALL    T_INDEX    T_TABLE  T_CLUSTER T_SEQUENCE  T_EDITION      T_LOB  T_SYNONYM |
+--------------------------------------------------------------------------------------
+| 72696       3926       2904         10        228          1        911     27803  |
+--------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+| Id  | Operation          | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |      |     1 |    11 |    53   (2)| 00:00:01 |
+|   1 |  SORT AGGREGATE    |      |     1 |    11 |            |          |
+|   2 |   TABLE ACCESS FULL| T8_1 | 77981 |   837K|    53   (2)| 00:00:01 |
+---------------------------------------------------------------------------
+
+
+统计信息
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        190  consistent gets
+          0  physical reads
+          0  redo size
+        890  bytes sent via SQL*Net to client
+        419  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+</code></pre>
+
+<h2>2. </h2>
+
+<p>创建分区表t8_2，并插入数据集。</p>
+
+<p>create table t8_2(<br/>
+id int, type VARCHAR2(20)<br/>
+)<br/>
+PARTITION BY RANGE(id)<br/>
+(<br/>
+PARTITION id_1 VALUES LESS THAN(10000),<br/>
+PARTITION id_2 VALUES LESS THAN(20000),<br/>
+PARTITION id_3 VALUES LESS THAN(30000),<br/>
+PARTITION id_4 VALUES LESS THAN(40000),<br/>
+PARTITION id_5 VALUES LESS THAN(50000),<br/>
+PARTITION id_6 VALUES LESS THAN(60000),<br/>
+PARTITION id_7 VALUES LESS THAN(70000),<br/>
+PARTITION id_other VALUES LESS THAN(maxvalue)<br/>
+);</p>
+
+<p>insert into t8_2 select object_id as id,object_type as type from dba_objects</p>
+
+<h2>不跨分区查询时，全局索引和分区索引执行效率几乎相同。</h2>
+
+<p>使用分区索引：create index t8_2_local_index on t8_2(id) local;<br/>
+SQL&gt; select * from t8_2 where (id&gt;9980 and id<9990) or (id>29990 and id&lt;29999);</p>
+
+<pre><code>------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name             | Rows  | Bytes | Cost (%CPU)| Time     | Pstart| Pstop |
+------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |                  |    17 |   425 |     6   (0)| 00:00:01 |       |       |
+|   1 |  CONCATENATION                      |                  |       |       |            |          |       |       |
+|   2 |   PARTITION RANGE SINGLE            |                  |     8 |   200 |     3   (0)| 00:00:01 |     3 |     3 |
+|   3 |    TABLE ACCESS BY LOCAL INDEX ROWID| T8_2             |     8 |   200 |     3   (0)| 00:00:01 |     3 |     3 |
+|*  4 |     INDEX RANGE SCAN                | T8_2_LOCAL_INDEX |     3 |       |     2   (0)| 00:00:01 |     3 |     3 |
+|   5 |   PARTITION RANGE SINGLE            |                  |     9 |   225 |     3   (0)| 00:00:01 |     1 |     1 |
+|   6 |    TABLE ACCESS BY LOCAL INDEX ROWID| T8_2             |     9 |   225 |     3   (0)| 00:00:01 |     1 |     1 |
+|*  7 |     INDEX RANGE SCAN                | T8_2_LOCAL_INDEX |     2 |       |     2   (0)| 00:00:01 |     1 |     1 |
+------------------------------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   4 - access(&quot;ID&quot;&gt;29990 AND &quot;ID&quot;&lt;29999)
+   7 - access(&quot;ID&quot;&gt;9980 AND &quot;ID&quot;&lt;9990)
+       filter(LNNVL(&quot;ID&quot;&gt;29990) OR LNNVL(&quot;ID&quot;&lt;29999))
+
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+
+统计信息
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         10  consistent gets
+          0  physical reads
+          0  redo size
+        912  bytes sent via SQL*Net to client
+        430  bytes received via SQL*Net from client
+          3  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         17  rows processed
+</code></pre>
+
+<p>使用全局索引：create index t8_2_global_index on t8_2(id) ;<br/>
+SQL&gt; select * from t8_2 where (id&gt;9980 and id<9990) or (id>29990 and id&lt;29999);</p>
+
+<pre><code>-------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name              | Rows  | Bytes| Cost (%CPU)| Time     | Pstart| Pstop |
+------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |                   |    41 |  1025|     6   (0)| 00:00:01 |       |       |
+|   1 |  CONCATENATION                      |                   |       |      |            |          |       |       |
+|   2 |   TABLE ACCESS BY GLOBAL INDEX ROWID| T8_2              |     8 |   200|     3   (0)| 00:00:01 |     3 |     3 |
+|*  3 |    INDEX RANGE SCAN                 | T8_2_GLOBAL_INDEX |    10 |      |     2   (0)| 00:00:01 |       |       |
+|   4 |   TABLE ACCESS BY GLOBAL INDEX ROWID| T8_2              |    33 |   825|     3   (0)| 00:00:01 |     1 |     1 |
+|*  5 |    INDEX RANGE SCAN                 | T8_2_GLOBAL_INDEX |     8 |      |     2   (0)| 00:00:01 |       |       |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   3 - access(&quot;ID&quot;&gt;29990 AND &quot;ID&quot;&lt;29999)
+   5 - access(&quot;ID&quot;&gt;9980 AND &quot;ID&quot;&lt;9990)
+       filter(LNNVL(&quot;ID&quot;&gt;29990) OR LNNVL(&quot;ID&quot;&lt;29999))
+
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+
+统计信息
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         10  consistent gets
+          0  physical reads
+          0  redo size
+        912  bytes sent via SQL*Net to client
+        430  bytes received via SQL*Net from client
+          3  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         17  rows processed
+</code></pre>
+
+<h2>跨分区查询时，全局索引的效率要比分区索引高！</h2>
+
+<p>使用分区索引：create index t8_2_local_index on t8_2(id) local;<br/>
+SQL&gt; select * from t8_2 where (id&gt;9990 and id<10010) or (id>29990 and id&lt;30010);</p>
+
+<pre><code>------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name             | Rows  | Bytes | Cost (%CPU)| Time     | Pstart| Pstop |
+------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |                  |    38 |   950 |     6   (0)| 00:00:01 |       |       |
+|   1 |  CONCATENATION                      |                  |       |       |            |          |       |       |
+|   2 |   PARTITION RANGE ITERATOR          |                  |    19 |   475 |     3   (0)| 00:00:01 |     3 |     4 |
+|   3 |    TABLE ACCESS BY LOCAL INDEX ROWID| T8_2             |    19 |   475 |     3   (0)| 00:00:01 |     3 |     4 |
+|*  4 |     INDEX RANGE SCAN                | T8_2_LOCAL_INDEX |    12 |       |     2   (0)| 00:00:01 |     3 |     4 |
+|   5 |   PARTITION RANGE ITERATOR          |                  |    19 |   475 |     3   (0)| 00:00:01 |     1 |     2 |
+|   6 |    TABLE ACCESS BY LOCAL INDEX ROWID| T8_2             |    19 |   475 |     3   (0)| 00:00:01 |     1 |     2 |
+|*  7 |     INDEX RANGE SCAN                | T8_2_LOCAL_INDEX |    10 |       |     2   (0)| 00:00:01 |     1 |     2 |
+------------------------------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   4 - access(&quot;ID&quot;&gt;29990 AND &quot;ID&quot;&lt;30010)
+   7 - access(&quot;ID&quot;&gt;9990 AND &quot;ID&quot;&lt;10010)
+       filter(LNNVL(&quot;ID&quot;&gt;29990) OR LNNVL(&quot;ID&quot;&lt;30010))
+
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+
+统计信息
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         18  consistent gets
+          0  physical reads
+          0  redo size
+       1317  bytes sent via SQL*Net to client
+        441  bytes received via SQL*Net from client
+          4  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         38  rows processed
+</code></pre>
+
+<p>使用全局索引：create index t8_2_global_index on t8_2(id) ;<br/>
+SQL&gt; select * from t8_2 where (id&gt;9990 and id<10010) or (id>29990 and id&lt;30010);</p>
+
+<pre><code>-------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name              | Rows  | Bytes| Cost (%CPU)| Time     | Pstart| Pstop |
+-------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |                   |    88 |  2200|     6   (0)| 00:00:01 |       |       |
+|   1 |  CONCATENATION                      |                   |       |      |            |          |       |       |
+|   2 |   TABLE ACCESS BY GLOBAL INDEX ROWID| T8_2              |    19 |   475|     3   (0)| 00:00:01 | ROWID | ROWID |
+|*  3 |    INDEX RANGE SCAN                 | T8_2_GLOBAL_INDEX |    21 |      |     2   (0)| 00:00:01 |       |       |
+|   4 |   TABLE ACCESS BY GLOBAL INDEX ROWID| T8_2              |    69 |  1725|     3   (0)| 00:00:01 | ROWID | ROWID |
+|*  5 |    INDEX RANGE SCAN                 | T8_2_GLOBAL_INDEX |    19 |      |     2   (0)| 00:00:01 |       |       |
+-------------------------------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   3 - access(&quot;ID&quot;&gt;29990 AND &quot;ID&quot;&lt;30010)
+   5 - access(&quot;ID&quot;&gt;9990 AND &quot;ID&quot;&lt;10010)
+       filter(LNNVL(&quot;ID&quot;&gt;29990) OR LNNVL(&quot;ID&quot;&lt;30010))
+
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+
+统计信息
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+         14  consistent gets
+          0  physical reads
+          0  redo size
+       1317  bytes sent via SQL*Net to client
+        441  bytes received via SQL*Net from client
+          4  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         38  rows processed
+</code></pre>
+
+<h2>3. 生成4个文件，见附件</h2>
+
+<p>alter session set tracefile_identifier=&#39;t8_1&#39;;<br/>
+alter session set sql_trace=true;<br/>
+//上面运行SQL语句&hellip;.<br/>
+alter session set sql_trace=false;</p>
+
+<p>tkprof orcl_ora_xxx.trc xxx_sql_trace.txt</p>
+
+<pre><code>t8_1_sql_trace.txt
+t8_2_sql_trace.txt
+</code></pre>
+
+<p>alter session set tracefile_identifier=&#39;t8_2&#39;;<br/>
+alter session set events &#39;10046 trace name context forever,level 12&#39;;<br/>
+//上面运行SQL语句&hellip;.<br/>
+alter session set events &#39;10046 trace name context off&#39;;</p>
+
+<p>tkprof orcl_ora_xxx.trc xxx_10046.txt</p>
+
+<pre><code>t8_2_10046.txt
+t8_2_10046.txt
+</code></pre>
+
+<h2>4. 生成2个文件，见附件</h2>
+
+<p>Oracle通过CBO,计算每一步的成本和估算Cardinality,即找到代价最少的执行计划。</p>
+
+<pre><code>t8_1_10053.txt
+t8_2_10053.txt
+</code></pre>
+
+</body>
+
+</html>
+

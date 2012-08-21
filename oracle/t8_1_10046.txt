@@ -1,0 +1,1444 @@
+
+TKPROF: Release 11.2.0.1.0 - Development on ÐÇÆÚ¶þ 8ÔÂ 21 17:07:48 2012
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Trace file: orcl_ora_3196_t8_1_10046.trc
+Sort options: default
+
+********************************************************************************
+count    = number of times OCI procedure was executed
+cpu      = cpu time in seconds executing 
+elapsed  = elapsed time in seconds executing
+disk     = number of physical reads of buffers from disk
+query    = number of buffers gotten for consistent read
+current  = number of buffers gotten in current mode (usually for update)
+rows     = number of rows processed by the fetch or execute call
+********************************************************************************
+
+SQL ID: grwydz59pu6mc
+Plan Hash: 3684871272
+select text 
+from
+ view$ where rowid=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          4          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          4          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  TABLE ACCESS BY USER ROWID VIEW$ (cr=1 pr=0 pw=0 time=0 us cost=1 size=15 card=1)
+
+********************************************************************************
+
+SQL ID: 7r00ygvhtqybw
+Plan Hash: 3334450600
+create table t8_1 as select object_id as id,object_type as type from 
+  dba_objects
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.01       0.01          0          4          0           0
+Execute      1      0.45       0.51          0       1821        393       72715
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.46       0.52          0       1825        393       72715
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  LOAD AS SELECT  (cr=1943 pr=0 pw=186 time=0 us)
+  72715   VIEW  DBA_OBJECTS (cr=1807 pr=0 pw=0 time=1382077 us cost=453 size=1654152 card=68923)
+  72715    UNION-ALL  (cr=1807 pr=0 pw=0 time=1103233 us)
+      0     TABLE ACCESS BY INDEX ROWID SUM$ (cr=3 pr=0 pw=0 time=0 us cost=1 size=9 card=1)
+      3      INDEX UNIQUE SCAN I_SUM$_1 (cr=2 pr=0 pw=0 time=0 us cost=0 size=0 card=1)(object id 956)
+  72715     FILTER  (cr=1803 pr=0 pw=0 time=518838 us)
+  73631      HASH JOIN  (cr=912 pr=0 pw=0 time=1424152 us cost=255 size=7998202 card=73378)
+     93       INDEX FULL SCAN I_USER2 (cr=1 pr=0 pw=0 time=184 us cost=1 size=372 card=93)(object id 47)
+  73631       HASH JOIN  (cr=911 pr=0 pw=0 time=786240 us cost=253 size=7704690 card=73378)
+     93        INDEX FULL SCAN I_USER2 (cr=1 pr=0 pw=0 time=184 us cost=1 size=2046 card=93)(object id 47)
+  73631        TABLE ACCESS FULL OBJ$ (cr=910 pr=0 pw=0 time=200273 us cost=251 size=6090374 card=73378)
+   3927      TABLE ACCESS BY INDEX ROWID IND$ (cr=891 pr=0 pw=0 time=0 us cost=2 size=8 card=1)
+   4838       INDEX UNIQUE SCAN I_IND1 (cr=128 pr=0 pw=0 time=0 us cost=1 size=0 card=1)(object id 41)
+      0      NESTED LOOPS  (cr=0 pr=0 pw=0 time=0 us cost=2 size=29 card=1)
+      0       INDEX FULL SCAN I_USER2 (cr=0 pr=0 pw=0 time=0 us cost=1 size=20 card=1)(object id 47)
+      0       INDEX RANGE SCAN I_OBJ4 (cr=0 pr=0 pw=0 time=0 us cost=1 size=9 card=1)(object id 39)
+      0     NESTED LOOPS  (cr=1 pr=0 pw=0 time=0 us cost=1 size=17 card=1)
+      0      INDEX FULL SCAN I_LINK1 (cr=1 pr=0 pw=0 time=0 us cost=0 size=13 card=1)(object id 137)
+      0      INDEX RANGE SCAN I_USER2 (cr=0 pr=0 pw=0 time=0 us cost=1 size=4 card=1)(object id 47)
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       2        0.00          0.00
+  SQL*Net message from client                     2       12.97         18.90
+  Disk file operations I/O                        1        0.00          0.00
+  direct path write                               1        0.00          0.00
+********************************************************************************
+
+SQL ID: 3nkd3g3ju5ph1
+Plan Hash: 2853959010
+select obj#,type#,ctime,mtime,stime, status, dataobj#, flags, oid$, spare1, 
+  spare2 
+from
+ obj$ where owner#=:1 and name=:2 and namespace=:3 and remoteowner is null 
+  and linkname is null and subname is null
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          3          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          3          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS BY INDEX ROWID OBJ$ (cr=3 pr=0 pw=0 time=0 us cost=4 size=83 card=1)
+      0   INDEX RANGE SCAN I_OBJ2 (cr=3 pr=0 pw=0 time=0 us cost=3 size=0 card=1)(object id 37)
+
+********************************************************************************
+
+declare
+ error boolean;
+  st_syn_detected EXCEPTION;
+   PRAGMA EXCEPTION_INIT(st_syn_detected, -995);
+ BEGIN
+   if((sys.dbms_standard.dictionary_obj_type!='SYNONYM')or(sys.dbms_standard.dictionary_obj_owner!='PUBLIC'))
+   then
+     return;
+   end if;
+   error :=
+      CASE sys.dbms_standard.dictionary_obj_name
+         WHEN 'ST_GEOMETRY' THEN TRUE
+         WHEN 'ST_SURFACE' THEN TRUE
+         WHEN 'ST_POLYGON' THEN TRUE
+         WHEN 'ST_POINT' THEN TRUE
+         WHEN 'ST_MULTISURFACE' THEN TRUE
+         WHEN 'ST_MULTIPOINT' THEN TRUE
+         WHEN 'ST_MULTILINESTRING' THEN TRUE
+         WHEN 'ST_MULTICURVE' THEN TRUE
+         WHEN 'ST_LINESTRING' THEN TRUE
+         WHEN 'ST_GEOMCOLLECTION' THEN TRUE
+         WHEN 'ST_CURVE' THEN TRUE
+         WHEN 'ST_CURVEPOLYGON' THEN TRUE
+         WHEN 'ST_COMPOUNDCURVE' THEN TRUE
+         WHEN 'ST_CIRCULARSTRING' THEN TRUE
+         WHEN 'ST_INTERSECTS' THEN TRUE
+         WHEN 'ST_RELATE' THEN TRUE
+         WHEN 'ST_TOUCH' THEN TRUE
+         WHEN 'ST_CONTAINS' THEN TRUE
+         WHEN 'ST_COVERS' THEN TRUE
+         WHEN 'ST_COVEREDBY' THEN TRUE
+         WHEN 'ST_INSIDE' THEN TRUE
+         WHEN 'ST_OVERLAP' THEN TRUE
+         WHEN 'ST_OVERLAPS' THEN TRUE
+         WHEN 'ST_EQUAL' THEN TRUE
+         WHEN 'ST_OVERLAPBDYDISJOINT' THEN TRUE
+         WHEN 'ST_OVERLAPBDYINTERSECT' THEN TRUE
+         WHEN 'ST_GEOMETRY_ARRAY' THEN TRUE
+         WHEN 'ST_POINT_ARRAY' THEN TRUE
+         WHEN 'ST_CURVE_ARRAY' THEN TRUE
+         WHEN 'ST_SURFACE_ARRAY' THEN TRUE
+         WHEN 'ST_LINESTRING_ARRAY' THEN TRUE
+         WHEN 'ST_POLYGON_ARRAY' THEN TRUE
+         ELSE FALSE
+      END;
+   if(error) then
+     raise st_syn_detected;
+   end if;
+ END;
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 1)
+********************************************************************************
+
+declare
+ TYPE attrs_cur IS REF CURSOR;
+ m_cur       attrs_cur;
+ m_event varchar2(512);
+ m_user  varchar2(512);
+ m_owner varchar2(512);
+ m_user1 varchar2(512);
+ m_type  varchar2(512);
+ m_stmt  varchar2(512);
+ m_name  varchar2(5120);
+ m_column varchar2(5120);
+ m_cnt   NUMBER;
+ m_stmt1 varchar2(512);
+ m_var   varchar2(512);
+ m_o_stmt VARCHAR2(5120);
+PRAGMA AUTONOMOUS_TRANSACTION;
+begin
+ m_stmt:='select sys.dbms_standard.dictionary_obj_type from dual';
+ execute immediate m_stmt into m_type;
+ if(not (m_type='TABLE' or m_type='TRIGGER' or m_type='USER'))
+ then
+   return;
+ end if;
+ m_stmt:='select sys.dbms_standard.sysevent from dual';
+ execute immediate m_stmt into m_event;
+ m_stmt:='select SYS_CONTEXT(''USERENV'',''SESSION_USER'') from dual';
+ execute immediate m_stmt into m_user;
+ m_stmt:='select SYS_CONTEXT(''USERENV'',''CURRENT_USER'') from dual';
+ execute immediate m_stmt into m_user1;
+ m_stmt:='select sys.dbms_standard.dictionary_obj_owner from dual';
+ execute immediate m_stmt into m_owner;
+ m_stmt:='select sys.dbms_standard.dictionary_obj_name from dual';
+ execute immediate m_stmt into m_name;
+ m_stmt:='select sdo_geor_def.getSqlText from dual';
+ execute immediate m_stmt into m_o_stmt;
+  if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='ALTER')
+  then
+    m_stmt:='select column_name from dba_tab_columns where owner=:1 and table_name=:2';
+    open m_cur for m_stmt using m_owner,m_name;
+    loop
+      fetch m_cur into m_column;
+      exit when m_cur%NOTFOUND;
+      m_stmt:='select sdo_geor_def.isDropColumn(:1) from dual';
+      execute immediate m_stmt into m_stmt1 using SYS.DBMS_ASSERT.SIMPLE_SQL_NAME(m_column);
+      if (trim(m_stmt1)='TRUE')
+      then
+        m_stmt:='begin sdo_geor_def.doAlterDropColumn(:1,:2,:3); end;';
+        execute immediate m_stmt using SYS.DBMS_ASSERT.SCHEMA_NAME(m_owner),SYS.DBMS_ASSERT.SIMPLE_SQL_NAME(m_name),SYS.DBMS_ASSERT.SIMPLE_SQL_NAME(m_column);
+      end if;
+    end loop;
+  end if;
+ if (m_event='DROP' and m_type='USER')
+ then
+   m_stmt:='insert into sdo_geor_ddl__table$$ values (1)';
+   EXECUTE IMMEDIATE m_stmt;
+   commit;
+ end if;
+ if (m_event='DROP' and m_type='TABLE')
+ then
+   m_stmt:='select count(*) from sdo_geor_sysdata_table where sdo_owner=:1 and RDT_TABLE_NAME=:2';
+   EXECUTE IMMEDIATE m_stmt into m_cnt using m_owner,m_name;
+   if(m_cnt!=0)
+   then
+     m_stmt:='select count(*) from sdo_geor_ddl__table$$';
+     EXECUTE IMMEDIATE m_stmt into m_cnt;
+     if((m_cnt=0)and (m_user!='SYS' and m_user!='SYSTEM' and m_user!='MDSYS'and m_owner!='MDSYS' and m_owner!='SYS'))
+     then
+        m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391, ''The referenced raster data table(RDT) cannot be dropped.'')';
+        execute immediate m_stmt;
+     end if;
+   end if;
+   m_stmt:='insert into sdo_geor_ddl__table$$ values (2)';
+   EXECUTE IMMEDIATE m_stmt;
+   commit;
+ end if;
+ if(m_user='SYS' or m_user='SYSTEM' or m_user='MDSYS'
+   or m_owner='MDSYS' or m_owner='SYS')
+ then
+   return;
+ end if;
+ if (m_event='RENAME' and m_type='TABLE')
+ then
+   m_stmt:='select count(*) from sdo_geor_sysdata_table where sdo_owner=:1 and RDT_TABLE_NAME=:2';
+   EXECUTE IMMEDIATE m_stmt into m_cnt using m_owner,m_name;
+   if(m_cnt!=0)
+   then
+     m_stmt:='select count(*) from sdo_geor_ddl__table$$';
+     EXECUTE IMMEDIATE m_stmt into m_cnt;
+     if(m_cnt=0)
+     then
+        m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391, ''The referenced raster data table(RDT) cannot be renamed directly.'')';
+        execute immediate m_stmt;
+     end if;
+   end if;
+ end if;
+ if (m_type='TRIGGER' and m_event='DROP')
+ then
+   m_stmt:='select REGEXP_SUBSTR(:1,''GRDMLTR_.+'',1,1,''i'') from dual';
+   EXECUTE IMMEDIATE m_stmt into m_var using m_name;
+   if(m_var is null)
+   then
+     return;
+   end if;
+   m_stmt:='select count(*) from sdo_geor_ddl__table$$';
+   EXECUTE IMMEDIATE m_stmt into m_cnt;
+   if(m_cnt=0)
+   then
+     m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391, ''GeoRaster DML triggers cannot be dropped.'')';
+     execute immediate m_stmt;
+   end if;
+ end if;
+ if (m_type='TRIGGER' and m_event='ALTER')
+ then
+   m_o_stmt:=upper(trim(m_o_stmt));
+   if(instr(m_o_stmt,' COMPILE ')>0 or instr(m_o_stmt,' ENABLE ')>0
+     or substr(m_o_stmt,length(m_o_stmt)-8,8)=' COMPILE' or substr(m_o_stmt,length(m_o_stmt)-7,7)=' ENABLE' )
+   then
+     return;
+   end if;
+   m_stmt:='select REGEXP_SUBSTR(:1,''GRDMLTR_.+'',1,1,''i'') from dual';
+   EXECUTE IMMEDIATE m_stmt into m_var using m_name;
+   if(m_var is null)
+   then
+     return;
+   end if;
+   m_stmt:='select count(*) from sdo_geor_ddl__table$$';
+   EXECUTE IMMEDIATE m_stmt into m_cnt;
+   if(m_cnt=0)
+   then
+     m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391, ''GeoRaster DML triggers cannot be altered.'')';
+     execute immediate m_stmt;
+   end if;
+ end if;
+ if (m_type='TRIGGER' and m_event='CREATE')
+ then
+   m_stmt:='select REGEXP_SUBSTR(:1,''GRDMLTR_.+'',1,1,''i'') from dual';
+   EXECUTE IMMEDIATE m_stmt into m_var using m_name;
+   if(m_var is null)
+   then
+     return;
+   end if;
+   m_stmt:='select count(*) from sdo_geor_ddl__table$$';
+   EXECUTE IMMEDIATE m_stmt into m_cnt;
+   if(m_cnt=0)
+   then
+     m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391, ''GeoRaster reserved names cannot be used to create regular triggers.'')';
+     execute immediate m_stmt;
+   end if;
+ end if;
+ Exception
+   when others then
+     if(sqlcode=-13391)
+     then
+       m_stmt:=sqlerrm;
+       m_stmt:=substr(m_stmt,11);
+       m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391,'''||m_stmt||''')';
+       execute immediate m_stmt;
+     end if;
+end;
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 1)
+********************************************************************************
+
+SQL ID: bcv9qynmu1nv9
+Plan Hash: 1388734953
+select sys.dbms_standard.dictionary_obj_type 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: 12kw3xcxv1qpg
+Plan Hash: 1388734953
+select sys.dbms_standard.sysevent 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: d7y4tdacc7f3j
+Plan Hash: 1388734953
+select SYS_CONTEXT('USERENV','SESSION_USER') 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: 721d7993vjur9
+Plan Hash: 1388734953
+select SYS_CONTEXT('USERENV','CURRENT_USER') 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          0          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: ar9nmtmd28460
+Plan Hash: 1388734953
+select sys.dbms_standard.dictionary_obj_owner 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: 4a3ccstvk0ssw
+Plan Hash: 1388734953
+select sys.dbms_standard.dictionary_obj_name 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: bcg7084jc4um6
+Plan Hash: 1388734953
+select sdo_geor_def.getSqlText 
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          0          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: 4yyb4104skrwj
+Plan Hash: 2683643009
+update obj$ set obj#=:4, type#=:5,ctime=:6,mtime=:7,stime=:8,status=:9,
+  dataobj#=:10,flags=:11,oid$=:12,spare1=:13, spare2=:14 
+where
+ owner#=:1 and name=:2 and namespace=:3 and remoteowner is null and linkname 
+  is null and subname is null
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          3          6           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          3          6           1
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  UPDATE  OBJ$ (cr=3 pr=0 pw=0 time=0 us)
+      1   INDEX RANGE SCAN I_OBJ2 (cr=3 pr=0 pw=0 time=0 us cost=3 size=83 card=1)(object id 37)
+
+********************************************************************************
+
+SQL ID: 87gaftwrm2h68
+Plan Hash: 1218588913
+select o.owner#,o.name,o.namespace,o.remoteowner,o.linkname,o.subname 
+from
+ obj$ o where o.obj#=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          2          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          2          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS BY INDEX ROWID OBJ$ (cr=2 pr=0 pw=0 time=0 us cost=3 size=83 card=1)
+      0   INDEX RANGE SCAN I_OBJ1 (cr=2 pr=0 pw=0 time=0 us cost=2 size=0 card=1)(object id 36)
+
+********************************************************************************
+
+SQL ID: 77mtwmnd4c4pk
+Plan Hash: 1589386835
+select obj# 
+from
+ objerror$
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          3          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          3          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS FULL OBJERROR$ (cr=3 pr=0 pw=0 time=0 us cost=2 size=13 card=1)
+
+********************************************************************************
+
+SQL ID: 9k43zr1uannr6
+Plan Hash: 1900104449
+select obj#, owner, node 
+from
+ syn$ where name=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0         15          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0         15          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS BY INDEX ROWID SYN$ (cr=15 pr=0 pw=0 time=0 us cost=6 size=27 card=1)
+      0   INDEX SKIP SCAN I_SYN2 (cr=15 pr=0 pw=0 time=0 us cost=5 size=0 card=1)(object id 78)
+
+********************************************************************************
+
+SQL ID: 4bjwv5sp99589
+Plan Hash: 0
+insert into obj$(owner#,name,namespace,obj#,type#,ctime,mtime,stime,status,
+  remoteowner,linkname,subname,dataobj#,flags,oid$,spare1,spare2,spare3) 
+values
+(:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,:17,:18)
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.01       0.00          0          1         12           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.01       0.00          0          1         12           1
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  LOAD TABLE CONVENTIONAL  (cr=1 pr=0 pw=0 time=0 us)
+
+********************************************************************************
+
+SQL ID: 14fy467qw1j7t
+Plan Hash: 190265630
+select 1 
+from
+ sys.streams$_prepare_ddl p  where  ((p.global_flag = 1 and :1 is null) or    
+         (p.global_flag = 0 and p.usrid = :2)) and rownum = 1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          1          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          1          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  COUNT STOPKEY (cr=1 pr=0 pw=0 time=0 us)
+      0   INDEX FULL SCAN I_STREAMS_PREPARE_DDL (cr=1 pr=0 pw=0 time=0 us cost=0 size=26 card=1)(object id 717)
+
+********************************************************************************
+
+SQL ID: bsa0wjtftg3uw
+Plan Hash: 1512486435
+select file# 
+from
+ file$ where ts#=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse       17      0.00       0.00          0          0          0           0
+Execute     17      0.01       0.00          0          0          0           0
+Fetch       34      0.00       0.00          0         68          0          17
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       68      0.01       0.00          0         68          0          17
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  TABLE ACCESS FULL FILE$ (cr=4 pr=0 pw=0 time=0 us cost=2 size=6 card=1)
+
+********************************************************************************
+
+SQL ID: 9tgj4g8y4rwy8
+Plan Hash: 3755742892
+select type#,blocks,extents,minexts,maxexts,extsize,extpct,user#,iniexts,
+  NVL(lists,65535),NVL(groups,65535),cachehint,hwmincr, NVL(spare1,0),
+  NVL(scanhint,0),NVL(bitmapranges,0) 
+from
+ seg$ where ts#=:1 and file#=:2 and block#=:3
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          3          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          3          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS CLUSTER SEG$ (cr=3 pr=0 pw=0 time=0 us cost=2 size=68 card=1)
+      1   INDEX UNIQUE SCAN I_FILE#_BLOCK# (cr=2 pr=0 pw=0 time=0 us cost=1 size=0 card=1)(object id 9)
+
+********************************************************************************
+
+SQL ID: g7mt7ptq286u7
+Plan Hash: 0
+insert into seg$ (file#,block#,type#,ts#,blocks,extents,minexts,maxexts,
+  extsize,extpct,user#,iniexts,lists,groups,cachehint,hwmincr, spare1, 
+  scanhint, bitmapranges) 
+values
+ (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,DECODE(:17,0,NULL,
+  :17),:18,:19)
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          2          1           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          2          1           1
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  LOAD TABLE CONVENTIONAL  (cr=2 pr=0 pw=0 time=0 us)
+
+********************************************************************************
+
+SQL ID: 0kkhhb2w93cx0
+Plan Hash: 2170058777
+update seg$ set type#=:4,blocks=:5,extents=:6,minexts=:7,maxexts=:8,extsize=
+  :9,extpct=:10,user#=:11,iniexts=:12,lists=decode(:13, 65535, NULL, :13),
+  groups=decode(:14, 65535, NULL, :14), cachehint=:15, hwmincr=:16, spare1=
+  DECODE(:17,0,NULL,:17),scanhint=:18, bitmapranges=:19 
+where
+ ts#=:1 and file#=:2 and block#=:3
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse       17      0.00       0.00          0          0          0           0
+Execute     17      0.03       0.03          0         51         17          17
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       34      0.03       0.03          0         51         17          17
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  UPDATE  SEG$ (cr=3 pr=0 pw=0 time=0 us)
+      1   TABLE ACCESS CLUSTER SEG$ (cr=3 pr=0 pw=0 time=0 us cost=2 size=68 card=1)
+      1    INDEX UNIQUE SCAN I_FILE#_BLOCK# (cr=2 pr=0 pw=0 time=0 us cost=1 size=0 card=1)(object id 9)
+
+********************************************************************************
+
+SQL ID: asnhcg241fr2y
+Plan Hash: 0
+insert into tab$(obj#,ts#,file#,block#,bobj#,tab#,intcols,kernelcols,clucols,
+  audit$,flags,pctfree$,pctused$,initrans,maxtrans,rowcnt,blkcnt,empcnt,
+  avgspc,chncnt,avgrln,analyzetime,samplesize,cols,property,degree,instances,
+  dataobj#,avgspc_flb,flbcnt,trigflag,spare1,spare6)
+values
+(:1,:2,:3,:4,decode(:5,0,null,:5),decode(:6,0,null,:6),:7,:8,decode(:9,0,null,
+  :9),:10,:11,:12,:13,:14,:15,:16,:17,:18,:19,:20,:21,:22,:23,:24,:25,
+  decode(:26,1,null,:26),decode(:27,1,null,:27),:28,:29,:30,:31,:32,:33)
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          3         14           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          3         14           1
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  LOAD TABLE CONVENTIONAL  (cr=3 pr=0 pw=0 time=0 us)
+
+********************************************************************************
+
+SQL ID: 60uw2vh6q9vn2
+Plan Hash: 0
+insert into col$(obj#,name,intcol#,segcol#,type#,length,precision#,scale,
+  null$,offset,fixedstorage,segcollength,deflength,default$,col#,property,
+  charsetid,charsetform,spare1,spare2,spare3)
+values
+(:1,:2,:3,:4,:5,:6,decode(:5,182/*DTYIYM*/,:7,183/*DTYIDS*/,:7,decode(:7,0,
+  null,:7)),decode(:5,2,decode(:8,-127/*MAXSB1MINAL*/,null,:8),178,:8,179,:8,
+  180,:8,181,:8,182,:8,183,:8,231,:8,null),:9,0,:10,:11,decode(:12,0,null,:12)
+  ,:13,:14,:15,:16,:17,:18,:19,:20)
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          4         14           2
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          4         14           2
+
+Misses in library cache during parse: 0
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  LOAD TABLE CONVENTIONAL  (cr=2 pr=0 pw=0 time=0 us)
+
+********************************************************************************
+
+declare
+ TYPE attrs_cur IS REF CURSOR;
+ m_cur       attrs_cur;
+ m_event   varchar2(512);
+ m_user    varchar2(512);
+ m_owner   varchar2(512);
+ m_user1   varchar2(512);
+ m_type    varchar2(512);
+ m_name    varchar2(5120);
+ m_column  varchar2(5120);
+ m_cnt     NUMBER;
+ m_stmt    varchar2(512);
+ m_ret     varchar2(3000);
+ m_ret1     varchar2(512);
+ m_o_stmt VARCHAR2(5120);
+begin
+ m_stmt:='select sys.dbms_standard.dictionary_obj_type from dual';
+ execute immediate m_stmt into m_type;
+ if(not (m_type='TABLE' or m_type='TRIGGER' or m_type='USER'))
+ then
+   return;
+ end if;
+ m_stmt:='select sys.dbms_standard.sysevent from dual';
+ execute immediate m_stmt into m_event;
+ m_stmt:='select SYS_CONTEXT(''USERENV'',''SESSION_USER'') from dual';
+ execute immediate m_stmt into m_user;
+ m_stmt:='select sys.dbms_standard.login_user  from dual';
+ execute immediate m_stmt into m_user1;
+ m_stmt:='select sys.dbms_standard.dictionary_obj_owner from dual';
+ execute immediate m_stmt into m_owner;
+ m_stmt:='select sys.dbms_standard.dictionary_obj_name from dual';
+ execute immediate m_stmt into m_name;
+ if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='CREATE')
+ then
+   m_stmt:='select sdo_geor_def.listAllGeoRasterFieldsStr(:1,:2) from dual';
+   execute immediate m_stmt  into m_ret  using SYS.DBMS_ASSERT.SCHEMA_NAME(m_owner),SYS.DBMS_ASSERT.SIMPLE_SQL_NAME(m_name);
+   m_ret:=trim(m_ret);
+   while (length(m_ret)!=0) loop
+     if (instr(m_ret,' $$__## ')!=0)
+     then
+       m_ret1:=trim(substr(m_ret,1,instr(m_ret,' $$__## ')-1));
+       m_ret:=trim(substr(m_ret,instr(m_ret,' $$__## ')+8));
+     else
+       m_ret1:=trim(m_ret);
+       m_ret:='';
+     end if;
+     m_stmt:='begin SDO_GEOR_UTL.createDMLTrigger(:1,:2); end;';
+    execute immediate m_stmt using m_owner||'.'||m_name,SYS.DBMS_ASSERT.QUALIFIED_SQL_NAME(m_ret1);
+   end loop;
+   return;
+ end if;
+  if (m_name!='MDSYS' and m_type='USER' and m_event='DROP')
+  then
+     m_stmt:='call sdo_geor_def.doDropUserAndTable()';
+     execute immediate m_stmt;
+  end if;
+  if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='DROP')
+  then
+     m_stmt:='call sdo_geor_def.doDropUserAndTable()';
+     execute immediate m_stmt;
+  end if;
+  if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='TRUNCATE')
+  then
+     m_stmt:='call sdo_geor_def.doTruncateTable()';
+     execute immediate m_stmt;
+  end if;
+  if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='ALTER')
+  then
+     m_stmt:='call sdo_geor_def.doAlterRenameTable()';
+     execute immediate m_stmt;
+  end if;
+  if (m_owner!='MDSYS' and m_owner!='SYS' and m_type='TABLE' and m_event='RENAME')
+  then
+     m_stmt:='call sdo_geor_def.doRenameTable()';
+     execute immediate m_stmt;
+  end if;
+ if (m_event='DROP' and m_type='TABLE')
+ then
+   m_stmt:='delete from sdo_geor_ddl__table$$ where id=2';
+   EXECUTE IMMEDIATE m_stmt;
+ end if;
+ if (m_type='USER' and m_event='DROP')
+ then
+   m_stmt:='delete from sdo_geor_ddl__table$$';
+   EXECUTE IMMEDIATE m_stmt;
+ end if;
+ Exception
+   when others then
+     if(sqlcode=-13391)
+     then
+       m_stmt:=sqlerrm;
+       m_stmt:=substr(m_stmt,11);
+       m_stmt:='call mderr.raise_md_error(''MD'', ''SDO'', -13391,'''||m_stmt||''')';
+       execute immediate m_stmt;
+     end if;
+end;
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           1
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 1)
+********************************************************************************
+
+SQL ID: 7dwyqv9sawkyb
+Plan Hash: 1388734953
+select sys.dbms_standard.login_user  
+from
+ dual
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          0          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          0          0           1
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 57     (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+********************************************************************************
+
+SQL ID: 96g93hntrzjtr
+Plan Hash: 2239883476
+select /*+ rule */ bucket_cnt, row_cnt, cache_cnt, null_cnt, timestamp#, 
+  sample_size, minimum, maximum, distcnt, lowval, hival, density, col#, 
+  spare1, spare2, avgcln 
+from
+ hist_head$ where obj#=:1 and intcol#=:2
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          4          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        5      0.00       0.00          0          4          0           0
+
+Misses in library cache during parse: 0
+Optimizer mode: RULE
+Parsing user id: SYS   (recursive depth: 2)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      0  TABLE ACCESS BY INDEX ROWID HIST_HEAD$ (cr=2 pr=0 pw=0 time=0 us)
+      0   INDEX RANGE SCAN I_HH_OBJ#_INTCOL# (cr=2 pr=0 pw=0 time=0 us)(object id 426)
+
+********************************************************************************
+
+SQL ID: 9xtz4umr867az
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ NO_PARALLEL("T8_1") FULL("T8_1") NO_PARALLEL_INDEX("T8_1") */ 1 
+  AS C1, 1 AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) "T8_1") 
+  SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.01       0.08        145        144          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.01       0.08        145        144          0           2
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=145 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=145 pw=0 time=52568 us cost=19 size=61752 card=5146)
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  db file sequential read                         3        0.03          0.04
+  db file scattered read                         14        0.01          0.02
+********************************************************************************
+
+SQL ID: 8tam5j97bnpsf
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='INDEX' THEN 
+  1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) "T8_1")
+   SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=53079 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 6awtqb9us1anj
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='TABLE' THEN 
+  1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) "T8_1")
+   SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.01       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.01       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=51930 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 8vmd65npvzd8f
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='CLUSTER' 
+  THEN 1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) 
+  "T8_1") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.01       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.01       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=51037 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 2k6qps2gc0v6h
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='SEQUENCE' 
+  THEN 1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) 
+  "T8_1") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=51037 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 1a4v28ff5wd7q
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='EDITION' 
+  THEN 1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) 
+  "T8_1") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.01       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.01       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=52441 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 9dp83h336s0an
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='LOB' THEN 1 
+  ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) "T8_1") 
+  SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=53844 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+SQL ID: 8v4d2guxwdbqd
+Plan Hash: 2259625450
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  NO_PARALLEL(SAMPLESUB) opt_param('parallel_execution_enabled', 'false') 
+  NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ NVL(SUM(C1),0), NVL(SUM(C2),0) 
+FROM
+ (SELECT /*+ IGNORE_WHERE_CLAUSE NO_PARALLEL("T8_1") FULL("T8_1") 
+  NO_PARALLEL_INDEX("T8_1") */ 1 AS C1, CASE WHEN "T8_1"."TYPE"='SYNONYM' 
+  THEN 1 ELSE 0 END AS C2 FROM "T8_1" SAMPLE BLOCK (33.870968 , 1) SEED (1) 
+  "T8_1") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.01       0.00          0         72          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.01       0.00          0         72          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS   (recursive depth: 1)
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=72 pr=0 pw=0 time=0 us)
+  26413   TABLE ACCESS SAMPLE T8_1 (cr=72 pr=0 pw=0 time=51803 us cost=19 size=118358 card=5146)
+
+********************************************************************************
+
+select
+  (select count(*) from t8_1 ) t_all,
+  (select count(*) from t8_1 where type='INDEX')  t_index,
+  (select count(*) from t8_1 where type='TABLE')  t_table,
+  (select count(*) from t8_1 where type='CLUSTER')  t_cluster,
+  (select count(*) from t8_1 where type='SEQUENCE') t_sequence,
+  (select count(*) from t8_1 where type='EDITION')  t_edition,
+  (select count(*) from t8_1 where type='LOB')  t_lob,
+  (select count(*) from t8_1 where type='SYNONYM')  t_synonym
+from dual
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          8          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        2      0.03       0.04         41       1520          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        4      0.03       0.04         41       1528          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=190 pr=41 pw=0 time=0 us)
+  72715   TABLE ACCESS FULL T8_1 (cr=190 pr=41 pw=0 time=143766 us cost=53 size=0 card=77981)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+   3927   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=7852 us cost=53 size=35497 card=3227)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+   2905   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=6691 us cost=53 size=24904 card=2264)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+     10   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=18 us cost=53 size=22 card=2)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+    229   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=798 us cost=53 size=1661 card=151)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+      1   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=0 us cost=53 size=22 card=2)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+    911   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=2502 us cost=53 size=7084 card=644)
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+  27803   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=55348 us cost=53 size=357566 card=32506)
+      1  FAST DUAL  (cr=0 pr=0 pw=0 time=0 us cost=2 size=0 card=1)
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       2        0.00          0.00
+  db file scattered read                         12        0.00          0.00
+  db file sequential read                         4        0.00          0.00
+  SQL*Net message from client                     2        5.86          5.86
+********************************************************************************
+
+select
+  count(*) t_all,
+  count(decode(type,'INDEX',type,null)) t_index,
+  count(decode(type,'TABLE',type,null)) t_table,
+  count(decode(type,'CLUSTER',type,null)) t_cluster,
+  count(decode(type,'SEQUENCE',type,null)) t_sequence,
+  count(decode(type,'EDITION',type,null)) t_edition,
+  count(decode(type,'LOB',type,null)) t_lob,
+  count(decode(type,'SYNONYM',type,null)) t_synonym
+from t8_1
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          1          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        2      0.04       0.03          0        190          0           1
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        4      0.04       0.04          0        191          0           1
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: SYS
+
+Rows     Row Source Operation
+-------  ---------------------------------------------------
+      1  SORT AGGREGATE (cr=190 pr=0 pw=0 time=0 us)
+  72715   TABLE ACCESS FULL T8_1 (cr=190 pr=0 pw=0 time=140699 us cost=53 size=857791 card=77981)
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       2        0.00          0.00
+  SQL*Net message from client                     2       18.42         18.42
+********************************************************************************
+
+SQL ID: 06nvwn223659v
+Plan Hash: 0
+alter session set events '10046 trace name context off'
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.00          0          0          0           0
+
+Misses in library cache during parse: 0
+Parsing user id: SYS
+
+
+
+********************************************************************************
+
+OVERALL TOTALS FOR ALL NON-RECURSIVE STATEMENTS
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        4      0.01       0.02          0         13          0           0
+Execute      4      0.45       0.51          0       1821        393       72715
+Fetch        4      0.07       0.08         41       1710          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       12      0.54       0.61         41       3544        393       72717
+
+Misses in library cache during parse: 3
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       6        0.00          0.00
+  SQL*Net message from client                     6       18.42         43.19
+  Disk file operations I/O                        1        0.00          0.00
+  direct path write                               1        0.00          0.00
+  db file sequential read                         4        0.00          0.00
+  db file scattered read                         12        0.00          0.00
+
+
+OVERALL TOTALS FOR ALL RECURSIVE STATEMENTS
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse       73      0.00       0.00          0          0          0           0
+Execute     75      0.06       0.05          0         64         64          26
+Fetch       66      0.07       0.13        145        751          0          41
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total      214      0.14       0.20        145        815         64          67
+
+Misses in library cache during parse: 8
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  db file sequential read                         3        0.03          0.04
+  db file scattered read                         14        0.01          0.02
+
+   20  user  SQL statements in session.
+   59  internal SQL statements in session.
+   79  SQL statements in session.
+********************************************************************************
+Trace file: orcl_ora_3196_t8_1_10046.trc
+Trace file compatibility: 11.1.0.7
+Sort options: default
+
+       1  session in tracefile.
+      20  user  SQL statements in trace file.
+      59  internal SQL statements in trace file.
+      79  SQL statements in trace file.
+      38  unique SQL statements in trace file.
+    3707  lines in trace file.
+      31  elapsed seconds in trace file.
+
+
