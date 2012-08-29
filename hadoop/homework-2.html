@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>第2周 Hadoop数据分析平台  &ndash; 张丹(12)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>第2周 Hadoop数据分析平台  &ndash; 张丹(12)</h1>
+
+<p>书面作业 </p>
+
+<p>完成Hadoop集群的安装，把安装的过程抓图（不方便抓图的可以用拍照等各种手段）放在作业中，作业中应要介绍具体的安装环境和主要安装步骤。 </p>
+
+<p>互动作业 </p>
+
+<p>本周的互动内容自由，可以围绕Hadoop的安装实施问题，Hadoop集群的应用等方面展开。 <br/>
+要求每位同学至少发2篇主题（Hadoop版：<a href="http://f.dataguru.cn/forum-59-1.html%EF%BC%89%EF%BC%8C%E8%87%B3%E5%B0%91%E5%8F%82%E4%B8%8E5%E4%B8%AA%E4%B8%8A%E8%BF%B0%E4%B8%BB%E9%A2%98%E7%9A%84%E8%AE%A8%E8%AE%BA%EF%BC%88%E5%9B%9E%E5%B8%96%EF%BC%89%E3%80%82">http://f.dataguru.cn/forum-59-1.html），至少参与5个上述主题的讨论（回帖）。</a> <br/>
+注意在Dataguru课程平台上的“互动”功能标签，大家进入后可以看到本周的互动要求（板块，时间段，数量等），以及你现在的完成进度情况。 <br/>
+本周的书面作业和互动作业都纳入罚扣考核范围，请大家注意按时按质完成！</p>
+
+<h3>操作系统及环境信息</h3>
+
+<p>Linux Gentoo</p>
+
+<p>$ uname -a<br/>
+Linux domU-00-16-3e-00-00-84 2.6.38-xen #2 SMP Wed Jan 18 10:18:13 CST 2012 x86_64 Intel&reg; Xeon&reg; CPU E5620 @ 2.40GHz GenuineIntel GNU/Linux</p>
+
+<p>$ java -version<br/>
+java version &ldquo;1.6.0_29&rdquo;<br/>
+Java&trade; SE Runtime Environment (build 1.6.0_29-b11)<br/>
+Java HotSpot&trade; 64-Bit Server VM (build 20.4-b02, mixed mode)</p>
+
+<h3>５台机器，１个NameNode，４个DataNode，通过DNS指定域名</h3>
+
+<pre><code>namenode:  nn.qa.tianji.com   1G  2G+16G
+datanode1: dn0.qa.tianji.com　1G  2G+16G
+datanode2: dn1.qa.tianji.com  1G  2G+16G
+datanode3: dn2.qa.tianji.com  1G  2G+16G
+datanode4: dn3.qa.tianji.com  1G  2G+16G
+</code></pre>
+
+<h3>挂载硬盘16G</h3>
+
+<ol>
+<li>mkfs.ext4 -j /dev/xvdb</li>
+<li>mkdir /hadoop</li>
+<li>mount /dev/xvdb /hadoop</li>
+<li>vi /etc/fstab
+/dev/xvdb /hadoop ext4 noatime 0 1</li>
+</ol>
+
+<h3>创建hadoop账号和组</h3>
+
+<ol>
+<li>groupadd hadoop</li>
+<li>useradd hadoop -g hadoop;</li>
+<li>passwd hadoop</li>
+<li>mkdir /home/hadoop</li>
+<li>chown -R hadoop:hadoop /home/hadoop</li>
+</ol>
+
+<h3>创建hadoop工作目录</h3>
+
+<ol>
+<li>mkdir /hadoop/conan/data0</li>
+<li>chown -R hadoop:hadoop /hadoop/conan/data0</li>
+</ol>
+
+<h3>配置ssh及密码</h3>
+
+<p>nn.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>ssh-keygen -t rsa</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>cat id_rsa.pub &gt;&gt; authorized_keys</li>
+<li>scp authorized_keys dn0.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<p>dn0.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>ssh-keygen -t rsa</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>cat id_rsa.pub &gt;&gt; authorized_keys</li>
+<li>scp authorized_keys dn1.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<p>dn1.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>ssh-keygen -t rsa</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>cat id_rsa.pub &gt;&gt; authorized_keys</li>
+<li>scp authorized_keys dn2.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<p>dn2.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>ssh-keygen -t rsa</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>cat id_rsa.pub &gt;&gt; authorized_keys</li>
+<li>scp authorized_keys dn3.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<p>dn3.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>ssh-keygen -t rsa</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>cat id_rsa.pub &gt;&gt; authorized_keys</li>
+<li>scp authorized_keys nn.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<p>nn.qa.tianji.com:</p>
+
+<ol>
+<li>su hadoop</li>
+<li>cd /home/hadoop/.ssh/</li>
+<li>scp authorized_keys dn0.qa.tianji.com:/home/hadoop/.ssh/</li>
+<li>scp authorized_keys dn1.qa.tianji.com:/home/hadoop/.ssh/</li>
+<li>scp authorized_keys dn2.qa.tianji.com:/home/hadoop/.ssh/</li>
+<li>scp authorized_keys dn3.qa.tianji.com:/home/hadoop/.ssh/</li>
+</ol>
+
+<h3>下载及配置hadoop</h3>
+
+<p>nn.qa.tianji.com:</p>
+
+<ol>
+<li>cd /hadoop/conan</li>
+<li>wget <a href="http://mirror.bjtu.edu.cn/apache/hadoop/common/hadoop-0.20.2/hadoop-0.20.2.tar.gz">http://mirror.bjtu.edu.cn/apache/hadoop/common/hadoop-0.20.2/hadoop-0.20.2.tar.gz</a></li>
+<li>tar zxvf hadoop-0.20.2.tar.gz</li>
+<li>cd /hadoop/conan/hadoop-0.20.2/conf</li>
+<li>vi hadoop-env.sh
+  export JAVA_HOME=/etc/java-config-2/current-system-vm</li>
+<li><p>vi hdfs-site.xml</p>
+
+<pre><code>&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.data.dir&lt;/name&gt;
+    &lt;value&gt;/hadoop/conan/data0&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.replication&lt;/name&gt;
+    &lt;value&gt;2&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+<li><p>vi core-site.xml </p>
+
+<pre><code>&lt;configuration&gt;
+&lt;property&gt;
+  &lt;name&gt;fs.default.name&lt;/name&gt;
+  &lt;value&gt;hdfs://nn.qa.tianji.com:9000&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+<li><p>vi mapred-site.xml</p>
+
+<pre><code>&lt;configuration&gt;
+&lt;property&gt;
+  &lt;name&gt;mapred.job.tracker&lt;/name&gt;
+  &lt;value&gt;nn.qa.tianji.com:9001&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+<li><p>vi masters</p>
+
+<pre><code>nn.qa.tianji.com
+</code></pre></li>
+<li><p>vi slaves</p>
+
+<pre><code>n0.qa.tianji.com
+dn1.qa.tianji.com
+dn2.qa.tianji.com
+dn3.qa.tianji.com
+</code></pre></li>
+<li><p>cd /hadoop/conan</p></li>
+<li><p>scp -r ./hadoop-0.20.2 dn0.qa.tianji.com:/hadoop/conan</p></li>
+<li><p>scp -r ./hadoop-0.20.2 dn1.qa.tianji.com:/hadoop/conan</p></li>
+<li><p>scp -r ./hadoop-0.20.2 dn2.qa.tianji.com:/hadoop/conan</p></li>
+<li><p>scp -r ./hadoop-0.20.2 dn3.qa.tianji.com:/hadoop/conan</p></li>
+<li><p>cd /hadoop/conan/hadoop-0.29.2</p></li>
+<li><p>bin/hadoop namenode -format</p></li>
+<li><p>bin/start-all.sh</p></li>
+<li><p>jps</p>
+
+<pre><code>9362 Jps
+7756 SecondaryNameNode
+7531 JobTracker
+7357 NameNode
+</code></pre></li>
+<li><p>netstat -nl</p>
+
+<pre><code>Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:5666            0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:8649            0.0.0.0:*               LISTEN     
+tcp6       0      0 :::50070                :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::39418                :::*                    LISTEN     
+tcp6       0      0 :::32895                :::*                    LISTEN     
+tcp6       0      0 192.168.1.238:9000      :::*                    LISTEN     
+tcp6       0      0 192.168.1.238:9001      :::*                    LISTEN     
+tcp6       0      0 :::50090                :::*                    LISTEN     
+tcp6       0      0 :::51595                :::*                    LISTEN     
+tcp6       0      0 :::50030                :::*                    LISTEN     
+udp        0      0 239.2.11.71:8649        0.0.0.0:*  
+</code></pre></li>
+</ol>
+
+<h3>HDFS测试</h3>
+
+<p>nn.qa.tianji.com:</p>
+
+<ol>
+<li>cd /hadoop/conan/hadoop-0.29.2</li>
+<li>bin/hadoop fs -mkdir /test</li>
+<li>bin/hadoop fs -copyFormLocal README.txt /test</li>
+<li><p>bin/hadoop fs -ls /test</p>
+
+<pre><code>Found 1 items
+-rw-r--r--   2 hadoop supergroup       1366 2012-08-30 02:05 /test/README.txt
+</code></pre></li>
+</ol>
+
+<h3>MapReduce测试</h3>
+
+</body>
+
+</html>
+
