@@ -183,8 +183,10 @@ datanode4: dn3.qa.tianji.com  1G  2G+16G
 <li>mkfs.ext4 -j /dev/xvdb</li>
 <li>mkdir /hadoop</li>
 <li>mount /dev/xvdb /hadoop</li>
-<li>vi /etc/fstab
-/dev/xvdb /hadoop ext4 noatime 0 1</li>
+<li><p>vi /etc/fstab</p>
+
+<pre><code>/dev/xvdb /hadoop ext4 noatime 0 1
+</code></pre></li>
 </ol>
 
 <h3>创建hadoop账号和组</h3>

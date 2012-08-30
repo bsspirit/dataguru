@@ -38,7 +38,8 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.4-b02, mixed mode)
 2. mkdir /hadoop
 3. mount /dev/xvdb /hadoop
 4. vi /etc/fstab
-   /dev/xvdb /hadoop ext4 noatime 0 1
+
+        /dev/xvdb /hadoop ext4 noatime 0 1
    
 ### 创建hadoop账号和组
 1. groupadd hadoop
