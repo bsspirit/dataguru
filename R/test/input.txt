@@ -1,0 +1,8 @@
+9.04        PING AN INSURANCE (GROUP) CO. OF C        601318        XSHG        B1SVWB6        50.19        80,523,442        4,041,085,202         Financials
+6.00        CHINA MERCHANTS BANK CO. LTD A        600036        XSHG        6518723        12.02        223,175,939        2,683,184,057         Financials
+4.88        BANK OF COMMUNICATIONS CO. LTD.        601328        XSHG        B1W9Z06        5.27        413,859,702        2,182,898,032         Financials
+4.82        SHANGHAI PUDONG DEVELOPMENT BANK C        600000        XSHG        6182043        9.15        235,370,150        2,154,293,085         Financials
+4.64        INDUSTRIAL BANK CO. LTD.        601166        XSHG        B1P13B6        15.20        136,280,963        2,071,870,759         Financials
+4.60        CHINA MINSHENG BANKING CORP. LTD.        600016        XSHG        6310747        7.21        285,002,772        2,055,906,826         Financials
+4.51        KWEICHOW MOUTAI CO. LTD.        600519        XSHG        6414832        288.39        6,986,295        2,014,780,326         Consumer Goods
+3.70        CHINA VANKE CO. LTD.        000002        XSHE        6803708        10.16        162,900,433        1,655,255,083         Financials

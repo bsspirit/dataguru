@@ -202,8 +202,14 @@ print(k$cluster[which(k$cluster == 1)])
 ```
 
 ```
-## xizang 
-##      1 
+##        hebei      shangxi    neimenggu     liaoning        jilin 
+##            1            1            1            1            1 
+## heilongjiang      jiangsu     zhejiang       jianxi    shangdong 
+##            1            1            1            1            1 
+##        henan        hubei        hunan    guangdong      guangxi 
+##            1            1            1            1            1 
+##       hainan     sichuang       shanxi     xinjiang 
+##            1            1            1            1 
 ```
 
 ```r
@@ -211,8 +217,8 @@ print(k$cluster[which(k$cluster == 2)])
 ```
 
 ```
-##  beijing  tianjin shanghai 
-##        2        2        2 
+## xizang 
+##      2 
 ```
 
 ```r
@@ -220,14 +226,8 @@ print(k$cluster[which(k$cluster == 3)])
 ```
 
 ```
-##        hebei      shangxi    neimenggu     liaoning        jilin 
-##            3            3            3            3            3 
-## heilongjiang      jiangsu     zhejiang       jianxi    shangdong 
-##            3            3            3            3            3 
-##        henan        hubei        hunan    guangdong      guangxi 
-##            3            3            3            3            3 
-##       hainan     sichuang       shanxi     xinjiang 
-##            3            3            3            3 
+##  beijing  tianjin shanghai 
+##        3        3        3 
 ```
 
 ```r

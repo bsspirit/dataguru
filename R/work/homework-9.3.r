@@ -18,5 +18,6 @@ fa<-factor.analy(R,m=2,method="likelihood");
 # sum(E^2)
 
 vm1<-varimax(fa$loadings,normalize=FALSE)
-
 fa2<-factanal(factors=2,covmat=R)
+
+
