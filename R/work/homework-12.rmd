@@ -25,7 +25,7 @@ names<-c("x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8")
 R<-matrix(x, nrow=8, dimnames=list(names, names))
 ```
 
-### 使用factanal的极大似然法，对2个因子进行分析。
+### 方法一：使用factanal的极大似然法，对2个因子进行分析。
 factor1的"身高","手臂长","上肢长","下肢长"是趋近于1的，这些描述是身高特征。
 factor2的"体重"是趋近于1的，描述了体重的特征。
 
@@ -33,7 +33,7 @@ factor2的"体重"是趋近于1的，描述了体重的特征。
 fa2<-factanal(factors=2,covmat=R);fa2
 ```
 
-### 使用书中的主成法，对2个因子进行分析。
+### 方法二：使用书中的主成法，对2个因子进行分析。
 factor1的"身高","手臂长","上肢长","下肢长"是趋近于1的，这些描述是<b>身高</b>特征。
 factor2的"体重","颈围","胸围","胸宽"是比较大，描述了<b>体重</b>的特征。
 ```{r}
@@ -42,7 +42,13 @@ fa<-factor.analy(R,m=2,method="princomp")
 vm<-varimax(fa$loadings,normalize=FALSE);vm
 ```
 
-### 使用极太似然法 与 主成分法，结果类似！！
+### 方法三：使用psych包的fa方法，主成法
+```{r}
+library(psych)
+fa<-fa(R,nfactors=2,rotate="varimax",fm="pa" );fa
+factor.plot(fa,labels=rownames(fa$loadings))
+```
+### 三种方法结果类似！！使用psych包，更灵活一些。
 
 ## 9.4(1)
 

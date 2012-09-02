@@ -206,7 +206,7 @@ names&lt;-c(&quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, &quot;x4&quot;, &quo
 R&lt;-matrix(x, nrow=8, dimnames=list(names, names))
 </code></pre>
 
-<h3>使用factanal的极大似然法，对2个因子进行分析。</h3>
+<h3>方法一：使用factanal的极大似然法，对2个因子进行分析。</h3>
 
 <p>factor1的&quot;身高&quot;,&ldquo;手臂长&rdquo;,&ldquo;上肢长&rdquo;,&ldquo;下肢长&quot;是趋近于1的，这些描述是身高特征。<br/>
 factor2的&quot;体重&quot;是趋近于1的，描述了体重的特征。</p>
@@ -242,7 +242,7 @@ fa2
 ## The degrees of freedom for the model is 13 and the fit was 0.2495 
 </code></pre>
 
-<h3>使用书中的主成法，对2个因子进行分析。</h3>
+<h3>方法二：使用书中的主成法，对2个因子进行分析。</h3>
 
 <p>factor1的&quot;身高&rdquo;,&ldquo;手臂长&rdquo;,&ldquo;上肢长&rdquo;,&ldquo;下肢长&quot;是趋近于1的，这些描述是<b>身高</b>特征。<br/>
 factor2的&quot;体重&rdquo;,&ldquo;颈围&rdquo;,&ldquo;胸围&rdquo;,&ldquo;胸宽&quot;是比较大，描述了<b>体重</b>的特征。</p>
@@ -278,7 +278,69 @@ vm
 ## 
 </code></pre>
 
-<h3>使用极太似然法 与 主成分法，结果类似！！</h3>
+<h3>方法三：使用psych包的fa方法，主成法</h3>
+
+<pre><code class="r">library(psych)
+</code></pre>
+
+<pre><code>## Warning: package &#39;psych&#39; was built under R version 2.15.1
+</code></pre>
+
+<pre><code class="r">fa &lt;- fa(R, nfactors = 2, rotate = &quot;varimax&quot;, fm = &quot;pa&quot;)
+</code></pre>
+
+<pre><code>## Loading required package: MASS
+</code></pre>
+
+<pre><code>## Warning: package &#39;MASS&#39; was built under R version 2.15.1
+</code></pre>
+
+<pre><code>## Loading required package: GPArotation
+</code></pre>
+
+<pre><code class="r">fa
+</code></pre>
+
+<pre><code>## Factor Analysis using method =  pa
+## Call: fa(r = R, nfactors = 2, rotate = &quot;varimax&quot;, fm = &quot;pa&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##     PA1  PA2   h2   u2
+## x1 0.88 0.27 0.84 0.16
+## x2 0.93 0.16 0.88 0.12
+## x3 0.89 0.18 0.82 0.18
+## x4 0.87 0.24 0.81 0.19
+## x5 0.25 0.91 0.88 0.12
+## x6 0.20 0.77 0.64 0.36
+## x7 0.14 0.75 0.58 0.42
+## x8 0.22 0.66 0.49 0.51
+## 
+##                 PA1  PA2
+## SS loadings    3.34 2.62
+## Proportion Var 0.42 0.33
+## Cumulative Var 0.42 0.74
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## 
+## The degrees of freedom for the null model are  28  and the objective function was  6.83
+## The degrees of freedom for the model are 13  and the objective function was  0.15 
+## 
+## The root mean square of the residuals (RMSR) is  0.02 
+## The df corrected root mean square of the residuals is  0.03 
+## 
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                 PA1  PA2
+## Correlation of scores with factors             0.97 0.95
+## Multiple R square of scores with factors       0.94 0.91
+## Minimum correlation of possible factor scores  0.89 0.81
+</code></pre>
+
+<pre><code class="r">factor.plot(fa, labels = rownames(fa$loadings))
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAjVBMVEX9/v0AAAAAAEYAAHMAAP8ARkYARpoAdL1GAABGAEZGAHNGRnNGRppGm95zAABzAEZzAHNzRgBzRppzdHNzvv2aRgCaRkaaRnOadACam0aavpqa372a396a3/29dAC9dEa9vnO935q9/r29/t69/v3em0be35re/r3e/t7e/v39vnP935r9/r39/t79/v1NJdhoAAAAL3RSTlP/////////////////////////////////////////////////////////////AFqlOPcAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAxcSURBVHic7d0Pf5vGAYfx4qyS2llqmkhul81s60xTCcH7f3njjj+WLOKA4OC43/P9fFLbsiXSPOZASHA/5JD0w9x/AcyD8KIIL4rwoggvivCiCC+K8KIIL4rwoggvivCiCC+K8KIIL4rwoggvivCiCC+K8KIIL4rwoggvivCiCC8qzPDZIbL2t9+KW26r7rJuu/28+/Dy/ZuWRy183PbLYKSbqDVnEJVbhBq+rnUq8tvPY/PR/kKsy1u39sf+ET082x9Mos/md6K46T+Rva26ZxH+f+bRTsUdil+O6qaX+vPFCjz8eReVqWPzsUhov0rscLAtB4bVsbrHfzfrZqxYHet7mspJ8SsRPzyXN5lvfXipP5/1f3OIUMNHVfDcDOKmVbESm2He/Cmi7Ytb7QCwre6Rbtb2t8XeZL73es8PL9U3zZfm5vKmBUc3gg9vVs3VsekU2+bmi2IVzg7VOG9G+r39Y28qt+vlPc3n2WH1dbcuh49qqK8/X6xQw1dNzJb4vfB1uuY3xd5UrtKv43qePHzZbKtHM0N+tY2Pmt+b5Qk8fFIM3KeoGurNF2+G+jp8mTmqbiq36/U9y8p14+IBmh39bz5FWIDgw1f7YHbnzm7nr3bu6vCJ3dgXIS/CX6zxxYBQPEb522GG+XpAWPBYH3h4E3ofmy/icmAughUJX5/OvVQ/b9fdJFo34et7lqt3bPcXTO16F6D6fLHCDD+6ZMGDejvCd/E6ggSD8B0krUf9l43woggvivCiCC+K8KIIL4rwoggvivCiCC+K8KIIL4rwoggvivCiCC+K8KIIL4rwoggvakj4CD5zGH7AfeEa4UURXhTh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" alt="plot of chunk unnamed-chunk-4"/> </p>
+
+<h3>三种方法结果类似！！使用psych包，更灵活一些。</h3>
 
 <h2>9.4(1)</h2>
 

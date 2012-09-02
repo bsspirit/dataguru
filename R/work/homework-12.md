@@ -30,7 +30,7 @@ R<-matrix(x, nrow=8, dimnames=list(names, names))
 
 
 
-### 使用factanal的极大似然法，对2个因子进行分析。
+### 方法一：使用factanal的极大似然法，对2个因子进行分析。
 factor1的"身高","手臂长","上肢长","下肢长"是趋近于1的，这些描述是身高特征。
 factor2的"体重"是趋近于1的，描述了体重的特征。
 
@@ -72,7 +72,7 @@ fa2
 
 
 
-### 使用书中的主成法，对2个因子进行分析。
+### 方法二：使用书中的主成法，对2个因子进行分析。
 factor1的"身高","手臂长","上肢长","下肢长"是趋近于1的，这些描述是<b>身高</b>特征。
 factor2的"体重","颈围","胸围","胸宽"是比较大，描述了<b>体重</b>的特征。
 
@@ -113,7 +113,79 @@ vm
 
 
 
-### 使用极太似然法 与 主成分法，结果类似！！
+### 方法三：使用psych包的fa方法，主成法
+
+
+```r
+library(psych)
+```
+
+```
+## Warning: package 'psych' was built under R version 2.15.1
+```
+
+```r
+fa <- fa(R, nfactors = 2, rotate = "varimax", fm = "pa")
+```
+
+```
+## Loading required package: MASS
+```
+
+```
+## Warning: package 'MASS' was built under R version 2.15.1
+```
+
+```
+## Loading required package: GPArotation
+```
+
+```r
+fa
+```
+
+```
+## Factor Analysis using method =  pa
+## Call: fa(r = R, nfactors = 2, rotate = "varimax", fm = "pa")
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##     PA1  PA2   h2   u2
+## x1 0.88 0.27 0.84 0.16
+## x2 0.93 0.16 0.88 0.12
+## x3 0.89 0.18 0.82 0.18
+## x4 0.87 0.24 0.81 0.19
+## x5 0.25 0.91 0.88 0.12
+## x6 0.20 0.77 0.64 0.36
+## x7 0.14 0.75 0.58 0.42
+## x8 0.22 0.66 0.49 0.51
+## 
+##                 PA1  PA2
+## SS loadings    3.34 2.62
+## Proportion Var 0.42 0.33
+## Cumulative Var 0.42 0.74
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## 
+## The degrees of freedom for the null model are  28  and the objective function was  6.83
+## The degrees of freedom for the model are 13  and the objective function was  0.15 
+## 
+## The root mean square of the residuals (RMSR) is  0.02 
+## The df corrected root mean square of the residuals is  0.03 
+## 
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                 PA1  PA2
+## Correlation of scores with factors             0.97 0.95
+## Multiple R square of scores with factors       0.94 0.91
+## Minimum correlation of possible factor scores  0.89 0.81
+```
+
+```r
+factor.plot(fa, labels = rownames(fa$loadings))
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+### 三种方法结果类似！！使用psych包，更灵活一些。
 
 ## 9.4(1)
 

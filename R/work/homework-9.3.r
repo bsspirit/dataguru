@@ -21,3 +21,13 @@ vm1<-varimax(fa$loadings,normalize=FALSE)
 fa2<-factanal(factors=2,covmat=R)
 
 
+
+library(psych)
+# covariances<-ability.cov$cov
+# correlations<-cov2cor(covariances)
+# fa.parallel(R,n.obs=112,fa="fa",n.iter=100,show.legend=FALSE)
+fa<-fa(R,nfactors=2,rotate="varimax",fm="pa" )
+
+factor.plot(fa,labels=rownames(fa$loadings))
+
+
