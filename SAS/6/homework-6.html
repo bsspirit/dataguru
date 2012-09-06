@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>数据分析与SAS 第五周作业 - 张丹(11)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>数据分析与SAS 第五周作业 - 张丹(11)</h1>
+
+<p>阅读作业 <br/>
+继续阅读薛毅的书或其它关于概率统计的教材，下周将讲假设检验，需要一些基本的概率统计概念 </p>
+
+<p>书面作业 <br/>
+设有100名学生（学号1-100），其中1-50为甲班，51-100为乙班，随机产生他们语文，数学，英语三科成绩，凡是&gt;=85定为“优”，&lt;60为“不及格”，其余为“及格” <br/>
+1 利用FREQ过程计算平均成绩各等级的频数 <br/>
+2 利用TABULATE过程按班和科目，给出各科成绩等级的人数和百分比，画出适当的表格 <br/>
+3 对平均分的各等级画出饼图 </p>
+
+<p>互动作业 <br/>
+本周的互动继续以SAS编程讨论为主。可以围绕第6周课程有关知识展开。 <br/>
+要求每位同学至少发2篇主题（SAS中国用户组板块），至少参与5个上述主题的讨论（回帖）。 <br/>
+注意在Dataguru课程平台上，新增加“互动”功能标签，大家进入后可以看到本周的互动要求（板块，时间段，数量等），以及你现在的完成进度情况。 <br/>
+本周的书面作业和互动作业都纳入罚扣考核范围，请大家注意按时按质完成！</p>
+
+<h3>1. 创建数据集，并存储在homework库中</h3>
+
+<pre><code>  LIBNAME homework &quot;D:\dataguru\SAS\6&quot;;
+  DATA homework.ch1;
+     RETAIN _seed_ 0;
+    RETAIN _size_ 100;
+    DO _i_ =1 TO _size_;
+        IF _i_ LE _size_/2 THEN glass=&#39;甲班&#39; ;
+        ELSE glass=&#39;乙班&#39;;
+        x1 = round(ranuni(_seed_)*100);
+        x2 = round(ranuni(_seed_)*100);
+        x3 = round(ranuni(_seed_)*100);
+        ave = round(MEAN(OF x1-x3));
+        OUTPUT;
+      END;
+    DROP _seed_ _size_;
+   RUN;
+   PROC PRINT;
+   RUN;
+
+
+   Simple Vertical Bar Chart    2012年09月05日 星期三 下午02时22分04秒 346
+
+     Obs    _i_    glass    x1    x2     x3    ave
+
+    79     79    乙班     34    49     56     46
+    80     80    乙班     32    78     69     60
+    81     81    乙班     95    77     92     88
+    82     82    乙班     61    27     26     38
+    83     83    乙班      9    48     60     39
+    84     84    乙班     44    44     71     53
+    85     85    乙班     10     5     63     26
+    86     86    乙班     64    25     51     47
+    87     87    乙班     79    27     89     65
+    88     88    乙班     67    26     21     38
+    89     89    乙班     96    27     80     68
+    90     90    乙班     98    84     43     75
+    91     91    乙班      4    24     30     19
+    92     92    乙班     14    16     69     33
+    93     93    乙班     33    34    100     56
+    94     94    乙班     86    13     23     41
+    95     95    乙班     83    25     74     61
+    96     96    乙班     27    48     33     36
+    97     97    乙班     32    12     16     20
+    98     98    乙班     37    69     56     54
+    99     99    乙班     17    88    100     68
+    100    100    乙班      4    22     84     37
+</code></pre>
+
+<hr/>
+
+<pre><code>    PROC FORMAT;
+    VALUE vfmt LOW-&lt;60=&#39;不及格&#39;
+           60-&lt;85=&#39;及格&#39;
+               85-HIGH=&#39;优&#39;;
+    PROC FREQ DATA=homework.ch1;
+        FORMAT ave vfmt.;
+        TABLEs ave;
+    RUN;
+
+
+
+    Simple Vertical Bar Chart     2012年09月05日 星期三 下午02时22分04秒 329
+
+    FREQ PROCEDURE
+
+      ave      频数      百分比     累积频数    累积百分比
+    -------------------------------------------------------
+    不及格          64     64.00           64       64.00
+    及格            32     32.00           96       96.00
+    优               4      4.00          100      100.00
+</code></pre>
+
+<h3>2. 生成表格</h3>
+
+<pre><code>    PROC FORMAT;
+    VALUE vfmt LOW-&lt;60=&#39;不及格&#39;
+           60-&lt;85=&#39;及格&#39;
+               85-HIGH=&#39;优&#39;;
+    DATA homework.ch2;
+        set homework.ch1;
+        FORMAT x1 x2 x3 vfmt.;
+        DROP ave;
+    RUN;
+    PROC TABULATE;
+        CLASS  glass x1 x2 x3;
+        TABLE glass * (N*F=6.0 PCTN&lt;x1 x2 x3&gt;*F=6.2),x1 x2 x3 ;
+        LABEL glass=&#39;班级&#39; x1=&#39;语文&#39; x2=&#39;数学&#39; x3=&#39;英语&#39;;
+        KEYLABEL N=&#39;人数&#39; PCTN=&#39;百分比&#39;;
+    RUN;
+
+     Vertical Bar Chart                2012年09月05日 星期三 下午02时22分04秒 370
+     -------------------------------------------------------------------------------------------------
+     |                                |        语文        |        数学        |        英语        |
+     |                                |--------------------+--------------------+--------------------|
+     |                                |不及格| 及格 |  优  |不及格| 及格 |  优  |不及格| 及格 |  优  |
+     |--------------------------------+------+------+------+------+------+------+------+------+------|
+     |班级           |                |      |      |      |      |      |      |      |      |      |
+     |---------------+----------------|      |      |      |      |      |      |      |      |      |
+     |甲班           |人数            |    28|    11|    11|    31|    11|     8|    26|    14|    10|
+     |               |----------------+------+------+------+------+------+------+------+------+------|
+     |               |百分比          | 56.00| 22.00| 22.00| 62.00| 22.00| 16.00| 52.00| 28.00| 20.00|
+     |---------------+----------------+------+------+------+------+------+------+------+------+------|
+     |乙班           |人数            |    28|    13|     9|    33|     9|     8|    22|    18|    10|
+     |               |----------------+------+------+------+------+------+------+------+------+------|
+     |               |百分比          | 56.00| 26.00| 18.00| 66.00| 18.00| 16.00| 44.00| 36.00| 20.00|
+     -------------------------------------------------------------------------------------------------
+</code></pre>
+
+<h3>3. 生成饼图</h3>
+
+<pre><code>    PROC FORMAT;
+    VALUE vfmt LOW-&lt;60=&#39;不及格&#39;
+           60-&lt;85=&#39;及格&#39;
+               85-HIGH=&#39;优&#39;;
+    DATA homework.ch3;
+        set homework.ch1;
+        FORMAT ave vfmt.;
+        DROP x1 x2 x3 glass;
+    RUN;
+    PROC PRINT DATA=homework.ch3;
+    RUN;
+    OPTION PS=30;
+    PROC CHART DATA=homework.ch3;
+        PIE ave / DISCRETE;
+    RUN;
+
+Simple Vertical Bar Chart   2012年09月05日 星期三 下午02时22分04秒 375
+
+                ave 的频数
+
+        不及格   *********
+             ****         ****
+           **                 **
+          *                     *
+        **       64              **
+       **      64.00%             **
+       *                           *
+      *                             *
+      *                             *
+      *              +  . . .. 4 .. *
+      *                   .. 4.00%  *  优
+      *           ..            . . *
+       *         .                 *
+       **       .     32          **
+        **    ..    32.00%       **
+          *  .                  *
+           **                 **
+             ****         ****
+                 *********
+                        及格
+</code></pre>
+
+<p><img src="data:image/png;base64,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" width=600px/></p>
+
+</body>
+
+</html>
+
