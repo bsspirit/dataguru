@@ -4,18 +4,6 @@ FILE<-"testCF.csv"
 NEIGHBORHOOD_NUM<-2
 RECOMMENDER_NUM<-3
 
-data<-read.csv(FILE,header=FALSE)
-names(data)<-c("uid","iid","pref")
-
-user <- unique(data$uid)
-item <- unique(sort(data$iid))
-uidx <- match(data$uid, user)
-iidx <- match(data$iid, item)
-M <- matrix(0, length(user), length(item))
-i <- cbind(uidx, iidx, pref=data$pref)
-for(n in 1:nrow(i)){
-  M[i[n,][1],i[n,][2]]<-i[n,][3]  
-}
 
 # #欧氏距离
 # d<-dist(M,method="euclidean")
@@ -25,6 +13,26 @@ for(n in 1:nrow(i)){
 # #找到近邻
 # nuser<-length(user)
 # simi_mat<-as.matrix(simi)
+
+
+FileDataModel<-function(file){
+  data<-read.csv(file,header=FALSE)
+  names(data)<-c("uid","iid","pref")
+  
+  print(data)
+  
+  user <- unique(data$uid)
+  item <- unique(sort(data$iid))
+  uidx <- match(data$uid, user)
+  iidx <- match(data$iid, item)
+  M <- matrix(0, length(user), length(item))
+  i <- cbind(uidx, iidx, pref=data$pref)
+  for(n in 1:nrow(i)){
+    M[i[n,][1],i[n,][2]]<-i[n,][3]  
+  }
+  dimnames(M)[[2]]<-item
+  M
+}
 
 
 
@@ -71,7 +79,7 @@ NearestNUserNeighborhood<-function(S,n){
   neighbor
 }
 
-UserBasedRecommender<-function(uid,n,M,S,N,item){
+UserBasedRecommender<-function(uid,n,M,S,N){
   row<-ncol(N)
   col<-ncol(M)
   r<-matrix(0, row, col)
@@ -101,11 +109,12 @@ UserBasedRecommender<-function(uid,n,M,S,N,item){
   
   r2<-matrix(0, n, 2)
   rr<-sum/s2
+  item <-dimnames(M)[[2]]
   for(z1 in 1:n){
     w<-which.max(rr)
     if(rr[w]>0.5){
       r2[z1,1]<-item[which.max(rr)]
-      r2[z1,2]<-rr[w]
+      r2[z1,2]<-as.double(rr[w])
       rr[w]=0
     }
   }
@@ -113,10 +122,10 @@ UserBasedRecommender<-function(uid,n,M,S,N,item){
 }
 
 
-
+M<-FileDataModel(FILE)
 S<-EuclideanDistanceSimilarity(M)
 N<-NearestNUserNeighborhood(S,2)
-R1<-UserBasedRecommender(1,3,M,S,N,item)
+R1<-UserBasedRecommender(1,3,M,S,N)
 
 
 
