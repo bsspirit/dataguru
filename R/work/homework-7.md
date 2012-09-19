@@ -19,6 +19,14 @@
 
 ```r
 library(ggplot2)
+```
+
+```
+## Find out what's changed in ggplot2 with news(Version == "0.9.1", package =
+## "ggplot2")
+```
+
+```r
 # 8.1
 x1 <- c(-1.9, -6.9, 5.2, 5, 7.3, 6.8, 0.9, -12.5, 1.5, 3.8)
 x2 <- c(3.2, 10.4, 2, 2.5, 0, 12.7, -15.4, -2.5, 1.3, 6.8)

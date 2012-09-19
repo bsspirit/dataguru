@@ -1,0 +1,16 @@
+libname homework "D:\dataguru\SAS\7";
+
+DATA q4;
+INPUT x @@;
+	IF _N_>10 THEN a=2;
+	ELSE a=1;
+CARDS;
+11.3 14.0 15.0 13.8 15.0 14.0 13.5 13.5 12.8 13.5
+10.0 12.0 11.0 14.7 12.0 11.4 13.0 13.8 12.3 12.0
+;
+RUN;
+
+PROC NPAR1WAY WILCOXON;
+	CLASS a;
+	VAR x;
+RUN;

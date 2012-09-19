@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>数据分析与SAS 第七周作业 - 张丹(11)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>数据分析与SAS 第七周作业 - 张丹(11)</h1>
+
+<p>阅读作业 <br/>
+继续阅读薛毅的书或其它关于概率统计的教材，下周将讲方差分析，需要一些基本的概率统计概念 </p>
+
+<p>书面作业 <br/>
+董大均书p255 3、4、6、7 </p>
+
+<p>互动作业 <br/>
+本周的互动继续以SAS编程和数学讨论为主。可以围绕第7周课程有关知识展开。SAS的问题可以在SAS中国用户组板块讨论，数学问题可以在数据分析与数据挖掘技术板块讨论 <br/>
+要求每位同学至少发2篇主题，至少参与5个上述主题的讨论（回帖）。 <br/>
+注意在Dataguru课程平台上，新增加“互动”功能标签，大家进入后可以看到本周的互动要求（板块，时间段，数量等），以及你现在的完成进度情况。 <br/>
+本周的书面作业和互动作业都纳入罚扣考核范围，请大家注意按时按质完成！</p>
+
+<hr/>
+
+<h2>3. 假设减肥前后没有明显变化，计算减肥前后的差值d.</h2>
+
+<pre><code class="sas">libname homework &quot;D:\dataguru\SAS\7&quot;;
+
+DATA q3;
+INPUT x1 x2 @@;
+  d=x1-x2;
+
+CARDS;
+68 66 80 75 79 79 90 87 77 78 99 89
+75 76 82 81 89 88 92 90 79 80 82 84
+;
+RUN;
+
+PROC MEANS MEAN STD STDERR T PRT;
+    VAR d;
+RUN;
+</code></pre>
+
+<pre><code>      SAS 系统          2012年09月12日 星期三 下午09时30分07秒   3
+
+                              MEANS PROCEDURE
+
+                                分析变量: d
+
+            均值          标准差        标准误差       t 值    Pr &gt; |t|
+    -------------------------------------------------------------------
+       1.5833333       3.3154825       0.9570974       1.65      0.1263
+    -------------------------------------------------------------------
+</code></pre>
+
+<h3>因为t=1.65, p=0.1263&gt;0.05，不能拒绝原假设。</h3>
+
+<h3>结论：减肥前后没有显著变化，这种治疗无效。</h3>
+
+<hr/>
+
+<h2>4.假设中毒者与正常人没有显著差</h2>
+
+<pre><code class="sas">libname homework &quot;D:\dataguru\SAS\7&quot;;
+
+DATA q4;
+INPUT x @@;
+  x=x-72;
+
+CARDS;
+54 67 68 78 70 66 68 71 66 69
+;
+RUN;
+
+PROC MEANS T PRT;
+RUN;
+</code></pre>
+
+<pre><code>     SAS 系统   2012年09月12日 星期三 下午09时30分07秒  
+
+              MEANS PROCEDURE
+
+                分析变量: x
+
+               t 值    Pr &gt; |t|
+            -------------------
+              -2.29      0.0480
+            -------------------
+</code></pre>
+
+<h3>因为，t=-2.29, p=0.048&lt;0.05，则拒绝原假设</h3>
+
+<h3>结论：减肥前后有显著变化，中毒者与正常人有区别。</h3>
+
+<hr/>
+
+<h2>6.假设某药物对大白鼠没有显著差异。</h2>
+
+<pre><code class="sas">libname homework &quot;D:\dataguru\SAS\7&quot;;
+
+DATA q3;
+INPUT x @@;
+  IF _N_&gt;10 THEN a=2;
+    ELSE a=1;
+CARDS;
+56 55 54 53 56 52 57 54 52 56
+50 48 49 49 50 50 60 55 43 52 56 57
+;
+RUN;
+
+PROC TTEST;
+    CLASS a;
+    VAR x;
+RUN;
+</code></pre>
+
+<pre><code>                                          The TTEST Procedure
+
+                                             Variable:  x
+
+             a               N        Mean     Std Dev     Std Err     Minimum     Maximum
+
+             1              10     54.5000      1.7795      0.5627     52.0000     57.0000
+             2              12     51.5833      4.6604      1.3454     43.0000     60.0000
+             Diff (1-2)             2.9167      3.6566      1.5657
+
+     a             Method               Mean       95% CL Mean        Std Dev      95% CL Std Dev
+
+     1                               54.5000     53.2270  55.7730      1.7795      1.2240   3.2487
+     2                               51.5833     48.6222  54.5444      4.6604      3.3014   7.9129
+     Diff (1-2)    Pooled             2.9167     -0.3493   6.1826      3.6566      2.7975   5.2804
+     Diff (1-2)    Satterthwaite      2.9167     -0.1983   6.0317
+
+                      Method           Variances        DF    t Value    Pr &gt; |t|
+
+                      Pooled           Equal            20       1.86      0.0772
+                      Satterthwaite    Unequal      14.638       2.00      0.0644
+
+                                         Equality of Variances
+
+                           Method      Num DF    Den DF    F Value    Pr &gt; F
+
+                           Folded F        11         9       6.86    0.0074
+</code></pre>
+
+<h3>通过齐方差检验，F=6.868,RP&gt;F为0.0074，齐方差检验成立。</h3>
+
+<h3>取Equal项，t=1.86, p=0.0772&gt;0.05，因此，没有显著性变化，不能拒绝原假设。</h3>
+
+<h3>某药物对大白鼠肉瘤无影响。</h3>
+
+<hr/>
+
+<h2>7. 假设该药未引起血经蛋白变化</h2>
+
+<pre><code class="sas">libname homework &quot;D:\dataguru\SAS\7&quot;;
+
+DATA q4;
+INPUT x @@;
+  IF _N_&gt;10 THEN a=2;
+    ELSE a=1;
+CARDS;
+11.3 14.0 15.0 13.8 15.0 14.0 13.5 13.5 12.8 13.5
+10.0 12.0 11.0 14.7 12.0 11.4 13.0 13.8 12.3 12.0
+;
+RUN;
+
+PROC NPAR1WAY WILCOXON;
+    CLASS a;
+    VAR x;
+RUN;
+</code></pre>
+
+<pre><code>     SAS 系统       2012年09月12日 星期三 下午09时30分07秒  14
+
+                          The NPAR1WAY Procedure
+
+                Wilcoxon Scores (Rank Sums) for Variable x
+                         Classified by Variable a
+
+                      Sum of      Expected       Std Dev          Mean
+     a       N        Scores      Under H0      Under H0         Score
+     -----------------------------------------------------------------
+     1      10        134.50         105.0     13.173938        13.450
+     2      10         75.50         105.0     13.173938         7.550
+
+                    Average scores were used for ties.
+
+
+                         Wilcoxon Two-Sample Test
+
+                      Statistic             134.5000
+
+                      Normal Approximation
+                      Z                       2.2013
+                      One-Sided Pr &gt;  Z       0.0139
+                      Two-Sided Pr &gt; |Z|      0.0277
+
+                      t Approximation
+                      One-Sided Pr &gt;  Z       0.0201
+                      Two-Sided Pr &gt; |Z|      0.0403
+
+                Z includes a continuity correction of 0.5.
+
+
+                           Kruskal-Wallis Test
+
+                      Chi-Square              5.0143
+                      DF                           1
+                      Pr &gt; Chi-Square         0.0251
+</code></pre>
+
+<h3>由于Wilcoxon秩和检验的双边的p值都&lt;0.05，因此，有显著性变化，拒绝原假设。</h3>
+
+<h3>结论：该药引起血经蛋白变化！</h3>
+
+</body>
+
+</html>
+

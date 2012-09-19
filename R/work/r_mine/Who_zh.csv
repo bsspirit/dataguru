@@ -1,0 +1,358 @@
+Country,国家
+CountryID,国家编号
+Continent,大陆
+Adolescent fertility rate (%),青少年生育率（％）
+Adult literacy rate (%),成人识字率（％）
+Gross national income per capita (PPP international $),人均国民总收入（PPP国际美元）
+Net primary school enrolment ratio female (%),小学净入学率比女性（％）
+Net primary school enrolment ratio male (%),小学净入学率比男性（％）
+Population (in thousands) total,人口（千）总
+Population annual growth rate (%),人口年均增长率（％）
+Population in urban areas (%),在市区人口（％）
+Population living below the poverty line (% living on &lt; US$1 per day),生活在贫困线以下的人口（％<生活每天1美元）
+Population median age (years),人口年龄中位数（年）
+Population proportion over 60 (%),60岁以上人口的比例（％）
+Population proportion under 15 (%),15岁以下人口的比例（％）
+Registration coverage of births (%),出生登记覆盖（％）
+Total fertility rate (per woman),总和生育率（每名妇女）
+Antenatal care coverage - at least four visits (%),产前保健覆盖率 - 至少四次（％）
+Antiretroviral therapy coverage among HIV-infected pregt women for PMTCT (%),抗逆转录病毒治疗艾滋病毒感染pregt妇女预防艾滋病母婴传播覆盖面（％）
+Antiretroviral therapy coverage among people with advanced HIV infections (%),先进的艾滋病毒感染（％）的人之间的抗逆转录病毒疗法的覆盖率
+Births attended by skilled health personnel (%),接生由熟练保健人员（％）
+Births by caesarean section (%),通过剖腹产出生（％）
+Children aged 6-59 months who received vitamin A supplementation (%),6-59个月收到补充维生素A（％）的儿童
+Children aged &lt;5 years sleeping under insecticide-treated nets (%),儿童年龄<5岁睡在驱虫蚊帐（％）
+Children aged &lt;5 years who received any antimalarial treatment for fever (%),儿童年龄<5岁，谁收到任何抗疟治疗发烧（％）
+Children aged &lt;5 years with ARI symptoms taken to facility (%),岁的儿童5岁，患急性呼吸道感染症状采取设施（％）
+Children aged &lt;5 years with diarrhoea receiving ORT (%),岁的儿童5岁腹泻的口服补液疗法（％）
+Contraceptive prevalence (%),避孕普及率（％）
+Neonates protected at birth against neonatal tetanus (PAB) (%),新生儿出生时的保护对新生儿破伤风（PAB）（％）
+One-year-olds immunized with MCV,一岁儿童的免疫与MCV
+One-year-olds immunized with three doses of diphtheria tetanus toxoid and pertussis (DTP3) (%),一岁接种三剂白喉破伤风类毒素和百日咳疫苗（DTP3疫苗）（％）
+One-year-olds immunized with three doses of Hepatitis B (HepB3) (%),一岁接种三剂B型肝炎（HepB3）（％）
+One-year-olds immunized with three doses of Hib (Hib3) vaccine (%),一岁儿童免疫接种（Hib3）三个剂量的Hib疫苗（％）
+Tuberculosis detection rate under DOTS (%),DOTS策略下肺结核检出率（％）
+Tuberculosis treatment success under DOTS (%),结核病DOTS策略下的治疗成功率（％）
+Women who have had mammography (%),有妇女乳房X光检查（％）
+Women who have had PAP smear (%),谁曾子宫颈抹片检查的妇女（％）
+Community and traditional health workers density (per 10 000 population),社区和传统的卫生工作者的密度（每10万人口）
+Dentistry personnel density (per 10 000 population),牙科人员密度（每10万人口）
+Environment and public health workers density (per 10 000 population),环境和公共卫生工作者的密度（每10万人口）
+External resources for health as percentage of total expenditure on health,用于卫生的外部资源，卫生总费用的百分比
+General government expenditure on health as percentage of total expenditure on health,政府卫生总支出卫生总开支的百分比
+General government expenditure on health as percentage of total government expenditure,政府卫生总支出占政府总开支的百分比
+Hospital beds (per 10 000 population),医院病床（每10万人口）
+Laboratory health workers density (per 10 000 population),实验室卫生工作者的密度（每10万人口）
+Number of community and traditional health workers,社区和传统的卫生工作者数量
+Number of dentistry personnel,牙科人员数
+Number of environment and public health workers,环境和公共卫生工作者数量
+Number of laboratory health workers,实验室卫生工作者
+Number of nursing and midwifery personnel,护理和助产人员数
+Number of other health service providers,其他保健服务提供者的数目
+Number of pharmaceutical personnel,医药人员数
+Number of physicians,医师数
+Nursing and midwifery personnel density (per 10 000 population),护理和助产人员密度（每10万人口）
+Other health service providers density (per 10 000 population),其他保健服务提供者的密度（每10万人口）
+Out-of-pocket expenditure as percentage of private expenditure on health,对健康的私人开支的百分比外的自费开支
+Per capita government expenditure on health (PPP int. $),人均政府卫生支出（PPP诠释。）
+Per capita government expenditure on health at average exchange rate (US$),人均政府卫生支出的平均汇率（美元）
+Per capita total expenditure on health (PPP int. $),人均总卫生支出（PPP诠释。）
+Per capita total expenditure on health at average exchange rate (US$),人均卫生总开支的平均汇率（美元）
+Pharmaceutical personnel density (per 10 000 population),医药人才密度（每10万人口）
+Physicians density (per 10 000 population),医师密度（每10万人口）
+Private expenditure on health as percentage of total expenditure on health,私人卫生支出卫生总开支的百分比
+Private prepaid plans as percentage of private expenditure on health,私人支出的比例，对健康的私人预付计划
+Ratio of health management and support workers to health service providers,卫生服务提供者的卫生管理和支持工人的比例
+Ratio of nurses and midwives to physicians,向医生，护士和助产士的比率
+Social security expenditure on health as percentage of general government expenditure on health,对健康的社会保障支出，对健康的政府总开支的百分比
+Total expenditure on health as percentage of gross domestic product,卫生总支出占国内生产总值（GDP）的百分比
+Births attended by skilled health personnel (%) highest educational level of mother,由熟练保健人员（％）最高教育水平的母亲接生
+Births attended by skilled health personnel (%) highest wealth quintile,（％）最高财富的五分之一由熟练保健人员接生
+Births attended by skilled health personnel (%) lowest educational level of mother,由熟练保健人员（％）教育程度最低的母亲接生
+Births attended by skilled health personnel (%) lowest wealth quintile,接生由熟练保健人员（％）最低财富的五分之一
+Births attended by skilled health personnel (%) rural,由熟练保健人员（％）农村接生
+Births attended by skilled health personnel (%) urban,由熟练保健人员（％）城市接生
+Births attended by skilled health personnel difference highest lowest educational level of mother,接生由熟练保健人员的差异，最高最低母亲的教育水平
+Births attended by skilled health personnel difference highest-lowest wealth quintile,接生由熟练保健人员的差异最高最低财富的五分之一
+Births attended by skilled health personnel difference urban-rural,由熟练保健人员的区别城乡接生
+Births attended by skilled health personnel ratio highest-lowest educational level of mother,接生由熟练保健人员的比例最高 - 您最佳的母亲的教育水平
+Births attended by skilled health personnel ratio highest-lowest wealth quintile,接生由熟练保健人员的比例最高最低财富的五分之一
+Births attended by skilled health personnel ratio urban-rural,由熟练保健人员的比例城乡接生
+Measles immunization coverage among one-year-olds (%) highest educational level of mother,一岁（％）最高母亲的教育水平之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds (%) highest wealth quintile,一岁（％）最高的财富五分之一之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds (%) lowest educational level of mother,一岁（％）最低母亲的教育水平之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds (%) lowest wealth quintile,一岁（％）最低的财富五分之一之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds (%) rural,一岁（％）农村中的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds (%) urban,一岁（％）城市之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds difference highest-lowest educational level of mother,之间相差一岁的麻疹免疫覆盖率最高的教育水平最低的母亲
+Measles immunization coverage among one-year-olds difference highest-lowest wealth quintile,之间相差一岁的最高最低的财富五分之一的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds difference urban-rural,一岁的差异，城乡之间的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds ratio highest-lowest educational level of mother,一岁的比例之间的麻疹免疫覆盖率最高的母亲教育程度最低
+Measles immunization coverage among one-year-olds ratio highest-lowest wealth quintile,其中一岁的比例最高最低的财富五分之一的麻疹免疫覆盖率
+Measles immunization coverage among one-year-olds ratio urban-rural,一岁的比例城乡之间的麻疹免疫覆盖率
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) difference lowest-highest educational level of mother,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）最低最高教育水平的差异母亲
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) difference lowest-highest wealth quintile,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）差异最低最高财富的五分之一
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) difference rural-urban,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）的城乡差异
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) highest educational level of mother,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）母亲教育程度最高
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) highest wealth quintile,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）最高的财富五分之一
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) lowest educational level of mother,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）母亲教育程度最低
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) lowest wealth quintile,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）最低财富的五分之一
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) ratio lowest-highest educational level of mother,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）的比例最低最高教育水平的母亲
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) ratio lowest-highest wealth quintile,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）的比例最低，最高的财富五分之一
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) ratio rural-urban,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）的城乡比例
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) rural,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）农村
+Under-5 mortality rate (Probability of dying aged &lt; 5 years per 1 000 live births) urban,5岁以下儿童死亡率（死亡年龄<5年每1 000名活产婴儿的概率）城市
+Adult mortality rate (probability of dying between 15 to 60 years per 1000 population) both sexes,男女成人死亡率（每1000人口在15至60岁之间的死亡概率）
+Adult mortality rate (probability of dying between 15 to 60 years per 1000 population) female,成人死亡率（每1000人口在15至60岁之间的死亡概率）女
+Adult mortality rate (probability of dying between 15 to 60 years per 1000 population) male,成人死亡率（每1000人口在15至60岁之间的死亡概率）男性
+Age-standardized mortality rate for cancer (per 100 000 population),癌症的年龄标准化死亡率（每10万人口）
+Age-standardized mortality rate for cardiovascular diseases (per 100 000 population),心血管疾病的年龄标准化死亡率（每10万人口）
+Age-standardized mortality rate for injuries (per 100 000 population),受伤的年龄标准化死亡率（每10万人口）
+Age-standardized mortality rate for non-communicable diseases (per 100 000 population),非传染性疾病的年龄标准化死亡率（每10万人口）
+Deaths among children under five years of age due to diarrhoeal diseases (%),死亡者中5岁以下的儿童因腹泻病（％）
+Deaths among children under five years of age due to HIV/AIDS (%),死亡者中5岁以下的儿童由于艾滋病毒/艾滋病（％）
+Deaths among children under five years of age due to injuries (%),其中5岁以下儿童的死亡，由于受伤（％）
+Deaths among children under five years of age due to malaria (%),5岁以下儿童中疟疾造成的死亡（％）
+Deaths among children under five years of age due to measles (%),死亡者中5岁以下的儿童因麻疹（％）
+Deaths among children under five years of age due to neonatal causes (%),死亡者中5岁以下的儿童由于新生儿的原因（％）
+Deaths among children under five years of age due to other causes (%),死亡者中5岁以下的儿童因其他原因（％）
+Deaths among children under five years of age due to pneumonia (%),在5岁以下儿童因肺炎（％）
+Deaths due to HIV/AIDS (per 100 000 population per year),艾滋病毒/艾滋病造成的死亡（每10万人口，每年）
+Deaths due to tuberculosis among HIV-negative people (per 100 000 population),由于艾滋病毒抗体阴性的人的结核病死亡（每10万人口）
+Deaths due to tuberculosis among HIV-positive people (per 100 000 population),结核病造成的死亡，艾滋病毒阳性的人（每10万人口）
+Healthy life expectancy (HALE) at birth (years) both sexes,健康寿命（HALE）（年）出生的男女
+Healthy life expectancy (HALE) at birth (years) female,健康寿命（HALE）（年）出生的女性
+Healthy life expectancy (HALE) at birth (years) male,健康寿命（HALE）（年）出生的男性
+Incidence of tuberculosis (per 100 000 population per year),结核病发病率（每10万人口，每年）
+Infant mortality rate (per 1 000 live births) both sexes,婴儿死亡率（每1 000名活产婴儿）男女
+Infant mortality rate (per 1 000 live births) female,婴儿死亡率（每1 000名活产婴儿）女
+Infant mortality rate (per 1 000 live births) male,婴儿死亡率（每1 000名活产婴儿），男
+Life expectancy at birth (years) both sexes,出生时预期寿命（岁）男女
+Life expectancy at birth (years) female ,出生时预期寿命（年）女
+Life expectancy at birth (years) male,出生时预期寿命（岁）男
+Maternal mortality ratio (per 100 000 live births),孕产妇死亡率（每10万活产）
+Neonatal mortality rate (per 1 000 live births),新生儿死亡率（每1 000名活产婴儿）
+Number of confirmed poliomyelitis cases,证实脊髓灰质炎病例数
+Prevalence of HIV among adults aged &gt;=15 years (per 100 000 population),岁之间的成年人艾滋病毒感染率> = 15年（每10万人口）
+Prevalence of tuberculosis (per 100 000 population),结核病患病率（每10万人口）
+Under-5 mortality rate (probability of dying by age 5 per 1000 live births) both sexes,5岁以下儿童死亡率（每1000个活产儿5岁死亡的概率）男女
+Under-5 mortality rate (probability of dying by age 5 per 1000 live births) female,5岁以下死亡率（每1000个活产儿5岁的死亡概率）女
+Under-5 mortality rate (probability of dying by age 5 per 1000 live births) male,5岁以下死亡率（每1000个活产儿5岁的死亡概率）男性
+Years of life lost to communicable diseases (%),年的生活失去了传染病（％）
+Years of life lost to injuries (%),年的生活失去了受伤（％）
+Years of life lost to non-communicable diseases (%),年的生活失去了非传染性疾病（％）
+Children under five years of age overweight for age (%),岁以下的儿童在5岁以上超重（％）
+Children under five years of age stunted for age (%),5岁以下儿童发育迟缓的年龄（％）
+Children under five years of age underweight for age (%),适龄儿童根据体重不足5年（％）
+Newborns with low birth weight (%),新生儿低出生体重（％）
+Per capita recorded alcohol consumption (litres of pure alcohol) among adults (&gt;=15 years),人均记录酒精消费之间的成年人（升纯酒精）（> = 15岁）
+Population using solid fuels (%) rural,人口使用固体燃料（％）农村
+Population using solid fuels (%) urban,人口使用固体燃料（％）城市
+Population with sustainable access to improved drinking water sources (%) rural,人口与可持续获得改善的饮用水源（％）农村
+Population with sustainable access to improved drinking water sources (%) total,人口与可持续获得改善的饮用水源（％）总
+Population with sustainable access to improved drinking water sources (%) urban,人口与可持续获得改善的饮用水源（％）城市
+Population with sustainable access to improved sanitation (%) rural,人口与可持续获得改善的卫生设施（％）农村
+Population with sustainable access to improved sanitation (%) total,人口与可持续获得改善的卫生设施（％）总
+Population with sustainable access to improved sanitation (%) urban,人口与可持续获得改善的卫生设施（％）城市
+Prevalence of adults (&gt;=15 years) who are obese (%) female,成年人的患病率（> = 15岁），肥胖（％）女性
+Prevalence of adults (&gt;=15 years) who are obese (%) male,成年人的患病率（> = 15岁），肥胖（％）男性
+Prevalence of condom use by young people (15-24 years) at higher risk sex (%) female,安全套的使用，在更高的风险性（％）女性青少年（15-24岁）的患病
+Prevalence of condom use by young people (15-24 years) at higher risk sex (%) male,使用安全套的年轻人（15-24岁）的患病率较高的风险性（％）男性
+Prevalence of current tobacco use among adolescents (13-15 years) (%) both sexes,当前青少年的烟草使用流行率（13-15岁）男女（％）
+Prevalence of current tobacco use among adolescents (13-15 years) (%) female,当前青少年的烟草使用（13-15岁）的患病率（％）女
+Prevalence of current tobacco use among adolescents (13-15 years) (%) male,当前青少年的烟草使用（13-15岁）的患病率（％）男性
+Prevalence of current tobacco use among adults (&gt;=15 years) (%) both sexes,成年人烟草使用（> = 15岁）（％）两性的患病率
+Prevalence of current tobacco use among adults (&gt;=15 years) (%) female,成年人烟草使用（> = 15岁）（％）女性的患病率
+Prevalence of current tobacco use among adults (&gt;=15 years) (%) male,成年人烟草使用（> = 15岁）（％）男性的患病率
+Adolescent_fertility_rate,青少年生育率
+Agricultural_land,农业用地
+Agriculture_contribution_to_economy,农业的贡献，以经济
+Aid_given,帮助给予
+Aid_received,援助收到
+Aid_received_total,援助共收到
+All_forms_of_TB_new_cases_per_100_000_estimated,每100万个新的结核病例的所有形式的估计
+All_forms_of_TB_new_cases_per_100_000_reported,所有形式的每100万个新的结核病例报告
+Annual_freshwater_withdrawals_total,每年的淡水提款总额
+Arms_exports,武器出口
+Arms_imports,进口武器
+Bad_teeth_per_child,每个孩子的坏牙
+Births_attended_by_skilled_health_staff,由熟练保健人员接生
+Breast_cancer_deaths_per_100_000_women,每100万名妇女死于乳腺癌
+Breast_cancer_new_cases_per_100_000_women,每100万名妇女的乳腺癌新发病例
+Breast_cancer_number_of_female_deaths,乳腺癌的女性死亡的癌症号
+Breast_cancer_number_of_new_female_cases,新例女性乳腺癌发病人数
+Broadband_subscribers,宽带用户
+Broadband_subscribers_per_100_people,宽带用户每100人
+CO2_emissions,二氧化碳排放量
+CO2_intensity_of_economic_output,经济产出的二氧化碳排放强度
+Capital_formation,资本形成
+Cell_phones_per_100_people,每100人手机
+Cell_phones_total,手机总数
+Central_bank_discount_rate,中央银行的贴现率
+Cervical_cancer_deaths_per_100_000_women,每100万名妇女死于宫颈癌
+Cervical_cancer_new_cases_per_100_000_women,每100 000名妇女的子宫颈癌新发病例
+Cervical_cancer_number_of_female_deaths,子宫颈癌的女性死亡数量
+Cervical_cancer_number_of_new_female_cases,新例女性宫颈癌号
+Children_and_elderly,儿童和老人
+Children_out_of_school_primary,学校小学儿童
+Children_out_of_school_primary_female,儿童学校小学女
+Children_out_of_school_primary_male,儿童学校小学男
+Children_per_woman,每名妇女的儿童
+Coal_consumption,煤炭消费量
+Coal_consumption_per_person,煤炭消费量每人
+Coal_production,煤炭生产
+Coal_production_per_person,每人的煤炭生产
+Colon_and_Rectum_cancer_deaths_per_100_000_men,结肠和直肠的癌症死亡人数每100 000人
+Colon_and_Rectum_cancer_deaths_per_100_000_women,结肠和直肠的癌症死亡人数每100万名妇女
+Colon_and_Rectum_cancer_new_cases_per_100_000_men,每100 000人结肠癌和直肠癌的新病例
+Colon_and_Rectum_cancer_new_cases_per_100_000_women,结肠癌和直肠癌新病例每10万妇女
+Colon_and_Rectum_cancer_number_of_female_deaths,结肠和直肠的女性死亡的癌症
+Colon_and_Rectum_cancer_number_of_male_deaths,结肠和直肠的癌症男性死亡人数
+Colon_and_Rectum_cancer_number_of_new_female_cases,结肠和直肠癌症的新女性的情况下数量
+Colon_and_Rectum_cancer_number_of_new_male_cases,新的男性患者的结肠和直肠癌症的人数
+Consumer_price_index,居民消费价格指数
+Contraceptive_use,避孕药具的使用
+Deaths_from_TB_per_100_000_estimated,从每100 000估计结核病死亡
+Debt_servicing_costs,还本付息的成本
+Democracy_score,民主评分
+Electric_power_consumption,电力消耗
+Electricity_generation,发电
+Electricity_generation_per_person,人均发电
+Energy_use,能源使用
+Expenditure_per_student_primary,每个学生的主要支出
+Expenditure_per_student_secondary,每个学生的中学的开支
+Expenditure_per_student_tertiary,每大专院校学生的开支
+Exports_of_goods_and_services,货物和服务出口
+Exports_unit_value,出口单位价值
+External_debt_total_DOD_current_USdollars,外债总额国防部目前的美元结算
+External_debt_total_pct_of_GNI,外债总额占国民总收入的％
+Female_labour_force,女性劳动力
+Fixed_line_and_mobile_phone_subscribers,固定电话和移动电话用户
+Foreign_direct_investment_net_inflows,外国直接投资净流入
+Foreign_direct_investment_net_outflows,外国直接投资净流出
+Forest_area,森林面积
+Gross_capital_formation,资本形成总额
+HIV_infected,感染艾滋病毒
+Health_expenditure_per_person,人均卫生开支
+Health_expenditure_private,健康开支私人
+Health_expenditure_public_pct_of_GDP,公共医疗开支％，占国内生产总值
+Health_expenditure_public_pct_of_government_expenditure,公共医疗开支％，政府开支
+Health_expenditure_public_pct_of_total_health_expenditure,公共医疗开支％的卫生总支出
+Health_expenditure_total,卫生总支出
+High_technology_exports,高科技出口
+Hydroelectricity_consumption,水电消费
+Hydroelectricity_consumption_per_person,每人的水电消费
+Imports_of_goods_and_services,货物和服务进口
+Imports_unit_value,进口单位价格
+Improved_sanitation_facilities_urban,改进卫生设施的城市
+Improved_water_source,改善水源
+Income_growth,收入增长
+Income_per_person,人均收入
+Income_share_held_by_lowest_20pct,收入的比重最低20pct举行
+Industry_contribution_to_economy,产业对经济贡献
+Inequality_index,不平等指数
+Infant_mortality_rate,婴儿死亡率
+Infectious_TB_new_cases_per_100_000_estimated,传染性结核病新病例每100估计000
+Infectious_TB_new_cases_per_100_000_reported,每100万传染性结核病的新病例报告
+Infectious_TB_treatment_completeness,传染性结核病治疗的完整性
+Inflation_GDP_deflator,通货膨胀的本地生产总值平减物价指数
+Internet_users,互联网用户
+Life_expectancy_at_birth,出生时预期寿命
+Literacy_rate_adult_female,识字率的成年女性
+Literacy_rate_adult_male,识字率的成年男性
+Literacy_rate_adult_total,识字率成人总
+Literacy_rate_youth_female,识字率青年女性
+Literacy_rate_youth_male,识字率青年男性
+Literacy_rate_youth_total,识字率青年总
+Liver_cancer_deaths_per_100_000_men,每100 000人肝癌死亡
+Liver_cancer_deaths_per_100_000_women,每100万名妇女肝癌死亡
+Liver_cancer_new_cases_per_100_000_men,肝癌新发病例，每100 000人
+Liver_cancer_new_cases_per_100_000_women,肝癌新发病例，每10万名妇女
+Liver_cancer_number_of_female_deaths,女性死亡的肝发病人数
+Liver_cancer_number_of_male_deaths,肝癌男性死亡数
+Liver_cancer_number_of_new_female_cases,新女性的情况下肝发病人数
+Liver_cancer_number_of_new_male_cases,新的男性患者的肝发病人数
+Lung_cancer_deaths_per_100_000_men,每100 000人死于肺癌
+Lung_cancer_deaths_per_100_000_women,每100万名妇女死于肺癌
+Lung_cancer_new_cases_per_100_000_men,每10万名男性肺癌新病例
+Lung_cancer_new_cases_per_100_000_women,每100万名妇女肺癌新病例
+Lung_cancer_number_of_female_deaths,肺癌的女性死亡的癌症号
+Lung_cancer_number_of_male_deaths,肺癌男性死亡数
+Lung_cancer_number_of_new_female_cases,新例女性肺癌发病人数
+Lung_cancer_number_of_new_male_cases,新例男性肺癌发病人数
+Malaria_prevention_insecticide_treated_bed_nets_usage,预防疟疾的经杀虫剂处理过的蚊帐使用
+Malaria_treatment,治疗疟疾
+Malnutrition_weight_for_age,营养不良体重年龄
+Market_value_of_listed_companies,上市公司的市场价值
+Maternal_mortality,产妇死亡率
+Math_achievement_4th_grade,四年级的数学成绩
+Math_achievement_8th_grade,八年级数学成就
+Measles_immunization,麻疹疫苗接种
+Medical_Doctors,医生
+Merchandise_trade,商品贸易
+Military_expenditure,军费开支
+Natural_gas_consumption,天然气消费量
+Natural_gas_consumption_per_person,人均天然气消费量
+Natural_gas_production,天然气产量
+Natural_gas_production_per_person,人均天然气生产
+Natural_gas_proved_reserves,天然气探明储量
+Natural_gas_proven_reserves_per_person,天然气探明储量每人
+Net_barter_terms_of_trade,净易货的贸易条款
+Nuclear_consumption,核消费
+Nuclear_consumption_per_person,核消费每人
+Number_of_deaths_from_TB_estimated,结核病死亡的人数估计
+Number_of_existing_TB_cases_estimated,现有结核病例估计数
+Oil_consumption,石油消费量
+Oil_consumption_per_person,人均石油消费量
+Oil_production,石油生产
+Oil_production_per_person,每人的石油生产
+Oil_proved_reserves,石油探明储量
+Oil_proven_reserves_per_person,人均石油探明储量
+Old_version_of_Income_per_person,旧版本的人均收入
+Patent_applications,专利申请
+Patents_granted,授予专利权
+Patents_in_force,专利生效
+People_living_with_HIV,人感染艾滋病毒
+Personal_computers_per_100_people,每100人个人电脑
+Personal_computers_total,个人电脑总
+Population_growth,人口增长
+Population_in_urban_agglomerations_more_than_1_million,城市群的人口超过100万
+Population_total,总人口
+Poverty_headcount_ratio_at_national_poverty_line,在国家贫困线的贫困人口比率
+Present_value_of_debt,债务的现值
+Primary_completion_rate_total,初等教育完成率总
+Primary_energy_consumption,一次能源消费
+Primary_energy_consumption_per_person,每人初级能源消费量
+Primary_school_completion_pct_of_boys,小学男生完成％
+Primary_school_completion_pct_of_girls,小学女童完成％
+Prostate_cancer_deaths_per_100_000_men,每10万名男性前列腺癌的死亡率
+Prostate_cancer_new_cases_per_100_000_men,每10万名男性前列腺癌新病例
+Prostate_cancer_number_of_male_deaths,前列腺癌男性死亡数
+Prostate_cancer_number_of_new_male_cases,新例男性前列腺癌的人数
+Pump_price_for_gasoline,汽油零售价
+Ratio_of_girls_to_boys_in_primary_and_secondary_education,女孩比男孩在小学和中学教育
+Ratio_of_young_literate_females_to_males,年轻妇女识字率男性
+Roads_paved,道路铺平了道路
+SO2_emissions_per_person,二氧化硫排放量每人
+Services_contribution_to_economy,服务经济的贡献
+Stomach_cancer_deaths_per_100_000_men,每100 000人胃癌死亡
+Stomach_cancer_deaths_per_100_000_women,胃癌每100万名妇女死亡
+Stomach_cancer_new_cases_per_100_000_men,每100 000人胃癌新病例
+Stomach_cancer_new_cases_per_100_000_women,每100万名妇女胃癌新病例
+Stomach_cancer_number_of_female_deaths,胃女性死亡的癌症号
+Stomach_cancer_number_of_male_deaths,胃癌男性死亡数
+Stomach_cancer_number_of_new_female_cases,胃癌症的新女性的情况下数
+Stomach_cancer_number_of_new_male_cases,胃新例男性癌症的数
+Sugar_per_person,糖每个人
+Surface_area,表面积
+Tax_revenue,税收
+Total_CO2_emissions,二氧化碳总排放量
+Total_income,总收入
+Total_reserves,总储量
+Trade_balance_goods_and_services,贸易平衡的商品和服务
+Under_five_mortality_from_CME,五岁以下儿童死亡率从CME的
+Under_five_mortality_from_IHME,五岁以下儿童死亡率从IHME
+Under_five_mortality_rate,五岁以下儿童死亡率
+Urban_population,城市居民
+Urban_population_growth,城市人口增长
+Urban_population_pct_of_total,市区人口总数的％

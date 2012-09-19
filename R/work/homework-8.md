@@ -83,11 +83,11 @@ result <- train(neurons, p[1:1900], target[1:1900], error.criterium = "LMS",
 ```
 
 ```
-## index.show: 1 LMS 0.184149658597514 
-## index.show: 2 LMS 0.184149972761092 
-## index.show: 3 LMS 0.184150295454073 
-## index.show: 4 LMS 0.18415062613943 
-## index.show: 5 LMS 0.184150964231117 
+## index.show: 1 LMS 0.18145498369136 
+## index.show: 2 LMS 0.181455885197335 
+## index.show: 3 LMS 0.181456823711463 
+## index.show: 4 LMS 0.181457797173431 
+## index.show: 5 LMS 0.181458803682842 
 ```
 
 ```r

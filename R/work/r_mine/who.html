@@ -1,0 +1,1693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>使用MINE工具包进行，分析大型数据集内的趋势</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>使用MINE工具包进行，分析大型数据集内的趋势</h1>
+
+<p>参考Science的一篇文章<br/>
+Detecting Novel Associations in Large Data Sets</p>
+
+<h3>Who_zh.csv,请使用本文工具打开,excel是乱码</h3>
+
+<pre><code class="r">source(&quot;MINE.r&quot;)
+</code></pre>
+
+<pre><code>## Error: 1:1: 意外的输入 1: &lt;&lt; ^
+</code></pre>
+
+<pre><code class="r">data &lt;- read.csv(&quot;WHO.csv&quot;)
+label &lt;- read.csv(&quot;Who_zh.csv&quot;, header = FALSE)
+names(label) &lt;- c(&quot;英文&quot;, &quot;中
+who &lt;- function(x, y, mp = TRUE) {
+    print(paste(label[x, ]$英文, label[x, ]$中文))
+    print(paste(label[y, ]$英文, label[y, ]$中文))
+    title &lt;- paste(label[y, ]$中文, &quot;~&quot;, label[x, ]$中文)
+
+    data.lm &lt;- lm(data[[y]] ~ data[[x]])
+    print(summary(data.lm))
+    plot(data[[y]] ~ data[[x]], main = title, xlab = label[x, ]$中文, ylab = label[y, 
+        ]$中文, xlim = c(0, max(data[[x]], na.rm = TRUE) * 1.1), ylim = c(0, 
+        max(data[[y]], na.rm = TRUE) * 1.1))
+    abline(data.lm, col = &quot;gray&quot;)
+
+    max_x &lt;- which(data[[x]] == max(data[[x]], na.rm = TRUE))
+    max_y &lt;- which(data[[y]] == max(data[[y]], na.rm = TRUE))
+
+    if (mp) {
+        # max_x
+        name &lt;- data[max_x, ]$Country
+        tx &lt;- data[max_x, ][x]
+        ty &lt;- data[max_x, ][y]
+        points(tx, ty, col = &quot;red&quot;, pch = 19)
+        text(tx, ty, name, col = &quot;blue&quot;, cex = 0.8)
+
+        # max_y
+        name &lt;- data[max_y, ]$Country
+        tx &lt;- data[max_y, ][x]
+        ty &lt;- data[max_y, ][y]
+        points(tx, ty, col = &quot;green&quot;, pch = 19)
+        text(tx, ty, name, col = &quot;orange&quot;, cex = 0.8)
+    }
+}
+
+
+who(61, 62)  #医师密度（每10万人口）~医药人才密度（每10万人口）
+</code></pre>
+
+<pre><code>## [1] &quot;Pharmaceutical personnel density (per 10 000 population) 医药人才密度（每10万人口）&quot;
+## [1] &quot;Physicians density (per 10 000 population) 医师密度（每10万人口）&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -41.0  -10.7   -4.4    4.0  436.5 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)    10.23       7.68    1.33    0.186  
+## data[[x]]       2.73       1.09    2.50    0.014 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 45.2 on 101 degrees of freedom
+##   (99 observations deleted due to missingness)
+## Multiple R-squared: 0.0582,  Adjusted R-squared: 0.0489 
+## F-statistic: 6.24 on 1 and 101 DF,  p-value: 0.0141 
+## 
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8c&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;bb&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;88&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;86&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8c&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;bb&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8d&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;89&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8d&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;86&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級 ~
+## 鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8c&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;bb&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8d&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;89&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8d&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;86&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖昏嵂浜烘墠瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8c&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;bb&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;88&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;86&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;af&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;b8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning:
+## &#39;mbcsToSbcs&#39;里转换&#39;鍖诲笀瀵嗗害锛堟瘡10涓囦汉鍙ｏ級&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABRFBMVEX9/v0AAAAAAEYAAHMAAHQAAN8AAP4AAP8ARkYARpoARv4AdL0AdP4A4gAA8QAA/wBGAABGAEZGAHNGAP5GAP9GRkZGRppGRv5GdP5Gm95Gm/5I1ABI/wBzAABzAEZzAHNzAP5zAP9zRv5zdP5zm/5zvv10AL90xQCaRgCaRkaaRnOaRv6adP6am96avpqa3/2a3/6cAACcAN+ctQCcxQCc8QC9dAC9dEa9dP69dP+9m/69/v29/v6+vr6/1ADem0bem5rem/7e35re3/7e/r3e/v3e/v7ftQD9vnP9vv7935r93/794nP98Zr9/r39/t79/v39/v7+pQD+pUb+pXP+tUb+tXP+tZr+xAD+xEb+xL3+1Eb+1Jr+1N7+4v3+8Zr+8f3+/r3+/t7+/v3/AAD/AEj/AHT/pQD/pUb/pXP/tZr/xL07TzTpAAAAbHRSTlP//////////////////////////////////////////////////////////////////////////////////////////////////////////wD///////////////////////////////////8olhbSAAAACXBIWXMAAAsSAAALEgHS3X78AAAQnUlEQVR4nO2d/YPcRB2HCSgVi7YiUkAPFDktVj0RewoVj4rF847uBeSlcLZWih7K//+7edmXydtmkkw2M/k8j9Lby04ms/PkO2+XTR6LQZLHpi4ATAPiRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIviVnxkUt6yTlPepTGz7ofvuseqCOVSpj8LuZWzLv7u32dqxbX4QkmTl9lv1ZMgylNWT4u4NnndkWp23iQsv7m1+iql3pp18XdfP1MruxVffL38r6FOK5/r5Orl5N+z61F0uZiyvGfdq221VAnvDhHv62dqZQzx65MyqwEzGswtLZVUOfkP88o5TDdcNlOW96x91S7eOJRps5xhKSx9/UytOBdvxsqySozIN+qmph5WOxUyy/9JguIHad2cXH3i1mLviVvFpOVda15tqaVSqbeLr5bSy8/UivvBXdwofhUay7caosOspE2Fnr12cJxWUvbP4eMH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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">who(263, 264, FALSE)  #年青女性识字率~成人部识字率
+</code></pre>
+
+<pre><code>## [1] &quot;Literacy_rate_adult_total 识字率成人总&quot;
+## [1] &quot;Literacy_rate_youth_female 识字率青年女性&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -13.96  -4.34  -0.14   3.28  12.87 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   3.9137     1.7423    2.25    0.026 *  
+## data[[x]]     1.0156     0.0215   47.16   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 5.15 on 130 degrees of freedom
+##   (70 observations deleted due to missingness)
+## Multiple R-squared: 0.945,   Adjusted R-squared: 0.944 
+## F-statistic: 2.22e+03 on 1 and 130 DF,  p-value: &lt;2e-16 
+## 
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAeFBMVEX9/v0AAAAAAEYAAHMARkYARpoAdL1GAABGAEZGAHNGRnNGRppGm95zAABzAEZzAHNzRgBzRppzvv2aRgCaRkaadACam96avpqa396a3/29dAC9dEa9/v2+vr7em0bem5re35re/r3e/v39vnP935r9/r39/t79/v3CBxrDAAAAKHRSTlP///////////////////////////////////////////////////8AvqouGAAAAAlwSFlzAAALEgAACxIB0t1+/AAAEiNJREFUeJztnQt7pbYRhkPS7DbNOm3t9LJucNqsbf7/P6y5SoAASSOk0cz35tn4GLA48DKjy+Gg7zqgku9KvwFQBohXCsQrBeKVAvFKgXilQLxSIF4pEK8UiFcKxCsF4pUC8UqBeKVAvFIgXikQrxSIVwrEKwXilQLxSoF4pUC8UioQ3zT9vxF72WaTg183q9ZLxpf7TWJ33NmbOvZ0vK/sVCC+P1mWocbi8ld7gVXcuuRDGSE73vzFdk9LQRAfxOr8rxeuX21/HaP2YOWV+JAdu66DVcH7d1KU6sVP59MKzk3AH4tvGmfUxu3YVWusLsDz/WSHv/jhZNmndXMK51+cKfY4Ow9/sfvL+B1fit8tKgt/8duq1ixcvd7G+6LWkXFXG6/Wvz00zWP39s/gHVsbHrUmdn9dlGrE71tR1srjmnorfhfB3Wr9y7ibL+E7trPIsoUr9UScgDuoRvz0Yh/Tu5S7OsMb8ZsA3pn9/bfu9XPzw2/hO16q/LXs9Y4R8UE4TtZm0VFO3cjqpv6ULd5dfviOjfjNkrPSClKH+E0ordRt1Dpy6rbFtY3DE/H+O16lnWVTuyG4uegKU4l4d8p2/erIqVcbn4n33rHJ/pt2xFzSXA4T83WI3xjatZFWZs4jfrXuOtX77tg0KZbMY62wC4L4ALZhvD15nhFv1/SbluCBDu8dWxfIlPjNJiboj3ZTgDrEg+RAvFIgXikQrxSIVwrEKwXilQLxSoF4pUC8UiBeKRCvFIhXCsQrBeKVAvFKgXilQLxSIF4pEK8UiFcKxCuFIr4BTGhdC28UT/hbkJDWtRDixeP0DvHicXuHeOkceId44Rx5h3jZHHqHeMm0x94hXjAn2iFeMKfeIV4s594h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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">who(326, 327, FALSE)  #小学女童完成~小学男童完成
+</code></pre>
+
+<pre><code>## [1] &quot;Primary_school_completion_pct_of_boys 小学男生完成％&quot;
+## [1] &quot;Primary_school_completion_pct_of_girls 小学女童完成％&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -28.829  -2.067   0.311   3.673  27.704 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -14.1499     2.3684   -5.97  1.7e-08 ***
+## data[[x]]     1.1408     0.0278   41.07  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 6.92 on 145 degrees of freedom
+##   (55 observations deleted due to missingness)
+## Multiple R-squared: 0.921,   Adjusted R-squared: 0.92 
+## F-statistic: 1.69e+03 on 1 and 145 DF,  p-value: &lt;2e-16 
+## 
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAeFBMVEX9/v0AAAAAAEYAAHMARkYARpoAdL1GAABGAEZGAHNGRnNGRppGm95zAABzAEZzAHNzRgBzRppzvv2aRgCaRkaadACam96avpqa396a3/29dAC9dEa9/v2+vr7em0bem5re35re/r3e/v39vnP935r9/r39/t79/v3CBxrDAAAAKHRSTlP///////////////////////////////////////////////////8AvqouGAAAAAlwSFlzAAALEgAACxIB0t1+/AAAE2BJREFUeJztnYl63LYVRsMktuPaclspXaSa0yaWxPd/ww53gARI7Ly49z+fl9kAcngGuAAIEj91QCQ/Xb0D4BogXigQLxSIFwrECwXihQLxQoF4oUC8UCBeKBAvFIgXCsQLBeKFAvFCgXihQLxQIF4oEC8UiBcKxAsF4oUC8UKhLr5p1EfDs/Ul9eH50/vz7SshG24UtLcTbbgQ9Yifj7B6DFU7qo6m2eqZPj09WV60C7FueP0NGMQn2HAhKhK/f0F7c9Ww/9DGxiLi4PBbN3wiPnrDhahGvKksmQu8oVbYHO35E0eH37rhnUv9zegNF4K0+PE4GQuxuU5VP6K+Zz7+h/W8bcPbEr9vdsRsuByUxTfLcdIL2j7adtsDvstp/lepcdVPvj00zWP39k+HDeu6T2ru0w1fBmHx6hE2NeT1Yz4fXIv4ydtSECcD84dv4ye+OmzYVNMciD/Z8GXQFW9urNm86yV+GwiauV2uJVcK33+/d6+fml++u2x48yxuw5dBV/yItY21VMTKB40vKI83ZfTw+Ns2vN+PbvOriNxwIaoRb3qqFySDDL163pZfN/HmDesvHoj33nAhqhavPdWC7qb5tURWrTsVLF4tz4b9iNtwIWiL1112u+O/eV95vobo9SgvwVYpjyEb3tvTQn7UhotBW7y9alcjfWMKxGoKpaHmesQPN7w8yrDhUhAXD3IB8UKBeKFAvFAgXigQLxSIFwrECwXihQLxQoF4oUC8UCBeKBAvFIgXCsQLBeKFAvFCgXihQLxQIF4oEC+UGPENIEarPskoPiItyECrPoF4MWjeIV4MuneIl8LGO8QLYesd4mWw8w7xIth7h3gJGLxDvABM3iFeABAvE6N3iGeP2TvE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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">who(350, 320)  #总人口~总收入
+</code></pre>
+
+<pre><code>## [1] &quot;Total_income 总收入&quot;
+## [1] &quot;Population_total 总人口&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -2.03e+08 -2.65e+07 -2.25e+07 -1.33e+07  1.19e+09 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 2.69e+07   1.04e+07    2.59     0.01 *  
+## data[[x]]   4.29e-05   1.04e-05    4.14  5.7e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 1.3e+08 on 161 degrees of freedom
+##   (39 observations deleted due to missingness)
+## Multiple R-squared: 0.096,   Adjusted R-squared: 0.0904 
+## F-statistic: 17.1 on 1 and 161 DF,  p-value: 5.68e-05 
+## 
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABPlBMVEX9/v0AAAAAAEYAAHMAAHQAAP4AAP8ARkYARpoARv4AdL0AdP4A8QAA/wBGAABGAEZGAHNGAP5GAP9GRnNGRppGRv5GdP5Gm95Gm/5IAEhIAP9I/wBzAABzAEZzAHNzAP5zAP9zRgBzRppzRv5zdP5zvv1zvv50AAB0/wCaRgCaRkaaRv6aRv+adACadP6am96avpqa396a3/2cAACc8QC9dAC9dEa9dP69dP+9m/69/v29/v6+vr6/AN+/pQDem0bem5rem/7evv7e35re3/7e/r3e/v3e/v7fAN/9vnP9vv7935r93/794nP98Zr98b39/r39/t79/v39/v7+pQD+pUb+pXP+tQD+tUb+tZr+xAD+xEb+xHP+xL3+1Eb+1N7+4v3+8f3+/v3/AAD/AJz/AL//pQD/pUb/tZr/xL0iQKfRAAAAanRSTlP/////////////////////////////////////////////////////////////////////////////////////////////////////////////AP//////////////////////////////mCu2PwAAAAlwSFlzAAALEgAACxIB0t1+/AAAEIFJREFUeJztnQmD20YZhlFLls2WLm1J2QAbWmgNbLgNJiEsmECzsHEJu5NSCoVegRT+/x9Ao8OWbNnWMTpG7/M0tRVL34zix98ckix/wYAkX+h7B6AfEC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBelLGKD4L8c36xYrB9zkaXL2m4jFV8IicoFB9kKBO8Ln4M5kcrfpetoqWtweHTRlEjMD9W8QUpXV58LngpPlsa4ofKzj5+v/jMcyw+XUxXeG8e8RFXp0EwMVc/KQhOxQeI94HNpr6woU6X5vG2JwXBsfUgzXpjlq2/14xXfP55j/jfPTCL4+DFBwXBqw9ALt5382MVb4rG4UWfhr3By2Yj/7lB/CBJmuY12SXF54OX7fpag+G5+TGLz6ZmTlYZ8RvBy6Z+oxAvGaf4bJbmGublIbkdR+42gk0m+TcS31fGKd6SEZsf25c7cpc/XLMc3+Xnhx6rH6942AniRUG8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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">who(176, 177)  #武器进口~武器出口
+</code></pre>
+
+<pre><code>## [1] &quot;Arms_exports 武器出口&quot;
+## [1] &quot;Arms_imports 进口武器&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -2.53e+08 -2.41e+08 -1.97e+08  3.03e+07  3.54e+09 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 2.53e+08   6.35e+07    3.98  0.00015 ***
+## data[[x]]   3.79e-04   5.61e-02    0.01  0.99463    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 5.49e+08 on 78 degrees of freedom
+##   (122 observations deleted due to missingness)
+## Multiple R-squared: 5.85e-07,    Adjusted R-squared: -0.0128 
+## F-statistic: 4.56e-05 on 1 and 78 DF,  p-value: 0.995 
+## 
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;bf&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;9b&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;ad&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;99&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;ad&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;99&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒 ~
+## 姝﹀櫒鍑哄彛&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;ad&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;99&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;a8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;87&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;姝﹀櫒鍑哄彛&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;e8&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;bf&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;9b&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;e6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;ad&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;a6&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;99&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;杩涘彛姝﹀櫒&#39;出错：&lt;a8&gt;代替了dot
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABO1BMVEX9/v0AAAAAAEYAAHMAAHQAAP4AAP8ARkYARpoARv4AdL0AdP4A8QAA/wBGAABGAEZGAHNGAP5GAP9GRnNGRppGRv5GdP5Gm71Gm95Gm/5IAEhIAP9I/wBzAABzAEZzAHNzAP5zAP9zRgBzRppzRv5zdP5zvv1zvv50AAB0/wCaRgCaRkaaRv6aRv+adACadP6am96a396a3/2cAACc8QC9dAC9dP69dP+9m/69/v29/v6+vr6/AN+/pQDem0bem5rem/7evv7e35re3/7e/r3e/v3e/v7fAN/9vnP9vv7935r93/794nP98Zr98b39/r39/t79/v39/v7+pQD+pUb+pXP+tQD+tUb+tZr+xAD+xEb+xHP+xL3+1Eb+1N7+4v3+8f3+/v3/AAD/AJz/AL//pQD/pUb/tZr/xL07fSCqAAAAaXRSTlP///////////////////////////////////////////////////////////////////////////////////////////////////////////8A//////////////////////////////+E+AzGAAAACXBIWXMAAAsSAAALEgHS3X78AAAPQklEQVR4nO2dDWPbRh2Hp46G1GNhGxmkQLoVNgMprwa3hBdRWA2uS3GUMQaDvQU6+P6fgDtJcWRbtiWffDr59zywxJUud3Ee/+/+J598LyUgyUtt/wLQDogXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQL8qeiI+i/Ev6YHWp7HRUYLvSa5vpBHsifiY9N7Ig6+Zx4RWy8nWyvvTSlyovovDYH/ELpm9OFAtVEr++dNmXpZbCZ1/EW+Yivnhw8XHVrr60NOKDY6X4KCpRfR3QJdWsLY34kJj1xCsjfkUCkB+ankZRP5n+tPhTK0pXGlTCZ0/EJ0t2bk4ks3gtqFno5+Ps3yfXP7K+dLluxLfB+ohPVc513FHhm+F358nkKHr5/PpHVpe+flxstNBSZxASn9z4Wp/drS2N+LCoI37TdG5tacSHRYms5ObRrPOuLn5VacQHxWKfXZKIF8pt6unXlV4Wv66ucNkb8UmJnvzMQn6+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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">who(320, 318)  #人口增长~总人口
+</code></pre>
+
+<pre><code>## [1] &quot;Population_total 总人口&quot;
+## [1] &quot;Population_growth 人口增长&quot;
+## 
+## Call:
+## lm(formula = data[[y]] ~ data[[x]])
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -2.673 -0.797 -0.111  0.784  2.655 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.44e+00   8.64e-02   16.61   &lt;2e-16 ***
+## data[[x]]   -3.90e-10   6.33e-10   -0.62     0.54    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 1.1 on 170 degrees of freedom
+##   (30 observations deleted due to missingness)
+## Multiple R-squared: 0.00222, Adjusted R-squared: -0.00365 
+## F-statistic: 0.379 on 1 and 170 DF,  p-value: 0.539 
+## 
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## NA
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;e4&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;ba&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;8f&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;a3&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;e5&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;a2&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;9e&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;e9&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;95&gt;代替了dot
+</code></pre>
+
+<pre><code>## Warning: &#39;mbcsToSbcs&#39;里转换&#39;浜哄彛澧為暱&#39;出错：&lt;bf&gt;代替了dot
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABHVBMVEX9/v0AAAAAAEYAAHMAAP4AAP8ARkYARpoARv4AdL0AdP4A/wBGAABGAEZGAHNGAP5GAP9GRnNGRppGRv5GdP5Gm71Gm95Gm/5zAABzAEZzAHNzAP5zAP9zRgBzdP5zvv10AL90xQCaRgCaRkaaRv6aRv+am96avpqa396a3/2cAACctQCc8QC9dAC9dP69dP+93/29/v2+vr6/AAC/tQDem0bem5rem/7e35re/r3e/v3fAAD9vnP9vv7935r93/794nP98Zr9/r39/t79/v39/v7+pQD+pUb+tUb+tZr+xAD+xEb+xJr+xL3+1Eb+1Jr+1N7+4t7+4v3+8Zr+8f3+/v3/AAD/AHT/AJz/pQD/pUb/pXP/tZr/xL3/xQDxtDKNAAAAX3RSTlP//////////////////////////////////////////////////////////////////////////////////////////wD//////////////////////////////////3DHJiwAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA8uSURBVHic7Z0Lf+NGFUerpqFdspRSSpq2gCFbHoEGSCEUlpCltnZpC4RSukBayvf/GMiWrIdfkj3SnWv/z9nfxooVzSg5c2dGoxn5hRQkeSH2CUAcEC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBelIMUnyQbduQ7ix9pfLM2ndr+tUnvGwcuPqkx31HZbxNf7l4lfiHpfePgxTe2si9NW1VxWJ9SY/fapPcNQfGLNf56bytCGvGeWWcnSRbr56IktKSD+D1hu4ivMz5LklE6/nHzaMTvB7W6eWMbv1wBpNf59mmVULOqX5/0viEnfvFHm+/99iq9fZgcXTWPRvxesHy5Vm4tRfjmzl26uHND0vuGlPhk9QDO+vGbvD1oJod4p6wYmWtsLUb8+o59UkmvJ7o+6X3i4MQvjsktddAW7K2P+bJEzDdak94nDkx8swPeJeKTxeMW06su+VuT3icOTDx0BfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQ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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+</body>
+
+</html>
+

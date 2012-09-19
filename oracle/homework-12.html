@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Oracle 第十二周作业 - 张丹(15)</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Oracle 第十二周作业 - 张丹(15)</h1>
+
+<p>阅读作业 《让Oracle跑得更快2》第12章RAC以及第14章 Data guard。</p>
+
+<p>以下题目都需要数据库的实际操作输出，而不是单纯语言论述：<br/>
+1.演示通过在实例上创建不同的服务，对RAC进行业务分割，并贴出客户端连接不同实例的tnsnames.ora文件中的相关部分<br/>
+2.演示通过配置参数，分别达到使并行分布到不同实例和限制在同一个实例上运行的效果<br/>
+3.模拟最高保护模式下，当redo数据无法及时写入standby数据库时，primary db将发生什么情况。<br/>
+4.设置data guard为最大可用模式，观察当redo无法到达standby数据库时，data guard保护模式的改变。</p>
+
+<p>互动作业 </p>
+
+<p>请所有的学员都在炼数成金网站（<a href="http://f.dataguru.cn%EF%BC%89%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9C%A8%E2%80%9C%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D%E2%80%9D%E5%B1%9E%E6%80%A7%E9%A1%B9%E5%A1%AB%E5%86%99%E2%80%9Cora-nn%E2%80%9D%E7%9A%84%E5%AD%97%E6%A0%B7%EF%BC%88%E6%AD%A4%E5%A4%84nn%E4%BB%A3%E8%A1%A8%E5%88%86%E9%85%8D%E7%9A%84%E5%AD%A6%E5%8F%B7%EF%BC%89%EF%BC%8C%E4%BD%BF%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%85%AC%E4%BC%97%E7%94%A8%E6%88%B7%E4%B8%AD%E8%AF%86%E5%88%AB%E5%87%BA%E5%AD%A6%E5%91%98%E3%80%82">http://f.dataguru.cn）注册账号，并且在“真实姓名”属性项填写“ora-nn”的字样（此处nn代表分配的学号），使我们可以在公众用户中识别出学员。</a> 要求大家在本周参与“相关IT支撑技术”板块（讨论数据库相关技术）,&ldquo;关系型数据库数据分析&rdquo;(OLAP相关技术的讨论)的互动。每位学员至少以主题帖的形式提出2个问题（或讨论话题）然后至少参加5个上述主题的讨论（回帖形式）。</p>
+
+<hr/>
+
+<h3>由于本身环境所限,没有找到第二台Oracle备机,没办法完成进行实际操作的输出,只能从我的理解进行描述。</h3>
+
+<hr/>
+
+<h2>1. 通过客户端对RAC进行业务分割。</h2>
+
+<p>假设有4个RAC实例i1,i2,i3,i4，RAC_B1和RAC_B2是两种独立的业务，划分i1,i2到RAC_B1，i3,i4到RAC_B2<br/>
+tnsname.ora</p>
+
+<pre><code>RAC_B1=
+(DESCRIPTION=
+  (ADDRESS=(PROTOCOL=TCP)(HOST=i1)(PORT=1521))
+  (ADDRESS=(PROTOCOL=TCP)(HOST=i2)(PORT=1521))
+  (LOAD_BALANCE=YES)
+  (FAILOVER=ON)
+  (CONNECT_DATA=
+    (SERVER=DEDICATED)
+    (SERVICE_NAME=RAC_B1)
+  )
+)
+
+RAC_B2=
+(DESCRIPTION=
+  (ADDRESS=(PROTOCOL=TCP)(HOST=i3)(PORT=1521))
+  (ADDRESS=(PROTOCOL=TCP)(HOST=i4)(PORT=1521))
+  (LOAD_BALANCE=YES)
+  (FAILOVER=ON)
+  (CONNECT_DATA=
+    (SERVER=DEDICATED)
+    (SERVICE_NAME=RAC_B2)
+  )
+)
+</code></pre>
+
+<p>客户端连接：<br/>
+sqlplus test/test@RAC_B1</p>
+
+<pre><code>   INSTANCE_NAME : i1
+</code></pre>
+
+<p>sqlplus test/test@RAC_B1</p>
+
+<pre><code>   INSTANCE_NAME : i2
+</code></pre>
+
+<p>sqlplus test/test@RAC_B2</p>
+
+<pre><code>   INSTANCE_NAME : i3
+</code></pre>
+
+<p>sqlplus test/test@RAC_B2</p>
+
+<pre><code>   INSTANCE_NAME : i4
+</code></pre>
+
+<hr/>
+
+<h2>2.通过instance-group和parallel_instance_group设置RAC的并行</h2>
+
+<p>###并行分布到不同实例效果 <br/>
+在默认情况下，instance-group和parallel_instance_group的两个参数都是空的，并行将在所有实例上面执行。<br/>
+创建一个新表t0，并行度10<br/>
+create table t0 parallel 10 as select * from dba_objects;<br/>
+全表查询<br/>
+select * from t0<br/>
+从执行计划将会发现查询使用了并行。</p>
+
+<h3>并行限制在同一个实例上运行的效果</h3>
+
+<p>设置instance-group和parallel_instance_group映射到RAC_B1和RAC_B2的实例上面，就可以使用并行只在配置的实例上执行了。</p>
+
+<hr/>
+
+<h2>3. 在DG最高保护模式下，当standby的redo数据无法写入，会造成主库被强制ShutDown。</h2>
+
+<hr/>
+
+<h2>4. 在DG的最大可用模式下，当redo无法写入到standby数据库时，DG的保护模式将改变为最高性能模式。</h2>
+
+</body>
+
+</html>
+
